@@ -15,7 +15,7 @@ NODE_ENV | development
 
 ### MongoDB
 Insert this record into `users` collection:
-```json
+```javascript
 {
     "_id" : ObjectId("5b43d1e3d87238451d06a6fc"),
     "roles" : [ 
@@ -31,15 +31,19 @@ Insert this record into `users` collection:
 }
 ```
 This user has Admin Rights.
+
+### Ports, Localhost etc.
+Can all be changed in `common/config/common.js`
  
 ## Working APIs
 
 ### Login
-Route:
+**Route:**
 `http://localhost:3000/api/auth/login`
 
-#### Requirements:
-Body:
+**Requirements:**
+
++ Body:
 ```json
 { "username": "ditrich", "password": "Test123456" }
 ```
@@ -56,12 +60,14 @@ Body:
 ### Admin Area *(provisional!)*
 **Route:**
 `http://localhost:3000/api/auth/admin`
+
 **Requirements:**
 + Headers: `Authorization` = JWT token from login response
 
 ### Get Application Response Codes with Messages *(provisional!)*
 **Route:**
 `http://localhost:3000/api/auth/secret`
+
 **Requirements:**
 + Body:
 ```json
