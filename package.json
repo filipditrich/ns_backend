@@ -1,0 +1,35 @@
+{
+  "name": "ns_backend",
+  "version": "1.1.0",
+  "description": "Northern Stars Application Backend Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Northern",
+    "Stars"
+  ],
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "boom": "^7.2.0",
+    "chalk": "^2.4.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "*",
+    "crypto-js": "^3.1.9-1",
+    "enum": "^2.5.0",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.6.7",
+    "passport": "*",
+    "passport-jwt": "*",
+    "passport-local": "^1.0.0"
+  },
+  "author": "Visionary",
+  "license": "MIT"
+}
