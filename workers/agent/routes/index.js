@@ -14,7 +14,7 @@ module.exports = function (app) {
                 message: error.message,
                 success: error.success || false,
                 status: error.status || 500,
-                stack: error.stack || null,
+                stack: error.stack || null
             }
         })
     });

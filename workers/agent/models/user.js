@@ -3,17 +3,24 @@ const bcrypt = require('bcryptjs');
 const validators = require('../../../common/helpers/validators');
 const enumHelpers = require('../../../common/helpers/enum-helpers');
 const enums = require('../../../common/assets/enums');
+const codes = require('../../../common/assets/codes');
 
 const userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: {
+        type: String,
+        required: [true, codes.AUTH.PASSWORD.MISSING.name],
+        minLength: [6, codes.AUTH.PASSWORD.SHORT.name],
+        maxLength: [32, codes.AUTH.PASSWORD.LONG.name],
+        validate: [validators.passwordStrength, codes.AUTH.PASSWORD.WEAK.name]
+    },
     email: {
         type: String,
         trim: true,
         lowercase: true,
         unique: true,
-        required: 'Email Address is Required',
-        validate: [validators.validateEmail, 'Invalid email']
+        required: codes.AUTH.EMAIL.MISSING.name,
+        validate: [validators.validateEmail, codes.AUTH.EMAIL.INVALID.name]
     },
     roles: {
         type: [{ type: String, enum: enumHelpers.toArray(enums.AUTH.ROLES) }],

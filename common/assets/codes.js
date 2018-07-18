@@ -47,6 +47,11 @@ module.exports = {
                 name: 'USERNAME_MISMATCH',
                 status: 401,
                 success: false
+            },
+            IN_USE: {
+                name: 'USERNAME_IN_USE',
+                status: 400,
+                success: false
             }
         },
         PASSWORD: {
@@ -58,6 +63,55 @@ module.exports = {
             NOT_MATCH: {
                 name: 'PASSWORD_MISMATCH',
                 status: 401,
+                success: false
+            },
+            SHORT: {
+                name: 'PASSWORD_TOO_SHORT',
+                status: 422,
+                success: false
+            },
+            LONG: {
+                name: 'PASSWORD_TOO_LONG',
+                status: 422,
+                success: false
+            },
+            WEAK: {
+                name: 'WEAK_PASSWORD',
+                status: 422,
+                success: false
+            }
+        },
+        EMAIL: {
+            MISSING: {
+                name: 'MISSING_EMAIL',
+                status: 400,
+                success: false
+            },
+            ALREADY_REQUESTED: {
+                name: 'REQUEST_WITH_EMAIL_ALRADY_MADE',
+                status: 400,
+                success: false
+            },
+            IN_USE: {
+                name: 'EMAIL_ALREADY_IN_USE',
+                status: 400,
+                success: false
+            },
+            INVALID: {
+                name: 'INVALID_EMAIL',
+                status: 422,
+                success: false
+            }
+        },
+        NAME: {
+            MISSING: {
+                name: 'MISSING_NAME',
+                status: 400,
+                success: false
+            },
+            INVALID: {
+                name: 'INVALID_NAME',
+                status: 422,
                 success: false
             }
         },
@@ -78,6 +132,35 @@ module.exports = {
                 success: false
             }
         },
+        REGISTRATION: {
+            SUCCESS: {
+                name: 'REGISTRATION_SUCCESSFUL',
+                status: 200,
+                success: true
+            },
+            FAIL: {
+                name: 'REGISTRATION_FAILED',
+                status: 401,
+                success: false
+            },
+            REQUEST: {
+                NON_EXISTENCE: {
+                    name: 'REQUEST_NOT_FOUND',
+                    status: 404,
+                    success: false
+                },
+                NOT_APPROVED: {
+                    name: 'REQUEST_UNAPPROVED',
+                    status: 400,
+                    success: false
+                },
+                USER_REGISTERED: {
+                    name: 'REQUEST_USER_REGISTERED',
+                    status: 400,
+                    success: false
+                }
+            }
+        },
         TOKEN: {
             VALID: {
                 name: 'VALID_TOKEN',
@@ -96,6 +179,11 @@ module.exports = {
                 status: 403,
                 success: false
             }
+        },
+        VALIDATION: {
+            name: 'VALIDATION_ERROR',
+            status: 400,
+            success: false,
         }
     }
 

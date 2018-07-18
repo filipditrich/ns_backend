@@ -23,12 +23,14 @@
     "enum": "^2.5.0",
     "express": "*",
     "jsonwebtoken": "*",
+    "lodash": "^4.17.10",
     "mongoose": "*",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",
     "passport": "*",
     "passport-jwt": "*",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5"
   },
   "author": "Visionary",
   "license": "MIT"

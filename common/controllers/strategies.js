@@ -29,7 +29,6 @@ exports.authenticateToken = (req, res, next) => {
 };
 
 exports.requireSecret = (req, res, next) => {
-    console.log(req.body);
   return passport.authenticate('secret', {
       session: false,
       badRequestMessage: codes.SECRET.MISSING.name
