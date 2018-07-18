@@ -9,11 +9,16 @@ module.exports = function (req, res, next) {
     // Login
     router.post('/login', StrategiesCtrl.requireLogin, AuthCtrl.login);
 
-    // Request Registration
+    // Registration
     router.post('/request/registration', AuthCtrl.requestRegistration); // TODO - send email to user that the registration has been successfully processed
-
-    // Finish Registration (after approval)
     router.post('/register/:registrationHash', AuthCtrl.finishRegistration); // TODO - send email to the newly registered user
+
+    // Password Reset
+    router.post('/request/password-reset', AuthCtrl.requestPasswordReset); // TODO - send mail with hash in url
+    router.post('/request/password-reset/:resetHash', AuthCtrl.resetPassword);
+
+    // Forgot Username
+    router.post('/request/forgot-username/', AuthCtrl.forgotUsername); // TODO - send mail with username
 
     // Tests
     router.get('/protected', StrategiesCtrl.authenticateToken, (req, res) => res.send("Protected AREA"));

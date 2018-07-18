@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../../../common/config/common');
 const env = require('express')().get('env');
 const RegistrationRequest = require('../models/registration-request');
+const PwdResetRequest = require('../models/pwd-reset-request');
 const User = require('../models/user');
 const codeHelper = require('../../../common/helpers/code-helper');
 const _ = require('lodash');
@@ -135,8 +136,113 @@ exports.finishRegistration = (req, res, next) => {
 
 };
 
+exports.requestPasswordReset = (req, res, next) => {
 
+    let email = req.body.email,
+        username = req.body.username;
 
+    if (!email && !username) return next(codes.AUTH.RESET.CREDENTIALS.MISSING);
+    if (email && username) return next(codes.AUTH.RESET.CREDENTIALS.TOO_MANY);
+
+    let query = {};
+    if (email) query['email'] = email;
+    if (username) query['username'] = username;
+
+    User.findOne(query).exec()
+        .then(user => {
+
+            if (!user) return next(codes.AUTH.RESET.USER.NOT_FOUND)
+
+            PwdResetRequest.findOne({ forUser: user._id }).exec()
+                .then(alreadyRequested => {
+                    if (alreadyRequested) return next(codes.AUTH.RESET.ALREADY_MADE);
+
+                    const newRequest = new PwdResetRequest({
+                        forUser: user._id
+                    });
+
+                    newRequest.save((error, saved) => {
+                        if (error) return next(error);
+                        res.json(saved);
+                    })
+
+                })
+                .catch(error => {
+                    return next(error);
+                })
+        })
+        .catch(error => {
+            return next(error);
+        })
+
+};
+
+exports.resetPassword = (req, res, next) => {
+
+    let hash = req.params['resetHash'];
+    let password = req.body.password;
+    if (!password) return next(codes.AUTH.PASSWORD.MISSING);
+
+    // This needs to be done manually now, since mongoose will not
+    // validate all fields again on .save()
+    if (password.length > 32) return next(codes.AUTH.PASSWORD.LONG);
+    if (password.length < 6) return next(codes.AUTH.PASSWORD.SHORT);
+
+    PwdResetRequest.findOne({ resetHash: hash }).exec()
+        .then(request => {
+            if (!request) return next(codes.AUTH.RESET.NOT_FOUND);
+
+            User.findById(request.forUser).exec()
+                .then(user => {
+                    if (!user) return next(codes.UNEXPECTED); // shouldn't happen
+
+                    user.password = password;
+                    user.save((error, saved) => {
+                        if (error) {
+                            if (!error.errors) return next(error);
+                            let stack = {};
+                            _.forEach(error.errors, (value, key) => { stack[key] = value.message });
+
+                            return next(codeHelper.generateValidationError(stack));
+                        }
+                        request.remove(error => {
+                            if (error) return next(error);
+                            res.json(saved);
+                        });
+                    })
+
+                })
+                .catch(error => {
+                    return next(error);
+                })
+
+        })
+        .catch(error => {
+            return next(error);
+        })
+
+};
+
+exports.forgotUsername = (req, res, next) => {
+
+    let email = req.body.email;
+    if (!email) return next(codes.AUTH.EMAIL.MISSING);
+
+    User.findOne({ email: email }).exec()
+        .then(user => {
+            if (!user) return next(codes.AUTH.EMAIL.NOT_FOUND);
+
+            // TODO - send mail with username
+            // ...
+
+            res.json({ result: codes.AUTH.RESET.MAILING.SENT });
+
+        })
+        .catch(error => {
+            return next(error);
+        })
+
+};
 
 
 

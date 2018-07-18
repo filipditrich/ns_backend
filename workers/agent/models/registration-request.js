@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validators = require('../../../common/helpers/validators');
-const randomString = require('randomstring');
+const generators = require('../../../common/helpers/generators');
+const codes = require('../../../common/assets/codes');
 
 const registrationRequestSchema = mongoose.Schema({
     email: {
@@ -8,10 +9,10 @@ const registrationRequestSchema = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: 'Email Address is Required',
-        validate: [validators.validateEmail, 'Invalid email']
+        required: codes.AUTH.EMAIL.MISSING,
+        validate: [validators.validateEmail, codes.AUTH.EMAIL.INVALID]
     },
-    name: { type: String, required: 'Your name is required' },
+    name: { type: String, required: codes.AUTH.NAME.MISSING },
     requestedOn: { type: Date, default: Date.now() },
     approval: {
         approved: { type: Boolean, default: false },
@@ -28,35 +29,15 @@ const registrationRequestSchema = mongoose.Schema({
 registrationRequestSchema.pre('save', function(next) {
 
     if (this.isNew) {
-        generateRegistrationHash(this.constructor)
+        generators.generateRandomUnequalDocument(32, this.constructor, 'registration.registrationHash')
             .then(hash => {
                 this.registration.registrationHash = hash;
                 next();
             })
-            .catch(error => {
-                next(error);
-            })
-    } else {
-        next();
-    }
+            .catch(error => { next(error) })
+    } else { next() }
 
 });
-
-function generateRegistrationHash(model) {
-    return new Promise((resolve, reject) => {
-
-        const hash = randomString.generate(32);
-        model.find({ 'registration.registrationHash': hash }).exec()
-            .then(duplicate => {
-                if (duplicate.length > 0) generateRegistrationHash(model);
-                resolve(hash);
-            })
-            .catch(error => {
-                reject(error);
-            });
-
-    });
-}
 
 
 module.exports = mongoose.model('RegistrationRequest', registrationRequestSchema);

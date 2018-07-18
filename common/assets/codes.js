@@ -101,6 +101,11 @@ module.exports = {
                 name: 'INVALID_EMAIL',
                 status: 422,
                 success: false
+            },
+            NOT_FOUND: {
+                name: 'EMAIL_NOT_FOUND',
+                status: 400,
+                success: false
             }
         },
         NAME: {
@@ -154,10 +159,20 @@ module.exports = {
                     status: 400,
                     success: false
                 },
+                ALREADY_APPROVED: {
+                  name: 'REQUEST_ALREADY_APPROVED',
+                  status: 400,
+                  success: false
+                },
                 USER_REGISTERED: {
                     name: 'REQUEST_USER_REGISTERED',
                     status: 400,
                     success: false
+                },
+                APPROVE_SUCCESS: {
+                    name: 'REQUEST_APPROVAL_SUCCESS',
+                    status: 200,
+                    success: true
                 }
             }
         },
@@ -184,6 +199,44 @@ module.exports = {
             name: 'VALIDATION_ERROR',
             status: 400,
             success: false,
+        },
+        RESET: {
+            CREDENTIALS: {
+                TOO_MANY: {
+                    name: 'MULTIPLE_CREDENTIALS',
+                    status: 400,
+                    success: false
+                },
+                MISSING: {
+                    name: 'MISSING_CREDENTIALS',
+                    status: 400,
+                    success: false
+                }
+            },
+            USER: {
+                NOT_FOUND: {
+                    name: 'USER_NOT_FOUND',
+                    status: 400,
+                    success: false
+                }
+            },
+            ALREADY_MADE: {
+                name: 'RESET_REQUEST_ALREADY_MADE',
+                status: 400,
+                success: false
+            },
+            NOT_FOUND: {
+                name: 'RESET_REQUEST_NOT_FOUND',
+                status: 404,
+                success: false
+            },
+            MAILING: {
+                SENT: {
+                    name: 'EMAIL_SENT',
+                    status: 200,
+                    success: true
+                }
+            }
         }
     }
 

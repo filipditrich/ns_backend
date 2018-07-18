@@ -1,22 +1,23 @@
 const AuthRoute = require('./auth');
+const AdminRoute = require('./admin');
+const SysRoute = require('./sys');
+const BaseCtrl = require('../../../common/controllers/base');
+const API = require('express').Router();
 
 module.exports = function (app) {
 
-    // Authentication API
-    app.use('/api/auth', AuthRoute(app));
+    // Various API Routes
+    API.use('/auth', AuthRoute(app));
+    API.use('/admin', AdminRoute(app));
+    API.use('/sys', SysRoute(app));
 
-    // Response Handler (Errors)
-    app.use((error, req, res, next) => {
-        res.status(error.status || 500);
-        res.json({
-            response: {
-                identifier: error.name || error.identifier,
-                message: error.message,
-                success: error.success || false,
-                status: error.status || 500,
-                stack: error.stack || null
-            }
-        })
-    });
+    // Invalid Endpoints (API)
+    API.use((req, res, next) => { BaseCtrl.invalidEndpoint(req, res, next) });
+
+    // API Routes
+    app.use('/API', API);
+
+    // Invalid Endpoints (Routes)
+    app.use((req, res, next) => { BaseCtrl.invalidEndpoint(req, res, next) });
 
 };
