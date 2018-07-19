@@ -20,7 +20,7 @@ exports.approveRegistration = (req, res, next) => {
             request.save(error => {
                if (error) return next(error);
                res.json({ response: codes.AUTH.REGISTRATION.REQUEST.APPROVE_SUCCESS });
-               // TODO - send email to email associated with approved user
+               // TODO - send emails to emails associated with approved user
             });
 
         })

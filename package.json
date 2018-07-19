@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "bcryptjs": "*",
+    "bluebird": "^3.5.1",
     "body-parser": "*",
     "boom": "^7.2.0",
     "chalk": "^2.4.1",

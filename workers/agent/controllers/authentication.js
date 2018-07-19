@@ -7,6 +7,7 @@ const PwdResetRequest = require('../models/pwd-reset-request');
 const User = require('../models/user');
 const codeHelper = require('../../../common/helpers/code-helper');
 const _ = require('lodash');
+const mailHelper = require('../../../common/helpers/mail-helper');
 
 function generateToken(user) {
     return jwt.sign(user, config[env].token.secret, {
@@ -62,10 +63,20 @@ exports.requestRegistration = (req, res, next) => {
 
                             return next(codeHelper.generateValidationError(stack));
                         }
-                        res.json({
-                            response: codes.AUTH.REGISTRATION.SUCCESS,
-                            email: saved.email
+
+                        mailHelper.mail('registration-requested', {
+                           email: saved.email,
+                           name: saved.name,
+                           subject: 'Registration Request Processed!'
+                        }).then(() => {
+                            res.json({
+                                response: codes.AUTH.REGISTRATION.SUCCESS,
+                                email: saved.email
+                            });
+                        }).catch(error => {
+                            return next(error);
                         });
+
                     });
 
                 })

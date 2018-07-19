@@ -10,8 +10,8 @@ module.exports = function (req, res, next) {
     router.post('/login', StrategiesCtrl.requireLogin, AuthCtrl.login);
 
     // Registration
-    router.post('/request/registration', AuthCtrl.requestRegistration); // TODO - send email to user that the registration has been successfully processed
-    router.post('/register/:registrationHash', AuthCtrl.finishRegistration); // TODO - send email to the newly registered user
+    router.post('/request/registration', AuthCtrl.requestRegistration); // TODO - send emails to user that the registration has been successfully processed
+    router.post('/register/:registrationHash', AuthCtrl.finishRegistration); // TODO - send emails to the newly registered user
 
     // Password Reset
     router.post('/request/password-reset', AuthCtrl.requestPasswordReset); // TODO - send mail with hash in url
