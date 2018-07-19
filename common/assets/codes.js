@@ -1,16 +1,24 @@
 module.exports = {
 
-    INVALID_ENDPOINT: {
-        name: 'INVALID_ENDPOINT',
-        message: 'Invalid Endpoint Reached',
-        status: 404,
-        success: false
-    },
-
     UNEXPECTED: {
         name: 'UNEXPECTED_ERROR',
         status: 500,
         success: false
+    },
+
+    API: {
+        UNAUTHORIZED_CONSUMER: {
+            name: 'UNAUTHORIZED_API_CONSUMER',
+            message: 'Unauthorized API consumer',
+            status: 401,
+            success: false
+        },
+        INVALID_ENDPOINT: {
+            name: 'INVALID_ENDPOINT',
+            message: 'Invalid Endpoint Reached',
+            status: 404,
+            success: false
+        },
     },
 
     SECRET: {
