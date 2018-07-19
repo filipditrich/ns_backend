@@ -34,6 +34,13 @@ app.listen(app.get('port'), () => {
    console.log('%s Agent Worker server listening on port %d in %s mode', chalk.green('[✓]'), app.get('port'), app.get('env'));
 });
 
+const mh = require('../../common/helpers/mail-helper');
+
+app.get('/', (req, res) => {
+    mh.send('registration-requested', [{ email: 'ditrich@visionarygraphics.cz', subject: 'Test Email', name: 'Tester 01' }])
+        .then(r => {res.send("MAIL SENT")}).catch(err => { return next(err)});
+});
+
 routes(app);
 
 // Response Handler (Errors)

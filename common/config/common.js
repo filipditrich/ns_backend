@@ -11,6 +11,18 @@ module.exports = {
         secret: {
             sp1: 'firstpart',
             sp2: 'secondpart'
+        },
+        email: {
+            transporter: {
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
+                auth: {
+                    user: 'awehdx@gmail.com',
+                    pass: 'testingPassword123'
+                }
+            },
+            sender: '"NS Support" <awehdx@gmail.com>'
         }
     },
 
