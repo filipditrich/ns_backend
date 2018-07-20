@@ -115,7 +115,7 @@ exports.finishRegistration = (req, res, next) => {
                     let newUser = new User({
                         username: username,
                         password: password,
-                        name: req.body.name || request.name,
+                        name: request.name,
                         email: request.email
                     });
 
@@ -129,12 +129,25 @@ exports.finishRegistration = (req, res, next) => {
                         }
 
                         request.registration.userRegistered = true;
-                        request.save(err => { if (err) return next(errorHelper.prepareError(err)) });
+                        request.save(err => {
+                            if (err) return next(errorHelper.prepareError(err));
 
-                        res.json({
-                            response: codes.AUTH.REGISTRATION.SUCCESS,
-                            user: setUserInfo(saved)
+                            mailHelper.mail('registration-finished', {
+                                email: saved.email,
+                                name: saved.name,
+                                username: saved.username,
+                                subject: 'Registration Successful!'
+                            }).then(() => {
+                                res.json({
+                                    response: codes.AUTH.REGISTRATION.SUCCESS,
+                                    user: setUserInfo(saved)
+                                });
+                            }).catch(error => {
+                                return next(errorHelper.prepareError(error));
+                            });
+
                         });
+
                     });
 
                 }).catch(error => {
@@ -163,7 +176,7 @@ exports.requestPasswordReset = (req, res, next) => {
     User.findOne(query).exec()
         .then(user => {
 
-            if (!user) return next(errorHelper.prepareError(codes.AUTH.RESET.USER.NOT_FOUND))
+            if (!user) return next(errorHelper.prepareError(codes.AUTH.RESET.USER.NOT_FOUND));
 
             PwdResetRequest.findOne({ forUser: user._id }).exec()
                 .then(alreadyRequested => {
@@ -175,8 +188,20 @@ exports.requestPasswordReset = (req, res, next) => {
 
                     newRequest.save((error, saved) => {
                         if (error) return next(errorHelper.prepareError(error));
-                        res.json(saved);
-                    })
+
+                        mailHelper.mail('password-reset-request', {
+                            email: user.email,
+                            name: user.name,
+                            username: user.username,
+                            hash: saved.resetHash,
+                            subject: 'Password reset requested!'
+                        }).then(() => {
+                            res.json({ response: codes.AUTH.RESET.SUCCESS });
+                        }).catch(error => {
+                            return next(errorHelper.prepareError(error));
+                        });
+
+                    });
 
                 })
                 .catch(error => {
@@ -207,6 +232,8 @@ exports.resetPassword = (req, res, next) => {
             User.findById(request.forUser).exec()
                 .then(user => {
                     if (!user) return next(errorHelper.prepareError(codes.UNEXPECTED)); // shouldn't happen
+
+                    // TODO - password cant be the same
 
                     user.password = password;
                     user.save((error, saved) => {
@@ -244,10 +271,16 @@ exports.forgotUsername = (req, res, next) => {
         .then(user => {
             if (!user) return next(errorHelper.prepareError(codes.AUTH.EMAIL.NOT_FOUND));
 
-            // TODO - send mail with username
-            // ...
-
-            res.json({ result: codes.AUTH.RESET.MAILING.SENT });
+            mailHelper.mail('forgotten-username', {
+                email: user.email,
+                name: user.name,
+                username: user.username,
+                subject: 'Did you forgot your username?'
+            }).then(() => {
+                res.json({ result: codes.AUTH.RESET.MAILING.SENT });
+            }).catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
 
         })
         .catch(error => {

@@ -251,6 +251,11 @@ module.exports = {
                     status: 200,
                     success: true
                 }
+            },
+            SUCCESS: {
+                name: 'PASSWORD_RESET_SENT',
+                status: 200,
+                success: true
             }
         }
     }

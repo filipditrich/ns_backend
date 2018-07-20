@@ -1,6 +1,7 @@
 const RegistrationRequest = require('../models/registration-request');
 const codes = require('../../../common/assets/codes');
 const errorHelper = require('../../../common/helpers/error-helper');
+const mailHelper = require('../../../common/helpers/mail-helper');
 
 
 exports.approveRegistration = (req, res, next) => {
@@ -20,8 +21,18 @@ exports.approveRegistration = (req, res, next) => {
 
             request.save(error => {
                if (error) return next(errorHelper.prepareError(error));
-               res.json({ response: codes.AUTH.REGISTRATION.REQUEST.APPROVE_SUCCESS });
-               // TODO - send emails to emails associated with approved user
+
+                mailHelper.mail('registration-approved', {
+                    email: request.email,
+                    name: request.name,
+                    hash: request.registration.registrationHash,
+                    subject: 'Registration Approved!'
+                }).then(() => {
+                    res.json({ response: codes.AUTH.REGISTRATION.REQUEST.APPROVE_SUCCESS });
+                }).catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+
             });
 
         })

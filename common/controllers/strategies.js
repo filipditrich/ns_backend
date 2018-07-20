@@ -14,7 +14,7 @@ exports.requireLogin = (req, res, next) => {
       if (error) return next(errorHelper.prepareError(error));
       if (!user) return next(errorHelper.prepareError(response));
       req.user = user;
-      return next(errorHelper.prepareError());
+      return next();
   })(req, res, next);
 };
 
@@ -39,7 +39,7 @@ exports.requireSecret = (req, res, next) => {
       }
       if (error) return next(errorHelper.prepareError(error));
       if (!isMatch) return next(errorHelper.prepareError(response));
-      return next(errorHelper.prepareError());
+      return next();
   })(req, res, next);
 };
 
@@ -50,7 +50,7 @@ exports.roleAuthorization = roles => {
           .then(user => {
              if (!user) return next(errorHelper.prepareError(codes.UNEXPECTED));
              if (user.roles.some(role => roles.indexOf(role) >= 0)){
-                 return next(errorHelper.prepareError());
+                 return next();
              } else {
                  return next(errorHelper.prepareError(codes.AUTH.AUTH_ROLES.UNAUTHORIZED_ACCESS));
              }

@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
     router.use(StrategiesCtrl.authenticateToken, StrategiesCtrl.roleAuthorization([enums.AUTH.ROLES.admin.key]));
 
     // Approve Registration Request
-    router.put('/registration-requests/approve/:registrationHash', AdminCtrl.approveRegistration); // TODO - mailing
+    router.put('/registration-requests/approve/:registrationHash', AdminCtrl.approveRegistration);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

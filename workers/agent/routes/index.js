@@ -15,9 +15,8 @@ module.exports = function (app) {
         // Check if the request is among approved API consumers
         if (!headers['application-id'] || config[app.get('env')].api.consumers.indexOf(headers['application-id']) < 0) {
             // development purposes
-            if (app.get('env') === 'development'){
-                next();
-            } else {
+            if (app.get('env') === 'development'){ next(); }
+            else {
                 const error = errorHelper.prepareError(codes.API.UNAUTHORIZED_CONSUMER);
                 BaseCtrl.handleError(error, req, res, next);
             }
