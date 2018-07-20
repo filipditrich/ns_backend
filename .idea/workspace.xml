@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/common/templates/emails/forgotten-username/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/templates/emails/password-reset-request/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/templates/emails/registration-approved/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/templates/emails/registration-finished/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/assets/codes.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/assets/codes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/controllers/strategies.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/controllers/strategies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/controllers/administration.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/controllers/administration.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workers/agent/controllers/authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/controllers/authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/routes/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,8 +23,8 @@
       <file leaf-file-name="authentication.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/workers/agent/controllers/authentication.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="235" column="55" selection-start-line="235" selection-start-column="55" selection-end-line="235" selection-end-column="55" />
+            <state relative-caret-position="174">
+              <caret line="235" selection-start-line="235" selection-end-line="235" />
             </state>
           </provider>
         </entry>
@@ -124,11 +113,11 @@
         <option value="$PROJECT_DIR$/workers/agent/controllers/administration.js" />
         <option value="$PROJECT_DIR$/common/templates/emails/registration-finished/index.ejs" />
         <option value="$PROJECT_DIR$/common/templates/emails/password-reset-request/index.ejs" />
-        <option value="$PROJECT_DIR$/common/assets/codes.js" />
         <option value="$PROJECT_DIR$/common/templates/emails/forgotten-username/index.ejs" />
         <option value="$PROJECT_DIR$/workers/agent/routes/admin.js" />
         <option value="$PROJECT_DIR$/workers/agent/routes/auth.js" />
         <option value="$PROJECT_DIR$/workers/agent/models/user.js" />
+        <option value="$PROJECT_DIR$/common/assets/codes.js" />
         <option value="$PROJECT_DIR$/workers/agent/controllers/authentication.js" />
       </list>
     </option>
@@ -270,12 +259,12 @@
       <workItem from="1531861139208" duration="7117000" />
       <workItem from="1531921145423" duration="20127000" />
       <workItem from="1532007206850" duration="9693000" />
-      <workItem from="1532067249963" duration="7241000" />
+      <workItem from="1532067249963" duration="7569000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60595000" />
+    <option name="totallyTimeSpent" value="60923000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1108" extended-state="6" />
@@ -634,13 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/assets/codes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
-          <caret line="257" column="29" selection-start-line="257" selection-start-column="29" selection-end-line="257" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/templates/emails/forgotten-username/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -683,10 +665,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/common/assets/codes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="257" column="30" selection-start-line="257" selection-start-column="30" selection-end-line="257" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/workers/agent/controllers/authentication.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="235" column="55" selection-start-line="235" selection-start-column="55" selection-end-line="235" selection-end-column="55" />
+        <state relative-caret-position="174">
+          <caret line="235" selection-start-line="235" selection-end-line="235" />
         </state>
       </provider>
     </entry>

@@ -252,6 +252,11 @@ module.exports = {
                     success: true
                 }
             },
+            SAME_PASSWORD: {
+                name: 'NEW_PASSWORD_IS_OLD',
+                status: 400,
+                success: false
+            },
             SUCCESS: {
                 name: 'PASSWORD_RESET_SENT',
                 status: 200,

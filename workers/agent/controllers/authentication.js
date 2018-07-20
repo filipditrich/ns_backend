@@ -233,22 +233,26 @@ exports.resetPassword = (req, res, next) => {
                 .then(user => {
                     if (!user) return next(errorHelper.prepareError(codes.UNEXPECTED)); // shouldn't happen
 
-                    // TODO - password cant be the same
+                    user.comparePassword(password, (error, isMatch) => {
+                        if (error) return next(error);
+                        if (isMatch) return next(errorHelper.prepareError(codes.AUTH.RESET.SAME_PASSWORD));
 
-                    user.password = password;
-                    user.save((error, saved) => {
-                        if (error) {
-                            if (!error.errors) return next(errorHelper.prepareError(error));
-                            let stack = {};
-                            _.forEach(error.errors, (value, key) => { stack[key] = value.message });
+                        user.password = password;
+                        user.save((error, saved) => {
+                            if (error) {
+                                if (!error.errors) return next(errorHelper.prepareError(error));
+                                let stack = {};
+                                _.forEach(error.errors, (value, key) => { stack[key] = value.message });
 
-                            return next(errorHelper.prepareError(codeHelper.generateValidationError(stack)));
-                        }
-                        request.remove(error => {
-                            if (error) return next(errorHelper.prepareError(error));
-                            res.json(saved);
+                                return next(errorHelper.prepareError(codeHelper.generateValidationError(stack)));
+                            }
+                            request.remove(error => {
+                                if (error) return next(errorHelper.prepareError(error));
+                                res.json(saved);
+                            });
                         });
-                    })
+
+                    });
 
                 })
                 .catch(error => {
