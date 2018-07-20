@@ -6,6 +6,13 @@ module.exports = {
         success: false
     },
 
+    UNDEFINED: {
+        name: 'UNDEFINED_ERROR',
+        message: 'An undefined error occurred. Please contact administrator with code 0x000000',
+        status: 500,
+        success: false
+    },
+
     API: {
         UNAUTHORIZED_CONSUMER: {
             name: 'UNAUTHORIZED_API_CONSUMER',
