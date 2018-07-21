@@ -5,6 +5,7 @@ const errorHelper = require('../helpers/error.helper');
 const BaseCtrl = require('./base.controller');
 const env = require('express')().get('env');
 const config = require('../config/common.config');
+const generatorHelper = require('../helpers/generator.helper');
 
 /**
  * @description: Tries to login a user based on incoming login data
@@ -54,17 +55,18 @@ exports.authenticateToken = (req, res, next) => {
  * @returns {*}
  */
 exports.requireSecret = (req, res, next) => {
-  return passport.authenticate('secret', {
-      session: false,
-      badRequestMessage: codes.SECRET.MISSING.name
-  }, (error, isMatch, response) => {
-      if (!error && !isMatch && response && response.message === codes.SECRET.MISSING.name){
-          return next(errorHelper.prepareError(codes.SECRET.MISSING))
-      }
-      if (error) return next(errorHelper.prepareError(error));
-      if (!isMatch) return next(errorHelper.prepareError(response));
-      return next();
-  })(req, res, next);
+
+    let secret = req.headers['x-secret'];
+    let index = req.headers['x-secret-index'];
+
+    if (!secret || !index) return next(errorHelper.prepareError(codes.SECRET.MISSING));
+
+    let candidate = generatorHelper.generateMiddleString(secret, index);
+    let real = generatorHelper.generateMiddleString(config[env].secret.secret, config[env].secret.index);
+
+    if (candidate !== real) return next(errorHelper.prepareError(codes.SECRET.INVALID));
+    next();
+
 };
 
 /**

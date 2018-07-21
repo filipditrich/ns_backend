@@ -1,4 +1,3 @@
-// const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -14,10 +13,6 @@ const User = require('../../workers/agent/models/user.model');
 module.exports = function (passport, env) {
 
     const options = {
-        secret: {
-            usernameField: 'sp1',
-            passwordField: 'sp2'
-        },
         login: {
             usernameFiled: 'username'
         },
@@ -26,17 +21,6 @@ module.exports = function (passport, env) {
             secretOrKey: config[env].token.secret
         }
     };
-
-    passport.use('secret', new LocalStrategy(options.secret, (sp1, sp2, done) => {
-       if ((!sp1 && sp2 ) || (sp1 && !sp2)) return done(null, false, codes.SECRET.INCOMPLETE);
-       if (!sp1 || !sp2) return done(null, false, codes.SECRET.MISSING);
-
-       if ((sp1 === config[env].secret.sp1) && (sp2 === config[env].secret.sp2)) {
-           return done(null, true, codes.SECRET.VERIFIED);
-       } else {
-           return done(null, false, codes.SECRET.INVALID);
-       }
-    }));
 
     passport.use('login', new LocalStrategy(options.login, (username, password, done) => {
         if (!username) return done(null, false, codes.AUTH.USERNAME.MISSING);

@@ -40,3 +40,13 @@ exports.generateRandomUnequalDocument = function (length, model, modelQuerySelec
     });
 
 };
+
+/**
+ * @description: Returns middle of the string based on the index (default = 0)
+ * @param string
+ * @param index
+ * @return {*}
+ */
+exports.generateMiddleString = (string, index = 0) => {
+    return string.substr((Math.round((string.length / 2)) - Math.round((index / 2))), index);
+};
