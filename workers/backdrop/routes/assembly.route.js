@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
     (`/${endpoints.API.ASSEMBLY.ROUTES.endpoint}/:worker`, AssemblyCtrl.exportRoutes);
 
     router[endpoints.API.ASSEMBLY.CODES.meta.method]
-    (`/${endpoints.API.ASSEMBLY.CODES.endpoint}`, StrategiesCtrl.requireSecret, AssemblyCtrl.exportCodes);
+    (`/${endpoints.API.ASSEMBLY.CODES.endpoint}`, AssemblyCtrl.exportCodes);
 
 
     return router;
