@@ -3,7 +3,12 @@ const mailing = require('../config/nodemailer');
 const EmailTemplate = require('email-templates');
 const path = require('path');
 
-
+/**
+ * @description: Sends an rendered email
+ * @param template
+ * @param contexts
+ * @return {Promise<any>}
+ */
 module.exports.mail = (template, contexts) => {
 
     // Contexts need to be typeof Array
@@ -28,6 +33,12 @@ module.exports.mail = (template, contexts) => {
 
 };
 
+/**
+ * @description: Loads and renders an email template
+ * @param template
+ * @param contexts
+ * @return {Promise<any[]>}
+ */
 function loadTemplate (template, contexts) {
 
     let Template = new EmailTemplate({

@@ -10,12 +10,22 @@ const _ = require('lodash');
 const mailHelper = require('../../../common/helpers/mail-helper');
 const errorHelper = require('../../../common/helpers/error-helper');
 
+/**
+ * @description: generates and signs new JWT token
+ * @param user
+ * @returns {*}
+ */
 function generateToken(user) {
     return jwt.sign(user, config[env].token.secret, {
         expiresIn: config[env].token.ttl
     });
 }
 
+/**
+ * @description: returns basic user info
+ * @param request
+ * @returns {{_id: *, username: *, roles: (string[]|roles|{type, default})}}
+ */
 function setUserInfo(request) {
     return {
         _id: request._id,
@@ -24,6 +34,12 @@ function setUserInfo(request) {
     }
 }
 
+/**
+ * @description: Outputs basic user info after successful login
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.login = (req, res, next) => {
     let userInfo = setUserInfo(req.user);
     res.json({
@@ -33,6 +49,13 @@ exports.login = (req, res, next) => {
     });
 };
 
+/**
+ * @description: Requests a new registration request
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.requestRegistration = (req, res, next) => {
 
     let email = req.body.email;
@@ -90,6 +113,13 @@ exports.requestRegistration = (req, res, next) => {
         });
 };
 
+/**
+ * @description: Registers a new user after his registration request approval
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.finishRegistration = (req, res, next) => {
 
     let hash = req.params['registrationHash'];
@@ -161,6 +191,13 @@ exports.finishRegistration = (req, res, next) => {
 
 };
 
+/**
+ * @description: Requests a new password reset request if there is none already
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.requestPasswordReset = (req, res, next) => {
 
     let email = req.body.email,
@@ -214,6 +251,13 @@ exports.requestPasswordReset = (req, res, next) => {
 
 };
 
+/**
+ * @description: Changes user's password
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.resetPassword = (req, res, next) => {
 
     let hash = req.params['resetHash'];
@@ -266,6 +310,14 @@ exports.resetPassword = (req, res, next) => {
 
 };
 
+
+/**
+ * @description: Sends email to user that is associated with the inputted email
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.forgotUsername = (req, res, next) => {
 
     let email = req.body.email;

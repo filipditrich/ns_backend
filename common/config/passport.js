@@ -6,6 +6,11 @@ const config = require('./common');
 const codes = require('../assets/codes');
 const User = require('../../workers/agent/models/user');
 
+/**
+ * @description: Creates passport authentication strategies
+ * @param passport
+ * @param env
+ */
 module.exports = function (passport, env) {
 
     const options = {

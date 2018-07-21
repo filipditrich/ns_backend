@@ -1,10 +1,22 @@
 const randomString = require('randomstring');
 const codes = require('../assets/codes');
 
+/**
+ * @description: Generates a random string of some length (default = 32)
+ * @param length
+ * @returns {String}
+ */
 exports.generateRandom = function (length = 32) {
     return randomString.generate(length);
 };
 
+/**
+ * @description: Generates a new random string that's unequal to <modelQuerySelector> field in model <model>
+ * @param length
+ * @param model
+ * @param modelQuerySelector
+ * @returns {Promise<any>}
+ */
 exports.generateRandomUnequalDocument = function (length, model, modelQuerySelector) {
 
     return new Promise((resolve, reject) => {

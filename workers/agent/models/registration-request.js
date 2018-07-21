@@ -9,10 +9,13 @@ const registrationRequestSchema = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: codes.AUTH.EMAIL.MISSING,
-        validate: [validators.validateEmail, codes.AUTH.EMAIL.INVALID]
+        required: codes.AUTH.EMAIL.MISSING.name,
+        validate: [validators.validateEmail, codes.AUTH.EMAIL.INVALID.name]
     },
-    name: { type: String, required: codes.AUTH.NAME.MISSING },
+    name: {
+        type: String,
+        required: codes.AUTH.NAME.MISSING
+    },
     requestedOn: { type: Date, default: Date.now() },
     approval: {
         approved: { type: Boolean, default: false },

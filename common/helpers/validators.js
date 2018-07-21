@@ -1,11 +1,21 @@
 const enums = require('../assets/enums');
 const enumHelpers = require('../helpers/enum-helpers');
+const config = require('../config/common');
 
-module.exports.validateEmail = function (email) {
-    let regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regexp.test(email);
+/**
+ * @description: Validates an inputted email
+ * @param email
+ * @return {boolean}
+ */
+exports.validateEmail = function (email) {
+    return config.shared.fields.email.regExp.test(email);
 };
 
-module.exports.passwordStrength = function (password) {
-    return /^(?=.*\d)(?=.*[a-zA-Z0-9]).*$/.test(password);
+/**
+ * @description: Checks if the passed in password is strong enough
+ * @param password
+ * @return {boolean}
+ */
+exports.passwordStrength = function (password) {
+    return config.shared.fields.password.regExp.test(password);
 };

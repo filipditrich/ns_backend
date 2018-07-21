@@ -3,7 +3,12 @@ const codes = require('../../../common/assets/codes');
 const errorHelper = require('../../../common/helpers/error-helper');
 const mailHelper = require('../../../common/helpers/mail-helper');
 
-
+/**
+ * @description: Approves a registration request
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.approveRegistration = (req, res, next) => {
 
     let hash = req.params['registrationHash'];

@@ -29,10 +29,25 @@ module.exports = {
         }
     },
 
-    production: {
-        db: {
-            url: null
-        }
+    production: {},
+    test: {},
+
+    shared: {
+        fields: {
+            password: {
+                minLength: 6,
+                maxLength: 32,
+                regExp: /^(?=.*\d)(?=.*[a-zA-Z0-9]).*$/
+            },
+            email: {
+                regExp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            },
+            username: {
+                minLength: 3,
+                maxLength: 16,
+                lowercase: true
+            }
+        },
     }
 
 };

@@ -4,15 +4,24 @@ const validators = require('../../../common/helpers/validators');
 const enumHelpers = require('../../../common/helpers/enum-helpers');
 const enums = require('../../../common/assets/enums');
 const codes = require('../../../common/assets/codes');
+const config = require('../../../common/config');
 
 const userSchema = mongoose.Schema({
-    name: { type: String },
-    username: { type: String, required: true, unique: true, lowercase: true },
+    name: {
+        type: String,
+        required: codes.AUTH.NAME.MISSING
+    },
+    username: {
+        type: String,
+        required: codes.AUTH.USERNAME.MISSING.name,
+        unique: true,
+        lowercase: config.shared.fields.username.lowercase
+    },
     password: {
         type: String,
-        required: [true, codes.AUTH.PASSWORD.MISSING.name],
-        minLength: [6, codes.AUTH.PASSWORD.SHORT.name],
-        maxLength: [32, codes.AUTH.PASSWORD.LONG.name],
+        required: codes.AUTH.PASSWORD.MISSING.name,
+        minLength: [config.shared.fields.password.minLength, codes.AUTH.PASSWORD.SHORT.name],
+        maxLength: [config.shared.fields.password.maxLength, codes.AUTH.PASSWORD.LONG.name],
         validate: [validators.passwordStrength, codes.AUTH.PASSWORD.WEAK.name]
     },
     email: {
@@ -28,6 +37,8 @@ const userSchema = mongoose.Schema({
         default: enums.AUTH.ROLES.player.key
     }
 }, { timestamps: true });
+
+// TODO - rewrite fncs with bcrypt to promsises
 
 userSchema.pre('save', function (next) {
    if (!this.isModified('password')) return next();

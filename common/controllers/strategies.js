@@ -3,6 +3,13 @@ const User = require('../../workers/agent/models/user');
 const codes = require('../assets/codes');
 const errorHelper = require('../../common/helpers/error-helper');
 
+/**
+ * @description: Tries to login a user based on incoming login data
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.requireLogin = (req, res, next) => {
   return passport.authenticate('login', {
       session: false,
@@ -18,6 +25,13 @@ exports.requireLogin = (req, res, next) => {
   })(req, res, next);
 };
 
+/**
+ * @description: Checks if the sent token in headers is still signed (valid)
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.authenticateToken = (req, res, next) => {
   return passport.authenticate('jwt', {
       session: false
@@ -29,6 +43,13 @@ exports.authenticateToken = (req, res, next) => {
   })(req, res, next);
 };
 
+/**
+ * @description: Checks if the incoming secret matches the server secret
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.requireSecret = (req, res, next) => {
   return passport.authenticate('secret', {
       session: false,
@@ -43,6 +64,11 @@ exports.requireSecret = (req, res, next) => {
   })(req, res, next);
 };
 
+/**
+ * @description: Checks if the user that made the request has enough privileges to do such an action
+ * @param roles
+ * @returns {Function}
+ */
 exports.roleAuthorization = roles => {
   return (req, res, next) => {
       let user = req.user;

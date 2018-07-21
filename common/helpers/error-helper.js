@@ -1,5 +1,10 @@
 const codes = require('../assets/codes');
 
+/**
+ * @description: Returns a new error based on the input
+ * @param input
+ * @returns {Error}
+ */
 exports.prepareError = function (input) {
     let error = new Error();
 
