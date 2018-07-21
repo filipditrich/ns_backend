@@ -26,3 +26,12 @@ exports.exportRoutes = (req, res, next) => {
     });
 
 };
+
+exports.exportCodes = (req, res, next) => {
+
+    res.json({
+        response: codes.RESOURCE.LOADED,
+        codes: codes
+    });
+
+};
