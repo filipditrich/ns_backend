@@ -4,7 +4,7 @@ const validators = require('../../../common/helpers/validators');
 const enumHelpers = require('../../../common/helpers/enum-helpers');
 const enums = require('../../../common/assets/enums');
 const codes = require('../../../common/assets/codes');
-const config = require('../../../common/config');
+const config = require('../../../common/config/common');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -42,21 +42,23 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
    if (!this.isModified('password')) return next();
-   bcrypt.genSalt(10, (error, salt) => {
-      if (error) return next(error);
-      bcrypt.hash(this.password, salt, (error, hash) => {
-         if (error) return next(error);
-         this.password = hash;
-         next();
-      });
-   });
+   bcrypt.genSalt(10)
+       .then(salt => {
+           bcrypt.hash(this.password, salt)
+               .then(hash => {
+                   this.password = hash;
+                   next();
+               })
+               .catch(error => { return next(error) });
+       }).catch(error => { return next(error) })
 });
 
 userSchema.methods.comparePassword = function (candidate, callback) {
-  bcrypt.compare(candidate, this.password, function (error, isMatch) {
-      if (error) return callback(error);
-      callback(null, isMatch);
-  });
+    bcrypt.compare(candidate, this.password)
+        .then(isMatch => {
+            callback(null, isMatch);
+        })
+        .catch(error => { return next(error) });
 };
 
 module.exports = mongoose.model('User', userSchema);
