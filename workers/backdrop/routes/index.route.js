@@ -1,4 +1,4 @@
-const BaseCtrl = require('../../../common/controllers/base');
+const BaseCtrl = require('../../../common/controllers/base.controller');
 const endpoints = require('../config/endpoints.config');
 const ApiRoutes = require('express').Router();
 const AssemblyRoute = require('./assembly.route');

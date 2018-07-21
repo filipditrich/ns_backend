@@ -2,13 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
-const routes = require('./routes/index');
+const routes = require('./routes/index.route');
 const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
-const config = require('../../common/config/common');
-const mailing = require('../../common/config/nodemailer');
-const routeHelper = require('../../common/helpers/route-helper');
+const config = require('../../common/config/common.config');
+const mailing = require('../../common/config/nodemailer.config');
+const routeHelper = require('../../common/helpers/route.helper');
 const endpoints = require('./config/endpoints.config');
 
 // App Variables
@@ -16,7 +16,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('env', process.env.NODE_ENV || 'development');
 
 // Mongoose ORM
-require('../../common/config/mongoose')(app.get('env'));
+require('../../common/config/mongoose.config')(app.get('env'));
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,7 +29,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 // Passport Configuration
-require('../../common/config/passport')(passport, app.get('env'));
+require('../../common/config/passport.config')(passport, app.get('env'));
 app.use(passport.initialize());
 app.use(passport.session());
 

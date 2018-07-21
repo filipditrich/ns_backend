@@ -6,7 +6,7 @@ const routes = require('./routes/index.route');
 const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
-const routeHelper = require('../../common/helpers/route-helper');
+const routeHelper = require('../../common/helpers/route.helper');
 const endpoints = require('./config/endpoints.config');
 
 // App Variables
@@ -14,7 +14,7 @@ app.set('port', process.env.PORT || 3001);
 app.set('env', process.env.NODE_ENV || 'development');
 
 // Mongoose ORM
-require('../../common/config/mongoose')(app.get('env'));
+require('../../common/config/mongoose.config')(app.get('env'));
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +27,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 // Passport Configuration
-require('../../common/config/passport')(passport, app.get('env'));
+require('../../common/config/passport.config')(passport, app.get('env'));
 app.use(passport.initialize());
 app.use(passport.session());
 

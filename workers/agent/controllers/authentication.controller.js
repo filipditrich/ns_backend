@@ -1,14 +1,14 @@
 const codes = require('../../../common/assets/codes');
 const jwt = require('jsonwebtoken');
-const config = require('../../../common/config/common');
+const config = require('../../../common/config/common.config');
 const env = require('express')().get('env');
-const RegistrationRequest = require('../models/registration-request');
-const PwdResetRequest = require('../models/pwd-reset-request');
-const User = require('../models/user');
-const codeHelper = require('../../../common/helpers/code-helper');
+const RegistrationRequest = require('../models/registration-request.model');
+const PwdResetRequest = require('../models/pwd-reset-request.model');
+const User = require('../models/user.model');
+const codeHelper = require('../../../common/helpers/code.helper');
 const _ = require('lodash');
-const mailHelper = require('../../../common/helpers/mail-helper');
-const errorHelper = require('../../../common/helpers/error-helper');
+const mailHelper = require('../../../common/helpers/mail.helper');
+const errorHelper = require('../../../common/helpers/error.helper');
 
 /**
  * @description: generates and signs new JWT token

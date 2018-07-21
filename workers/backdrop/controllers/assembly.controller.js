@@ -1,6 +1,6 @@
 const enums = require('../../../common/assets/enums');
 const path = require('path');
-const BaseCtrl = require('../../../common/controllers/base');
+const BaseCtrl = require('../../../common/controllers/base.controller');
 const codes = require('../../../common/assets/codes');
 
 exports.exportRoutes = (req, res, next) => {

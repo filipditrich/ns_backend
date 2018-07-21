@@ -1,7 +1,7 @@
-const RegistrationRequest = require('../models/registration-request');
+const RegistrationRequest = require('../models/registration-request.model');
 const codes = require('../../../common/assets/codes');
-const errorHelper = require('../../../common/helpers/error-helper');
-const mailHelper = require('../../../common/helpers/mail-helper');
+const errorHelper = require('../../../common/helpers/error.helper');
+const mailHelper = require('../../../common/helpers/mail.helper');
 
 /**
  * @description: Approves a registration request

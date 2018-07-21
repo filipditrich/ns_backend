@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const validators = require('../../../common/helpers/validators');
+const validators = require('../../../common/helpers/validator.helper');
 const randomString = require('randomstring');
-const generators = require('../../../common/helpers/generators');
+const generators = require('../../../common/helpers/generator.helper');
 
 const passwordResetRequest = mongoose.Schema({
 

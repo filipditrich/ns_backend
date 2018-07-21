@@ -33,7 +33,7 @@ Insert this record into `users` collection:
 This user has Admin Rights.
 
 ### Ports, Localhost etc.
-Can all be changed in `common/config/common.js`
+Can all be changed in `common/config/common.config.js`
  
 ## Working APIs
 

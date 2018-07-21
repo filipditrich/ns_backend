@@ -1,6 +1,6 @@
 const codes = require('../assets/codes');
 const env = require('express')().get('env');
-const errorHelper = require('../helpers/error-helper');
+const errorHelper = require('../helpers/error.helper');
 
 
 /**

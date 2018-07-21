@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const config = require('./common');
+const config = require('./common.config');
 const env = require('express')().get('env');
 const SMTPConnectionAsPromised = require('smtp-connection-as-promised');
 

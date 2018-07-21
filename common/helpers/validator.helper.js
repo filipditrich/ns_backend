@@ -1,6 +1,6 @@
 const enums = require('../assets/enums');
-const enumHelpers = require('../helpers/enum-helpers');
-const config = require('../config/common');
+const enumHelpers = require('./enum.helper');
+const config = require('../config/common.config');
 
 /**
  * @description: Validates an inputted email

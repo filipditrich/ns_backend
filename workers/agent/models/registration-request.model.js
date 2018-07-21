@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const validators = require('../../../common/helpers/validators');
-const generators = require('../../../common/helpers/generators');
+const validators = require('../../../common/helpers/validator.helper');
+const generators = require('../../../common/helpers/generator.helper');
 const codes = require('../../../common/assets/codes');
 
 const registrationRequestSchema = mongoose.Schema({

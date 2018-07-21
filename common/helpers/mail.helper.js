@@ -1,4 +1,4 @@
-const mailing = require('../config/nodemailer');
+const mailing = require('../config/nodemailer.config');
 // const EmailTemplate = require('emails-templates').EmailTemplate;
 const EmailTemplate = require('email-templates');
 const path = require('path');

@@ -1,10 +1,10 @@
 const passport = require('passport');
-const User = require('../../workers/agent/models/user');
+const User = require('../../workers/agent/models/user.model');
 const codes = require('../assets/codes');
-const errorHelper = require('../../common/helpers/error-helper');
-const BaseCtrl = require('../controllers/base');
+const errorHelper = require('../helpers/error.helper');
+const BaseCtrl = require('./base.controller');
 const env = require('express')().get('env');
-const config = require('../config/common');
+const config = require('../config/common.config');
 
 /**
  * @description: Tries to login a user based on incoming login data

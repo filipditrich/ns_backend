@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 const messages = require('../assets/messages');
-const config =  require('./common');
+const config =  require('./common.config');
 
 module.exports = function (env) {
 

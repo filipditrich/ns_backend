@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const validators = require('../../../common/helpers/validators');
-const enumHelpers = require('../../../common/helpers/enum-helpers');
+const validators = require('../../../common/helpers/validator.helper');
+const enumHelpers = require('../../../common/helpers/enum.helper');
 const enums = require('../../../common/assets/enums');
 const codes = require('../../../common/assets/codes');
-const config = require('../../../common/config/common');
+const config = require('../../../common/config/common.config');
 
 const userSchema = mongoose.Schema({
     name: {
