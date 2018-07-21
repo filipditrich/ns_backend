@@ -2,6 +2,9 @@ const passport = require('passport');
 const User = require('../../workers/agent/models/user');
 const codes = require('../assets/codes');
 const errorHelper = require('../../common/helpers/error-helper');
+const BaseCtrl = require('../controllers/base');
+const env = require('express')().get('env');
+const config = require('../config/common');
 
 /**
  * @description: Tries to login a user based on incoming login data
@@ -85,4 +88,26 @@ exports.roleAuthorization = roles => {
               return next(errorHelper.prepareError(error));
           });
   }
+};
+
+/**
+ * @description: Check if the request is among allowed API consumers
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
+exports.apiConsumers = (req, res, next) => {
+    const headers = req.headers;
+    if (!headers['application-id'] || config[env].api.consumers.indexOf(headers['application-id']) < 0) {
+        // development purposes
+        if (env === 'development'){ return next(); }
+
+        else {
+            const error = errorHelper.prepareError(codes.API.UNAUTHORIZED_CONSUMER);
+            BaseCtrl.handleError(error, req, res, next);
+        }
+    } else {
+        return next();
+    }
 };

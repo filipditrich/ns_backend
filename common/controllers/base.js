@@ -2,6 +2,7 @@ const codes = require('../assets/codes');
 const env = require('express')().get('env');
 const errorHelper = require('../helpers/error-helper');
 
+
 /**
  * @description: Creates a new error when reaching invalid endpoint and passes to next express middleware
  * @param req

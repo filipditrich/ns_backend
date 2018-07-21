@@ -263,6 +263,14 @@ module.exports = {
                 success: true
             }
         }
+    },
+
+    RESOURCE: {
+        LOADED: {
+            name: 'RESOURCE_LOADED',
+            status: 200,
+            success: true
+        }
     }
 
 };

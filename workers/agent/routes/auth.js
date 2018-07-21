@@ -3,23 +3,38 @@ const BaseCtrl = require('../../../common/controllers/base');
 const StrategiesCtrl = require('../../../common/controllers/strategies');
 const AuthCtrl = require('../controllers/authentication');
 const codes = require('../../../common/assets/codes');
+const endpoints = require('../config/endpoints.config');
+const RequestRoutes = router;
 
 module.exports = function (req, res, next) {
 
     // Login
-    router.post('/login', StrategiesCtrl.requireLogin, AuthCtrl.login);
+    router[endpoints.API.AUTH.LOGIN.meta.method]
+    (`/${endpoints.API.AUTH.LOGIN.endpoint}`, StrategiesCtrl.requireLogin, AuthCtrl.login);
 
-    // Registration
-    router.post('/request/registration', AuthCtrl.requestRegistration);
-    router.post('/register/:registrationHash', AuthCtrl.finishRegistration);
+    // Register Request
+    RequestRoutes[endpoints.API.AUTH.REQUEST.REGISTRATION.meta.method]
+    (`/${endpoints.API.AUTH.REQUEST.REGISTRATION.endpoint}`, AuthCtrl.requestRegistration);
 
     // Password Reset
-    router.post('/request/password-reset', AuthCtrl.requestPasswordReset);
-    router.post('/request/password-reset/:resetHash', AuthCtrl.resetPassword); // TODO - password reset notify? idk
+    RequestRoutes[endpoints.API.AUTH.REQUEST.PASSWORD_RESET.meta.method]
+    (`/${endpoints.API.AUTH.REQUEST.PASSWORD_RESET.endpoint}`, AuthCtrl.requestPasswordReset);
+
+    RequestRoutes[endpoints.API.AUTH.REQUEST.PASSWORD_RESET.meta.method]
+    (`/${endpoints.API.AUTH.REQUEST.PASSWORD_RESET.endpoint}/:hash`, AuthCtrl.resetPassword); // TODO - password reset notify? idk
 
     // Forgot Username
-    router.post('/request/forgot-username/', AuthCtrl.forgotUsername);
+    RequestRoutes[endpoints.API.AUTH.REQUEST.FORGOTTEN_USERNAME.meta.method]
+    (`/${endpoints.API.AUTH.REQUEST.FORGOTTEN_USERNAME.endpoint}`, AuthCtrl.forgotUsername);
 
+    // -> Request Routes
+    router.use(`/${endpoints.API.AUTH.REQUEST.endpoint}`, RequestRoutes);
+
+    // Finish registration
+    router[endpoints.API.AUTH.REGISTER.meta.method]
+    (`/${endpoints.API.AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
+
+    // TODO - delete x transport
     // Tests
     router.get('/protected', StrategiesCtrl.authenticateToken, (req, res) => res.send("Protected AREA"));
     router.get('/admin', StrategiesCtrl.authenticateToken, StrategiesCtrl.roleAuthorization(['admin']), (req, res) => res.send("Admin AREA"));

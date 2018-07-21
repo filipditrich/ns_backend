@@ -11,7 +11,7 @@ const mailHelper = require('../../../common/helpers/mail-helper');
  */
 exports.approveRegistration = (req, res, next) => {
 
-    let hash = req.params['registrationHash'];
+    let hash = req.params['hash'];
 
     RegistrationRequest.findOne({ 'registration.registrationHash': hash }).exec()
         .then(request => {

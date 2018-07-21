@@ -35,7 +35,9 @@
     "passport-jwt": "*",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "smtp-connection": "^4.0.2",
+    "smtp-connection-as-promised": "^3.3.0"
   },
   "author": "Visionary",
   "license": "MIT"

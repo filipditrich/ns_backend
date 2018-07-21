@@ -7,10 +7,10 @@ module.exports = function (env) {
 
     mongoose.connect(config[env].db.url, { useNewUrlParser: true })
         .then(() => {
-            console.log('%s %s', chalk.green('[✓]'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_SUCCESSFUL);
+            console.log('%s %s', chalk.green('✅'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_SUCCESSFUL);
         })
         .catch(error => {
-            console.log('%s %s : %s', chalk.red('[✗]'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_FAILED, error.message);
+            console.log('%s %s : %s', chalk.red('❌'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_FAILED, error.message);
             process.exit();
         });
 

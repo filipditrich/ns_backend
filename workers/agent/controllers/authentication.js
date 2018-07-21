@@ -122,7 +122,7 @@ exports.requestRegistration = (req, res, next) => {
  */
 exports.finishRegistration = (req, res, next) => {
 
-    let hash = req.params['registrationHash'];
+    let hash = req.params['hash'];
 
     let username = req.body.username;
     let password = req.body.password;
@@ -260,7 +260,7 @@ exports.requestPasswordReset = (req, res, next) => {
  */
 exports.resetPassword = (req, res, next) => {
 
-    let hash = req.params['resetHash'];
+    let hash = req.params['hash'];
     let password = req.body.password;
     if (!password) return next(errorHelper.prepareError(codes.AUTH.PASSWORD.MISSING));
 

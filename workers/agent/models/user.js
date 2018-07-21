@@ -38,8 +38,6 @@ const userSchema = mongoose.Schema({
     }
 }, { timestamps: true });
 
-// TODO - rewrite fncs with bcrypt to promsises
-
 userSchema.pre('save', function (next) {
    if (!this.isModified('password')) return next();
    bcrypt.genSalt(10)
