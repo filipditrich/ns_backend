@@ -56,6 +56,8 @@ exports.authenticateToken = (req, res, next) => {
  */
 exports.requireSecret = (req, res, next) => {
 
+    // TODO - redo - one header (divide by specific char)
+
     let secret = req.headers['x-secret'];
     let index = req.headers['x-secret-index'];
 
