@@ -114,6 +114,25 @@ exports.requestRegistration = (req, res, next) => {
 };
 
 /**
+ * @description: Checks if the request with hash is valid (due to Angular)
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.preFinishRegistration = (req, res, next) => {
+    RegistrationRequest.findOne({ 'registration.registrationHash': req.params['hash'] }).exec()
+        .then(request => {
+            if (!request) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
+            if (!request.approval.approved) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
+            if (request.registration.userRegistered) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
+            res.json({ response: codes.REQUEST.VALID, request: request });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+};
+
+/**
  * @description: Registers a new user after his registration request approval
  * @param req
  * @param res

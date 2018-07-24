@@ -34,6 +34,9 @@ module.exports = function (req, res, next) {
     router[endpoints.API.AUTH.REGISTER.meta.method]
     (`/${endpoints.API.AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
 
+    router[endpoints.API.AUTH.REGISTER_CHECK.meta.method]
+    (`/${endpoints.API.AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
+
     // TODO - delete x transport
     // Tests
     // router.get('/protected', StrategiesCtrl.authenticateToken, (req, res) => res.send("Protected AREA"));

@@ -13,6 +13,19 @@ module.exports = {
         success: false
     },
 
+    REQUEST: {
+        VALID: {
+            name: 'REQUEST_VALID',
+            status: 200,
+            success: true
+        },
+        INVALID: {
+            name: 'REQUEST_INVALID',
+            status: 403,
+            success: false
+        }
+    },
+
     API: {
         UNAUTHORIZED_CONSUMER: {
             name: 'UNAUTHORIZED_API_CONSUMER',
