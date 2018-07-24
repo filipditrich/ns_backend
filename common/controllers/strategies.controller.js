@@ -56,13 +56,11 @@ exports.authenticateToken = (req, res, next) => {
  */
 exports.requireSecret = (req, res, next) => {
 
-    // TODO - redo - one header (divide by specific char)
+    let secretHeader = req.headers['x-secret'];
+    if (!secretHeader) return next(errorHelper.prepareError(codes.SECRET.MISSING));
 
-    let secret = req.headers['x-secret'];
-    let index = req.headers['x-secret-index'];
-
-    if (!secret || !index) return next(errorHelper.prepareError(codes.SECRET.MISSING));
-
+    let secret = secretHeader.split("x")[0];
+    let index = secretHeader.split("x")[1];
     let candidate = generatorHelper.generateMiddleString(secret, index);
     let real = generatorHelper.generateMiddleString(config[env].secret.secret, config[env].secret.index);
 

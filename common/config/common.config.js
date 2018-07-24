@@ -10,7 +10,7 @@ module.exports = {
         },
         secret: {
             secret: '937a43fc73c501dfa94d7dcf0cf668e0',
-            index: 5
+            index: 7
         },
         email: {
             transporter: {
