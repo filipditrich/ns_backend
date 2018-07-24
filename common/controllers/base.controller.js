@@ -25,7 +25,7 @@ exports.handleError = function (error, req, res, next) {
     res.status(error.status || error.statusCode || 500);
 
     let response = {
-        identifier: error.name,
+        name: error.name,
         message: error.message || false,
         status: error.status || error.statusCode || 500,
         success: error.success || false,
