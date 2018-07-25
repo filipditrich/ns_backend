@@ -36,8 +36,7 @@ module.exports = function (req, res, next) {
     router[AUTH.REGISTER.meta.method]
     (`/${AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
 
-    router[AUTH.REGISTER_CHECK.meta.method]
-    (`/${AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
+    router[AUTH.REGISTER_CHECK.meta.method](`/${AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
 
     // TODO - delete x transport
     // Tests

@@ -116,7 +116,7 @@ module.exports = {
                 success: false
             },
             ALREADY_REQUESTED: {
-                name: 'REQUEST_WITH_EMAIL_ALRADY_MADE',
+                name: 'REQUEST_WITH_EMAIL_ALREADY_MADE',
                 status: 400,
                 success: false
             },

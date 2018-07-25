@@ -7,7 +7,7 @@ module.exports = {
         { id: 'AUTH', endpoint: new IEndpoint('AUTH', 'auth', [
                 { id: 'LOGIN', endpoint: new IEndpoint('LOGIN', 'login', false, { method: enums.METHODS.post.value, authorization: false }) },
                 { id: 'REGISTER', endpoint: new IEndpoint('REG', 'register', false, { method: enums.METHODS.post.value, authorization: false } ) },
-                { id: 'REGISTER_CHECK', endpoint: new IEndpoint('REG_CHECK', 'register', false, { method: enums.METHODS.get.value, authorization: false }) },
+                { id: 'REGISTER_CHECK', endpoint: new IEndpoint('REG_CHECK', 'register_check', false, { method: enums.METHODS.get.value, authorization: false }) },
                 { id: 'REQUEST', endpoint: new IEndpoint('REQ', 'request', [
                         { id: 'REGISTRATION', endpoint: new IEndpoint('REG_REQ', 'registration', false, { method: enums.METHODS.post.value, authorization: false }) },
                         { id: 'PASSWORD_RESET', endpoint: new IEndpoint('PWD_R', 'password-reset', false, { method: enums.METHODS.post.value, authorization: false }) },
