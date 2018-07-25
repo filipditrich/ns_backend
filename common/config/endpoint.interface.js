@@ -3,13 +3,15 @@ const _ = require('lodash');
 
 /**
  * @description: Simple endpoint interface model
+ * @param id
  * @param endpoint
  * @param sub
  * @param meta
  * @constructor
  */
-let Endpoint = function (endpoint, sub = false, meta = false) {
+let Endpoint = function (id, endpoint, sub = false, meta = false) {
 
+    this.id = id;
     this.endpoint = endpoint;
     this.url = '';
     if (sub) {

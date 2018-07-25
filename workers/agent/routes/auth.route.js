@@ -1,41 +1,43 @@
+
 const router = require('express').Router();
 const BaseCtrl = require('../../../common/controllers/base.controller');
 const StrategiesCtrl = require('../../../common/controllers/strategies.controller');
 const AuthCtrl = require('../controllers/authentication.controller');
 const codes = require('../../../common/assets/codes');
-const endpoints = require('../config/endpoints.config');
+const AUTH = require('../config/endpoints.config').API.AUTH;
+const REQ = require('../config/endpoints.config').API.AUTH.REQUEST;
 const RequestRoutes = router;
 
 module.exports = function (req, res, next) {
 
     // Login
-    router[endpoints.API.AUTH.LOGIN.meta.method]
-    (`/${endpoints.API.AUTH.LOGIN.endpoint}`, StrategiesCtrl.requireLogin, AuthCtrl.login);
+    router[AUTH.LOGIN.meta.method]
+    (`/${AUTH.LOGIN.endpoint}`, StrategiesCtrl.requireLogin, AuthCtrl.login);
 
     // Register Request
-    RequestRoutes[endpoints.API.AUTH.REQUEST.REGISTRATION.meta.method]
-    (`/${endpoints.API.AUTH.REQUEST.REGISTRATION.endpoint}`, AuthCtrl.requestRegistration);
+    RequestRoutes[REQ.REGISTRATION.meta.method]
+    (`/${REQ.REGISTRATION.endpoint}`, AuthCtrl.requestRegistration);
 
     // Password Reset
-    RequestRoutes[endpoints.API.AUTH.REQUEST.PASSWORD_RESET.meta.method]
-    (`/${endpoints.API.AUTH.REQUEST.PASSWORD_RESET.endpoint}`, AuthCtrl.requestPasswordReset);
+    RequestRoutes[REQ.PASSWORD_RESET.meta.method]
+    (`/${REQ.PASSWORD_RESET.endpoint}`, AuthCtrl.requestPasswordReset);
 
-    RequestRoutes[endpoints.API.AUTH.REQUEST.PASSWORD_RESET.meta.method]
-    (`/${endpoints.API.AUTH.REQUEST.PASSWORD_RESET.endpoint}/:hash`, AuthCtrl.resetPassword); // TODO - password reset notify? idk
+    RequestRoutes[REQ.PASSWORD_RESET.meta.method]
+    (`/${REQ.PASSWORD_RESET.endpoint}/:hash`, AuthCtrl.resetPassword); // TODO - password reset notify? idk
 
     // Forgot Username
-    RequestRoutes[endpoints.API.AUTH.REQUEST.FORGOTTEN_USERNAME.meta.method]
-    (`/${endpoints.API.AUTH.REQUEST.FORGOTTEN_USERNAME.endpoint}`, AuthCtrl.forgotUsername);
+    RequestRoutes[REQ.FORGOTTEN_USERNAME.meta.method]
+    (`/${REQ.FORGOTTEN_USERNAME.endpoint}`, AuthCtrl.forgotUsername);
 
     // -> Request Routes
-    router.use(`/${endpoints.API.AUTH.REQUEST.endpoint}`, RequestRoutes);
+    router.use(`/${REQ.endpoint}`, RequestRoutes);
 
     // Finish registration
-    router[endpoints.API.AUTH.REGISTER.meta.method]
-    (`/${endpoints.API.AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
+    router[AUTH.REGISTER.meta.method]
+    (`/${AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
 
-    router[endpoints.API.AUTH.REGISTER_CHECK.meta.method]
-    (`/${endpoints.API.AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
+    router[AUTH.REGISTER_CHECK.meta.method]
+    (`/${AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
 
     // TODO - delete x transport
     // Tests
