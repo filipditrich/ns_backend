@@ -271,6 +271,27 @@ exports.requestPasswordReset = (req, res, next) => {
 };
 
 /**
+ * @description check if the request is valid
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.preResetPassword = (req, res, next) => {
+
+    let hash = req.params['hash'];
+
+    PwdResetRequest.findOne({ resetHash: hash }).exec()
+        .then(request => {
+           if (!request) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
+           res.json({ response: codes.REQUEST.VALID });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+
+};
+
+/**
  * @description: Changes user's password
  * @param req
  * @param res
@@ -311,7 +332,7 @@ exports.resetPassword = (req, res, next) => {
                             }
                             request.remove(error => {
                                 if (error) return next(errorHelper.prepareError(error));
-                                res.json(saved);
+                                res.json({ response: codes.AUTH.RESET.SUCCESS });
                             });
                         });
 
@@ -352,7 +373,7 @@ exports.forgotUsername = (req, res, next) => {
                 username: user.username,
                 subject: 'Did you forgot your username?'
             }).then(() => {
-                res.json({ result: codes.AUTH.RESET.MAILING.SENT });
+                res.json({ response: codes.AUTH.RESET.MAILING.SENT });
             }).catch(error => {
                 return next(errorHelper.prepareError(error));
             });

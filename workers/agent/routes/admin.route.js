@@ -15,10 +15,10 @@ module.exports = function (req, res, next) {
     router.use(StrategiesCtrl.authenticateToken, StrategiesCtrl.roleAuthorization([endpoints.API.ADMIN.meta.authorization]));
 
     // Approve Registration Request
-    RegistrationRequestRoutes[endpoints.API.ADMIN.REGISTRATION_REQUESTS.APPROVE.meta.method]
-    (`/${endpoints.API.ADMIN.REGISTRATION_REQUESTS.APPROVE.endpoint}/:hash`, AdminCtrl.approveRegistration);
+    RegistrationRequestRoutes[endpoints.API.ADMIN['REGISTRATION-REQUESTS'].APPROVE.meta.method]
+    (`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].APPROVE.endpoint}/:hash`, AdminCtrl.approveRegistration);
 
-    router.use(`/${endpoints.API.ADMIN.REGISTRATION_REQUESTS.endpoint}`, RegistrationRequestRoutes);
+    router.use(`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].endpoint}`, RegistrationRequestRoutes);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

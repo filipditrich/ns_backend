@@ -19,15 +19,18 @@ module.exports = function (req, res, next) {
     (`/${REQ.REGISTRATION.endpoint}`, AuthCtrl.requestRegistration);
 
     // Password Reset
-    RequestRoutes[REQ.PASSWORD_RESET.meta.method]
-    (`/${REQ.PASSWORD_RESET.endpoint}`, AuthCtrl.requestPasswordReset);
+    RequestRoutes[REQ['PASSWORD-RESET'].meta.method]
+    (`/${REQ['PASSWORD-RESET'].endpoint}`, AuthCtrl.requestPasswordReset);
 
-    RequestRoutes[REQ.PASSWORD_RESET.meta.method]
-    (`/${REQ.PASSWORD_RESET.endpoint}/:hash`, AuthCtrl.resetPassword); // TODO - password reset notify? idk
+    RequestRoutes[REQ['PASSWORD-RESET'].meta.method]
+    (`/${REQ['PASSWORD-RESET'].endpoint}/:hash`, AuthCtrl.resetPassword); // TODO - password reset notify? idk
+
+    RequestRoutes[REQ['PASSWORD-RESET-CHECK'].meta.method]
+    (`/${REQ['PASSWORD-RESET-CHECK'].endpoint}/:hash`, AuthCtrl.preResetPassword);
 
     // Forgot Username
-    RequestRoutes[REQ.FORGOTTEN_USERNAME.meta.method]
-    (`/${REQ.FORGOTTEN_USERNAME.endpoint}`, AuthCtrl.forgotUsername);
+    RequestRoutes[REQ['FORGOTTEN-USERNAME'].meta.method]
+    (`/${REQ['FORGOTTEN-USERNAME'].endpoint}`, AuthCtrl.forgotUsername);
 
     // -> Request Routes
     router.use(`/${REQ.endpoint}`, RequestRoutes);
@@ -36,7 +39,7 @@ module.exports = function (req, res, next) {
     router[AUTH.REGISTER.meta.method]
     (`/${AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
 
-    router[AUTH.REGISTER_CHECK.meta.method](`/${AUTH.REGISTER_CHECK.endpoint}/:hash`, AuthCtrl.preFinishRegistration);
+    router[AUTH['REGISTER-CHECK'].meta.method](`/${AUTH['REGISTER-CHECK'].endpoint}/:hash`, AuthCtrl.preFinishRegistration);
 
     // TODO - delete x transport
     // Tests
