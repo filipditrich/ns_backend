@@ -17,7 +17,8 @@ module.exports = {
             ])},
         { id: 'ADMIN', endpoint: new IEndpoint('ADMIN', 'admin', [
                 { id: 'REGISTRATION-REQUESTS', endpoint: new IEndpoint('REG_REQS', 'registration-requests', [
-                        { id: 'APPROVE', endpoint: new IEndpoint('APPROVE', 'approve', false, { method: enums.METHODS.put.value, authorization: enums.AUTH.ROLES.admin.value })}
+                        { id: 'APPROVE', endpoint: new IEndpoint('APPROVE', 'approve', false, { method: enums.METHODS.put.value, authorization: enums.AUTH.ROLES.admin.value })},
+                        { id: 'LIST', endpoint: new IEndpoint('LIST_REQS', 'list', false, { method: enums.METHODS.get.value, authorization: enums.AUTH.ROLES.admin.value })}
                     ])}
             ], { method: false, authorization: enums.AUTH.ROLES.admin.value })}
     ])

@@ -46,3 +46,19 @@ exports.approveRegistration = (req, res, next) => {
         });
 
 };
+
+
+exports.getRequests = (req, res, next) => {
+
+    RegistrationRequest.find({}).exec()
+        .then(requests => {
+            res.json({
+                response: codes.RESOURCE.LOADED,
+                requests: requests
+            });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        })
+
+};
