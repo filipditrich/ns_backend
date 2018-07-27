@@ -21,6 +21,9 @@ module.exports = function (req, res, next) {
     RegistrationRequestRoutes[endpoints.API.ADMIN['REGISTRATION-REQUESTS'].LIST.meta.method]
     (`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].LIST.endpoint}`, AdminCtrl.getRequests);
 
+    RegistrationRequestRoutes[endpoints.API.ADMIN['REGISTRATION-REQUESTS'].INVITE.meta.method]
+    (`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].INVITE.endpoint}`, AdminCtrl.sendInvites);
+
     router.use(`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].endpoint}`, RegistrationRequestRoutes);
 
 

@@ -23,6 +23,11 @@ module.exports = {
             name: 'REQUEST_INVALID',
             status: 403,
             success: false
+        },
+        PROCESSED: {
+            name: 'REQUEST_PROCESSED',
+            status: 200,
+            success: true
         }
     },
 

@@ -3,14 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/assets/codes.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/assets/codes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/helpers/mail.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/helpers/mail.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/templates/emails/registration-invitation/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/common/templates/emails/registration-invitation/index.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workers/agent/config/endpoints.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/config/endpoints.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workers/agent/models/registration-request.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/models/registration-request.model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workers/agent/routes/admin.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/routes/admin.route.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,21 +57,57 @@
     <favorites_list name="backend" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/workers/agent/config/endpoints.config.js">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="administration.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workers/agent/controllers/administration.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="44" />
+            <state relative-caret-position="115">
+              <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/workers/agent/controllers/administration.controller.js">
+      <file leaf-file-name="registration-request.model.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/workers/agent/models/registration-request.model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="46" />
+            <state relative-caret-position="109">
+              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin.route.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workers/agent/routes/admin.route.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="24" selection-end-column="96" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="endpoints.config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workers/agent/config/endpoints.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="176" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="authentication.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="326" column="28" selection-start-line="326" selection-start-column="28" selection-end-line="332" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/assets/codes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -81,7 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>next(codes</find>
       <find>SUCC</find>
       <find>.VALID)</find>
       <find>200</find>
@@ -111,6 +152,7 @@
       <find>endpoints.REQUEST</find>
       <find>ALRAD</find>
       <find>pre</find>
+      <find>validationEr</find>
     </findStrings>
     <replaceStrings>
       <replace>API</replace>
@@ -143,9 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/helpers/generators.js" />
-        <option value="$PROJECT_DIR$/common/helpers/mail-helper.js" />
-        <option value="$PROJECT_DIR$/common/helpers/validators.js" />
         <option value="$PROJECT_DIR$/common/config/passport.js" />
         <option value="$PROJECT_DIR$/workers/agent/models/user.js" />
         <option value="$PROJECT_DIR$/server.js" />
@@ -178,22 +217,25 @@
         <option value="$PROJECT_DIR$/common/controllers/strategies.controller.js" />
         <option value="$PROJECT_DIR$/common/controllers/base.controller.js" />
         <option value="$PROJECT_DIR$/common/templates/emails/registration-approved/index.ejs" />
-        <option value="$PROJECT_DIR$/common/helpers/mail.helper.js" />
         <option value="$PROJECT_DIR$/common/helpers/route.helper.js" />
         <option value="$PROJECT_DIR$/workers/backdrop/controllers/assembly.controller.js" />
         <option value="$PROJECT_DIR$/workers/backdrop/config/endpoints.config.js" />
         <option value="$PROJECT_DIR$/common/config/endpoint.interface.js" />
-        <option value="$PROJECT_DIR$/common/assets/codes.js" />
         <option value="$PROJECT_DIR$/workers/agent/routes/auth.route.js" />
-        <option value="$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js" />
         <option value="$PROJECT_DIR$/common/templates/emails/password-reset-request/index.ejs" />
         <option value="$PROJECT_DIR$/workers/backdrop/server.js" />
         <option value="$PROJECT_DIR$/workers/agent/server.js" />
         <option value="$PROJECT_DIR$/workers/agent/models/user.model.js" />
         <option value="$PROJECT_DIR$/common/config/common.config.js" />
-        <option value="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" />
         <option value="$PROJECT_DIR$/workers/agent/config/endpoints.config.js" />
         <option value="$PROJECT_DIR$/workers/agent/routes/admin.route.js" />
+        <option value="$PROJECT_DIR$/common/templates/emails/registartion-invitation/index.ejs" />
+        <option value="$PROJECT_DIR$/common/helpers/mail.helper.js" />
+        <option value="$PROJECT_DIR$/common/assets/codes.js" />
+        <option value="$PROJECT_DIR$/common/templates/emails/registration-invitation/index.ejs" />
+        <option value="$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js" />
+        <option value="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" />
+        <option value="$PROJECT_DIR$/workers/agent/models/registration-request.model.js" />
       </list>
     </option>
   </component>
@@ -217,10 +259,10 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1920" />
-    <option name="height" value="1109" />
+    <option name="width" value="1366" />
+    <option name="height" value="697" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -234,33 +276,40 @@
         <subPane>
           <expand>
             <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
               <item name="workers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
               <item name="workers" type="462c0819:PsiDirectoryNode" />
               <item name="agent" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
               <item name="workers" type="462c0819:PsiDirectoryNode" />
               <item name="agent" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
               <item name="workers" type="462c0819:PsiDirectoryNode" />
               <item name="agent" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend.old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend.old" type="462c0819:PsiDirectoryNode" />
+              <item name="workers" type="462c0819:PsiDirectoryNode" />
+              <item name="agent" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -290,18 +339,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.AgentWkr">
+  <component name="RunManager" selected="Node.js.BackdropWkr">
     <configuration name="AgentWkr" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/workers/agent">
       <envs>
         <env name="NODE_ENV" value="development" />
       </envs>
-      <method v="2" />
     </configuration>
     <configuration name="BackdropWkr" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/workers/backdrop">
       <envs>
         <env name="NODE_ENV" value="development" />
       </envs>
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Node.js.AgentWkr" />
@@ -339,11 +386,14 @@
       <workItem from="1532539525685" duration="1853000" />
       <workItem from="1532556956664" duration="696000" />
       <workItem from="1532586403021" duration="2592000" />
+      <workItem from="1532614782799" duration="6975000" />
+      <workItem from="1532648733275" duration="225000" />
+      <workItem from="1532705943667" duration="258000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139177000" />
+    <option name="totallyTimeSpent" value="146635000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -355,36 +405,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1109" extended-state="1" />
+    <frame x="0" y="22" width="1366" height="697" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4955414" visible="true" weight="0.10906217" />
-      <window_info id="Structure" order="1" sideWeight="0.5044586" side_tool="true" weight="0.16649105" />
-      <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
-      <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.19215687" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.369" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49322492" visible="true" weight="0.1724907" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="8" weight="0.29833335" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32876712" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32833335" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19215687" />
+      <window_info id="Structure" order="1" sideWeight="0.5067751" side_tool="true" weight="0.1724907" />
+      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="8" weight="0.29666665" />
+      <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2020548" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/../../archiv/archive-admin/node_modules/karma/config.tpl.js" />
-      </list>
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -406,11 +451,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1040" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-requested/footer.ejs" />
     <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-requested/index.ejs" />
     <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-finished/index.ejs">
@@ -438,13 +478,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/workers/agent/models/registration-request.model.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -542,13 +575,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-approved/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/helpers/validator.helper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -591,20 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/assets/codes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="118" column="46" selection-start-line="118" selection-start-column="46" selection-end-line="118" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/helpers/mail.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="56" column="59" selection-start-line="56" selection-start-column="59" selection-end-line="56" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/workers/agent/routes/index.route.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -623,13 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
           <caret line="43" column="32" lean-forward="true" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="334" column="81" selection-start-line="334" selection-start-column="81" selection-end-line="334" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -654,13 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/config/common.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="47" column="31" lean-forward="true" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/workers/agent/models/user.model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -668,24 +666,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/workers/agent/controllers/administration.controller.js">
+    <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-approved/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="46" />
+        <state relative-caret-position="75">
+          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/helpers/mail.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/templates/emails/registration-invitation/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/common.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="42" column="176" lean-forward="true" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="176" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/workers/agent/routes/admin.route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="70" lean-forward="true" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
+        <state relative-caret-position="212">
+          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="24" selection-end-column="96" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/workers/agent/config/endpoints.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="44" />
+        <state relative-caret-position="199">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assets/codes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workers/agent/controllers/authentication.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="326" column="28" selection-start-line="326" selection-start-column="28" selection-end-line="332" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workers/agent/controllers/administration.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workers/agent/models/registration-request.model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
         </state>
       </provider>
     </entry>

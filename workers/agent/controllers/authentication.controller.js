@@ -145,6 +145,7 @@ exports.finishRegistration = (req, res, next) => {
 
     let username = req.body.username;
     let password = req.body.password;
+    let name = req.body.name;
     // TODO - more credentials
 
     if (!username) return next(errorHelper.prepareError(codes.AUTH.USERNAME.MISSING));
@@ -164,7 +165,7 @@ exports.finishRegistration = (req, res, next) => {
                     let newUser = new User({
                         username: username,
                         password: password,
-                        name: request.name,
+                        name: request.name || name,
                         email: request.email
                     });
 

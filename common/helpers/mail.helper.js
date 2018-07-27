@@ -28,7 +28,7 @@ module.exports.mail = (template, contexts) => {
                     html: result.email,
                 });
             })).then(() => resolve()).catch(e => reject(e));
-        });
+        }).catch(e => reject(e));
     });
 
 };
