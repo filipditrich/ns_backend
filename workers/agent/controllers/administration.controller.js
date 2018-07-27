@@ -23,6 +23,7 @@ exports.approveRegistration = (req, res, next) => {
             request.approval.approved = true;
             request.approval.approvedOn = new Date();
             request.approval.approvedBy = req.user._id;
+            request.approval.approvedByUser = req.user.name;
 
             request.save(error => {
                if (error) return next(errorHelper.prepareError(error));
