@@ -30,6 +30,8 @@ function setUserInfo(request) {
     return {
         _id: request._id,
         username: request.username,
+        email: request.email,
+        name: request.name,
         roles: request.roles
     }
 }
@@ -122,6 +124,7 @@ exports.requestRegistration = (req, res, next) => {
 exports.preFinishRegistration = (req, res, next) => {
     RegistrationRequest.findOne({ 'registration.registrationHash': req.params['hash'] }).exec()
         .then(request => {
+            console.log(request);
             if (!request) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
             if (!request.approval.approved) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
             if (request.registration.userRegistered) return next(errorHelper.prepareError(codes.REQUEST.INVALID));
