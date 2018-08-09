@@ -13,6 +13,45 @@ module.exports = {
         success: false
     },
 
+    CRUD: {
+        UPDATE: {
+            UPDATED: {
+                name: 'UPDATE_OK',
+                status: 200,
+                success: true
+            },
+            UNCHANGED: {
+                name: 'UPDATE_FAIL_NO_CHANGE',
+                status: 400,
+                success: false
+            }
+        },
+        READ: {
+            FOUND: {
+                name: 'READ_OK',
+                status: 200,
+                success: true
+            },
+            NOT_FOUND: {
+                name: 'READ_FAIL_NOT_FOUND',
+                status: 404,
+                success: false
+            }
+        },
+        DELETE: {
+            DELETED: {
+                name: 'DELETE_OK',
+                status: 200,
+                success: true
+            },
+            NOT_DELETED: {
+                name: 'DELETE_FAIL_NOT_DELETED',
+                status: 400,
+                success: false
+            }
+        }
+    },
+
     REQUEST: {
         VALID: {
             name: 'REQUEST_VALID',

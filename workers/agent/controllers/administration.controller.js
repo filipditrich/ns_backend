@@ -221,27 +221,58 @@ exports.update = (req, res, next) => {
 
             const User = require('../models/user.model');
 
-            // User.findOne({ _id: id }).exec()
-            //     .then(user => {
-            //         if (!user) return next(errorHelper.prepareError(code.REQUEST.INVALID));
-            //
-            //         user.update().then(() => {
-            //
-            //         }).catch(error => {
-            //             return next(errorHelper.prepareError(error));
-            //         })
-            //
-            //     })
-            //     .catch(error => {
-            //         return next(errorHelper.prepareError(error));
-            //     });
-
-            // User.findByIdAndUpdate()
+            User.update({ _id: id }, update).exec()
+                .then(response => {
+                    if (response.nModified < 1) { return next(errorHelper.prepareError(codes.CRUD.UPDATE.UNCHANGED)) }
+                    res.json({ response: codes.CRUD.UPDATE.UPDATED })
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
 
             break;
         }
         default: {
             return next(errorHelper.prepareError(codes.API.INVALID_ENDPOINT));
+        }
+    }
+
+};
+
+exports.delete = (req, res, next) => {
+
+    const collection = req.params['collection'];
+    const id = req.params['id'];
+
+    switch (collection) {
+        case 'users': {
+
+            const User = require('../models/user.model');
+
+            User.findOne({ _id: id }).exec()
+                .then(user => {
+                    if (!user) return next(errorHelper.prepareError(codes.CRUD.DELETE.NOT_DELETED));
+                    RegistrationRequest.findOne({ email: user.email }).exec()
+                        .then(request => {
+                            if (request) {
+                               request.remove().catch(error => {
+                                   return next(errorHelper.prepareError(error));
+                               });
+                            }
+                            user.remove().then(() => {
+                                res.json({ response: codes.CRUD.DELETE.DELETED });
+                            }).catch(error => {
+                                return next(errorHelper.prepareError(error));
+                            });
+                        })
+                        .catch(error => {
+                            return next(errorHelper.prepareError(error));
+                        });
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                })
+
         }
     }
 
