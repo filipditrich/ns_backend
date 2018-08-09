@@ -6,6 +6,21 @@ const mailHelper = require('../../../common/helpers/mail.helper');
 const _ = require('lodash');
 
 /**
+ * @description: returns basic user info
+ * @param request
+ * @returns {{_id: *, username: *, roles: (string[]|roles|{type, default})}}
+ */
+function setUserInfo(request) {
+    return {
+        _id: request._id,
+        username: request.username,
+        email: request.email,
+        name: request.name,
+        roles: request.roles
+    }
+}
+
+/**
  * @description: Approves a registration request
  * @param req
  * @param res
@@ -143,5 +158,91 @@ exports.sendInvites = (req, res, next) => {
     })
 
 
+
+};
+
+exports.list = (req, res, next) => {
+
+    const list = req.params['list'];
+    const id = req.params['id'] || false;
+
+    const query = id ? { _id: id } : {};
+
+    switch (list) {
+        case 'registration-requests': {
+
+            RegistrationRequest.find(query).exec()
+                .then(requests => {
+                    res.json({
+                        response: codes.RESOURCE.LOADED,
+                        output: requests
+                    });
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            break;
+        }
+        case 'users': {
+
+            const User = require('../models/user.model');
+
+            User.find(query).exec()
+                .then(users => {
+                    let output = [];
+                    users.forEach(user => {
+                        output.push(setUserInfo(user));
+                    });
+                    res.json({
+                        response: codes.RESOURCE.LOADED,
+                        output: output
+                    })
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            break;
+        }
+        default: {
+            return next(errorHelper.prepareError(codes.API.INVALID_ENDPOINT));
+        }
+    }
+
+};
+
+exports.update = (req, res, next) => {
+
+    const collection = req.params['collection'];
+    const id = req.params['id'];
+    const update = req.body.update;
+
+    switch (collection) {
+        case 'users': {
+
+            const User = require('../models/user.model');
+
+            // User.findOne({ _id: id }).exec()
+            //     .then(user => {
+            //         if (!user) return next(errorHelper.prepareError(code.REQUEST.INVALID));
+            //
+            //         user.update().then(() => {
+            //
+            //         }).catch(error => {
+            //             return next(errorHelper.prepareError(error));
+            //         })
+            //
+            //     })
+            //     .catch(error => {
+            //         return next(errorHelper.prepareError(error));
+            //     });
+
+            // User.findByIdAndUpdate()
+
+            break;
+        }
+        default: {
+            return next(errorHelper.prepareError(codes.API.INVALID_ENDPOINT));
+        }
+    }
 
 };

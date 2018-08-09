@@ -26,6 +26,9 @@ module.exports = function (req, res, next) {
 
     router.use(`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].endpoint}`, RegistrationRequestRoutes);
 
+    router.get('/read/:list/:id([a-fA-F0-9]{24})?', AdminCtrl.list);
+    router.put('/update/:collection/:id', AdminCtrl.update);
+
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));
