@@ -1,6 +1,11 @@
 const IEndpoint = require('../../../common/config/endpoint.interface');
 const enums = require('../../../common/assets/enums');
 
+/**
+ * @description Endpoint Route Configuration
+ * @author filipditrich
+ * @type {{API: Endpoint}}
+ */
 module.exports = {
 
     API: new IEndpoint('API', 'api', [

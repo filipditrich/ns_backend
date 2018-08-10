@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/assets/enums.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/assets/enums.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/controllers/administration.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/models/user.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/models/user.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/agent/routes/admin.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/agent/routes/admin.route.js" afterDir="false" />
-    </list>
+    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -410,12 +404,12 @@
       <workItem from="1533756809058" duration="999000" />
       <workItem from="1533797691941" duration="4804000" />
       <workItem from="1533834179219" duration="4357000" />
-      <workItem from="1533881553779" duration="2968000" />
+      <workItem from="1533881553779" duration="3564000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="167455000" />
+    <option name="totallyTimeSpent" value="168051000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -428,7 +422,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1109" extended-state="1" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49322492" visible="true" weight="0.12118019" />
       <window_info id="Structure" order="1" sideWeight="0.5067751" side_tool="true" weight="0.1724907" />
@@ -442,7 +435,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="8" weight="0.17264958" />
+      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="8" weight="0.732" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3270548" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />

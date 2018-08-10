@@ -9,6 +9,11 @@ const errorHelper = require('../../../common/helpers/error.helper');
 const ApiConsumers = require('../../../common/controllers/strategies.controller').apiConsumers;
 const endpoints = require('../config/endpoints.config');
 
+/**
+ * @description Main Routing for Agent Worker
+ * @author filipditrich
+ * @param app
+ */
 module.exports = function (app) {
 
     // Check for all incoming requests -- Very first Express Middleware (for routes)

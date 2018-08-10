@@ -1,3 +1,7 @@
+/**
+ * @description Exports Server Settings for Individual Environment
+ * @author filipditrich
+ */
 module.exports = {
 
     development: {

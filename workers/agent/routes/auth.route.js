@@ -8,6 +8,14 @@ const AUTH = require('../config/endpoints.config').API.AUTH;
 const REQ = require('../config/endpoints.config').API.AUTH.REQUEST;
 const RequestRoutes = router;
 
+/**
+ * @description Authentication Routing
+ * @author filipditrich
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Router|router}
+ */
 module.exports = function (req, res, next) {
 
     // Login
@@ -40,12 +48,6 @@ module.exports = function (req, res, next) {
     (`/${AUTH.REGISTER.endpoint}/:hash`, AuthCtrl.finishRegistration);
 
     router[AUTH['REGISTER-CHECK'].meta.method](`/${AUTH['REGISTER-CHECK'].endpoint}/:hash`, AuthCtrl.preFinishRegistration);
-
-    // TODO - delete x transport
-    // Tests
-    // router.get('/protected', StrategiesCtrl.authenticateToken, (req, res) => res.send("Protected AREA"));
-    // router.get('/admin', StrategiesCtrl.authenticateToken, StrategiesCtrl.roleAuthorization(['admin']), (req, res) => res.send("Admin AREA"));
-    // router.post('/secret', StrategiesCtrl.authenticateToken, StrategiesCtrl.requireSecret, (req, res) => res.json(codes));
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

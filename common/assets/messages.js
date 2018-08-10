@@ -1,3 +1,7 @@
+/**
+ * @description System Level Messages
+ * @author filipditrich
+ */
 module.exports = {
 
   SYSTEM: {

@@ -1,3 +1,7 @@
+/**
+ * @description Response Codes
+ * @author filipditrich
+ */
 module.exports = {
 
     UNEXPECTED: {

@@ -66,7 +66,13 @@ exports.approveRegistration = (req, res, next) => {
 
 };
 
-
+/**
+ * @description List requests
+ * @param req
+ * @param res
+ * @param next
+ */
+// TODO - check if this is using, cuz it shouldnt be used no more
 exports.getRequests = (req, res, next) => {
 
     RegistrationRequest.find({}).exec()
@@ -82,6 +88,13 @@ exports.getRequests = (req, res, next) => {
 
 };
 
+/**
+ * @description Send emails with invitations
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.sendInvites = (req, res, next) => {
 
     let emails = req.body.emails;
@@ -161,6 +174,13 @@ exports.sendInvites = (req, res, next) => {
 
 };
 
+/**
+ * @description Basic Admin Listing Function (CRUD - READ)
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.list = (req, res, next) => {
 
     const list = req.params['list'];
@@ -209,6 +229,13 @@ exports.list = (req, res, next) => {
 
 };
 
+/**
+ * @description Basic Admin Update Function (CRUD - U)
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.update = (req, res, next) => {
 
     const collection = req.params['collection'];
@@ -237,6 +264,12 @@ exports.update = (req, res, next) => {
 
 };
 
+/**
+ * @description Basic Admin Delete Function (CRUD - D)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.delete = (req, res, next) => {
 
     const collection = req.params['collection'];
@@ -251,16 +284,19 @@ exports.delete = (req, res, next) => {
                     if (!user) return next(errorHelper.prepareError(codes.CRUD.DELETE.NOT_DELETED));
                     RegistrationRequest.findOne({ email: user.email }).exec()
                         .then(request => {
+
                             if (request) {
                                request.remove().catch(error => {
                                    return next(errorHelper.prepareError(error));
                                });
                             }
+
                             user.remove().then(() => {
                                 res.json({ response: codes.CRUD.DELETE.DELETED });
                             }).catch(error => {
                                 return next(errorHelper.prepareError(error));
                             });
+
                         })
                         .catch(error => {
                             return next(errorHelper.prepareError(error));
@@ -275,6 +311,12 @@ exports.delete = (req, res, next) => {
 
 };
 
+/**
+ * @description Basic Admin Create Function (CRUD - C)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.create = (req, res, next) => {
 
     const collection = req.params['collection'];
@@ -317,22 +359,14 @@ exports.create = (req, res, next) => {
                             }).catch(error => {
                                 return next(errorHelper.prepareError(error));
                             })
-
                         })
                         .catch(error => {
                             return next(errorHelper.prepareError(error));
                         })
-
                 })
                 .catch(error => {
                     return next(errorHelper.prepareError(error));
                 })
-
         }
-
-
-
     }
-
-
 };

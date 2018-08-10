@@ -45,6 +45,7 @@ app.listen(app.get('port'), () => {
     console.log('%s Backdrop Worker server listening on port %d in %s mode.', chalk.green('✅'), app.get('port'), app.get('env'));
 });
 
+// CORS
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, App-Handle-Errors-Generically, Application-ID, X-Secret");

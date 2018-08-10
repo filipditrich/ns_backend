@@ -8,6 +8,14 @@ const enums = require('../../../common/assets/enums');
 const endpoints = require('../config/endpoints.config');
 const RegistrationRequestRoutes = router;
 
+/**
+ * @description Admin Routing
+ * @author filipditrich
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Router|router}
+ */
 module.exports = function (req, res, next) {
 
     // All Admin Routes must be Authorized with valid JWT Token
@@ -26,6 +34,7 @@ module.exports = function (req, res, next) {
 
     router.use(`/${endpoints.API.ADMIN['REGISTRATION-REQUESTS'].endpoint}`, RegistrationRequestRoutes);
 
+    // Basic CRUD routes
     router.get('/read/:list/:id([a-fA-F0-9]{24})?', AdminCtrl.list);
     router.put('/update/:collection/:id', AdminCtrl.update);
     router.delete('/delete/:collection/:id', AdminCtrl.delete);

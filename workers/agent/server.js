@@ -33,6 +33,7 @@ require('../../common/config/passport.config')(passport, app.get('env'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Check SMTP Connection
 mailing.checkAuth().then(() => {
    console.log('%s SMTP Connection has been established.', chalk.green('✅'));
 }).catch(error => {
@@ -53,6 +54,7 @@ app.listen(app.get('port'), () => {
    console.log('%s Agent Worker server listening on port %d in %s mode', chalk.green('✅'), app.get('port'), app.get('env'));
 });
 
+// CORS
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, App-Handle-Errors-Generically, Application-ID, X-Secret");

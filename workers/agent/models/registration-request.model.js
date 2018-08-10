@@ -42,5 +42,9 @@ registrationRequestSchema.pre('save', function(next) {
 
 });
 
-
+/**
+ * @description Exports Registration Request model
+ * @author filipditrich
+ * @type {Model}
+ */
 module.exports = mongoose.model('RegistrationRequest', registrationRequestSchema);

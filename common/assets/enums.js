@@ -1,3 +1,7 @@
+/**
+ * @description System Level Enums
+ * @author filipditrich
+ */
 module.exports = {
 
     AUTH: {

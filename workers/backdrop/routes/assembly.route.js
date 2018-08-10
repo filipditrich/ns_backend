@@ -3,6 +3,14 @@ const endpoints = require('../config/endpoints.config');
 const AssemblyCtrl = require('../controllers/assembly.controller');
 const StrategiesCtrl = require('../../../common/controllers/strategies.controller');
 
+/**
+ * @description Assembly Routing
+ * @author filipditrich
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Router|router}
+ */
 module.exports = function (req, res, next) {
 
 

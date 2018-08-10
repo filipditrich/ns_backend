@@ -5,6 +5,12 @@ const codes = require('../../../common/assets/codes');
 const routeHelper = require('../../../common/helpers/route.helper');
 const errorHelper = require('../../../common/helpers/error.helper');
 
+/**
+ * @description Export Server Routes
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportRoutes = (req, res, next) => {
 
     let type = req.params['worker'];
@@ -37,6 +43,12 @@ exports.exportRoutes = (req, res, next) => {
 
 };
 
+/**
+ * @description Exports Server Response Codes
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportCodes = (req, res, next) => {
 
     res.json({

@@ -3,6 +3,11 @@ const chalk = require('chalk');
 const messages = require('../assets/messages');
 const config =  require('./common.config');
 
+/**
+ * @description Initializes Connection to MongoDB
+ * @author filipditrich
+ * @param env
+ */
 module.exports = function (env) {
 
     mongoose.connect(config[env].db.url, { useNewUrlParser: true })

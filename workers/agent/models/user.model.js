@@ -62,4 +62,9 @@ userSchema.methods.comparePassword = function (candidate, callback) {
         .catch(error => { return next(error) });
 };
 
+/**
+ * @description Exports User Model
+ * @author filipditrich
+ * @type {Model}
+ */
 module.exports = mongoose.model('User', userSchema);

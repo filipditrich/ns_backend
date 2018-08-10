@@ -23,4 +23,9 @@ passwordResetRequest.pre('save', function(next) {
 
 });
 
+/**
+ * @description Exports Password Reset Request model
+ * @author filipditrich
+ * @type {Model}
+ */
 module.exports = mongoose.model('PwdResetRequest', passwordResetRequest);

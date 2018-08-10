@@ -4,8 +4,14 @@ const ApiRoutes = require('express').Router();
 const AssemblyRoute = require('./assembly.route');
 const StrategiesCtrl = require('../../../common/controllers/strategies.controller');
 
+/**
+ * @description Main Routing for Backdrop Worker
+ * @author filipditrich
+ * @param app
+ */
 module.exports = function (app) {
 
+    // Authentication on all routes via APIConsumers and Secret
     app.use((req, res, next) => { StrategiesCtrl.apiConsumers(req, res, next) });
     app.use((req, res, next) => { StrategiesCtrl.requireSecret(req, res, next) });
 
