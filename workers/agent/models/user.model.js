@@ -35,6 +35,9 @@ const userSchema = mongoose.Schema({
     roles: {
         type: [{ type: String, enum: enumHelpers.toArray(enums.AUTH.ROLES) }],
         default: enums.AUTH.ROLES.player.key
+    },
+    team: {
+        type: String, enum: enumHelpers.toArray(enums.AUTH.TEAMS), default: enums.AUTH.TEAMS.ns.key
     }
 }, { timestamps: true });
 

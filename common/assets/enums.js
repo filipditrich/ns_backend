@@ -6,6 +6,10 @@ module.exports = {
             admin: { key: 'admin', value: 'admin' },
             moderator: { key: 'moderator', value: 'moderator' }
         },
+        TEAMS: {
+            ns: { key: 'ns', value: 'Northern Stars' },
+            other: { key: 'other', value: 'Other' }
+        }
     },
 
     METHODS: {

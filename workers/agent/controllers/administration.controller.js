@@ -184,7 +184,6 @@ exports.list = (req, res, next) => {
             break;
         }
         case 'users': {
-
             const User = require('../models/user.model');
 
             User.find(query).exec()
@@ -218,7 +217,6 @@ exports.update = (req, res, next) => {
 
     switch (collection) {
         case 'users': {
-
             const User = require('../models/user.model');
 
             User.update({ _id: id }, update).exec()
@@ -246,7 +244,6 @@ exports.delete = (req, res, next) => {
 
     switch (collection) {
         case 'users': {
-
             const User = require('../models/user.model');
 
             User.findOne({ _id: id }).exec()
@@ -275,5 +272,67 @@ exports.delete = (req, res, next) => {
 
         }
     }
+
+};
+
+exports.create = (req, res, next) => {
+
+    const collection = req.params['collection'];
+    const input = req.body.user;
+
+    switch (collection) {
+
+        case 'users': {
+            const User = require('../models/user.model');
+
+            User.findOne({ username: input.username }).exec()
+                .then(userWithUsername => {
+                    if (userWithUsername) return next(errorHelper.prepareError(codes.AUTH.USERNAME.IN_USE));
+
+                    User.findOne({ email: input.email }).exec()
+                        .then(userWithEmail => {
+                            if (userWithEmail) return next(errorHelper.prepareError(codes.AUTH.EMAIL.IN_USE));
+
+                            const newUser = new User(input);
+
+                            newUser.save().then(saved => {
+
+                                if (req.body.options.mail) {
+
+                                    mailHelper.mail('registration-finished', {
+                                        name: saved.name,
+                                        username: saved.username,
+                                        email: saved.email,
+                                        subject: 'Account created'
+                                    }).then(() => {
+                                        res.json({ response: codes.REQUEST.PROCESSED });
+                                    }).catch(error => {
+                                        return next(errorHelper.prepareError(error));
+                                    });
+
+                                } else {
+                                    res.json({ response: codes.REQUEST.PROCESSED });
+                                }
+
+                            }).catch(error => {
+                                return next(errorHelper.prepareError(error));
+                            })
+
+                        })
+                        .catch(error => {
+                            return next(errorHelper.prepareError(error));
+                        })
+
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                })
+
+        }
+
+
+
+    }
+
 
 };
