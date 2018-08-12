@@ -38,7 +38,7 @@ module.exports = function (req, res, next) {
     router.get('/read/:list/:id([a-fA-F0-9]{24})?', AdminCtrl.list);
     router.put('/update/:collection/:id', AdminCtrl.update);
     router.delete('/delete/:collection/:id', AdminCtrl.delete);
-    router.post('/create/:collection', AdminCtrl.create)
+    router.post('/create/:collection', AdminCtrl.create);
 
 
     // Invalid Endpoints

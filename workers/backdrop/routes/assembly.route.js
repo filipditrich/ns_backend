@@ -2,6 +2,7 @@ const router = require('express').Router();
 const endpoints = require('../config/endpoints.config');
 const AssemblyCtrl = require('../controllers/assembly.controller');
 const StrategiesCtrl = require('../../../common/controllers/strategies.controller');
+const proxy = require('express-http-proxy');
 
 /**
  * @description Assembly Routing
@@ -19,6 +20,9 @@ module.exports = function (req, res, next) {
 
     router[endpoints.API.ASSEMBLY.CODES.meta.method]
     (`/${endpoints.API.ASSEMBLY.CODES.endpoint}`, AssemblyCtrl.exportCodes);
+
+    router[endpoints.API.ASSEMBLY.VARIABLES.meta.method]
+    (`/${endpoints.API.ASSEMBLY.VARIABLES.endpoint}`, proxy('http://localhost:3002/api/matches/crud/teams'));
 
 
     return router;

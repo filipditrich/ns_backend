@@ -8,7 +8,8 @@ module.exports = {
         ROLES: {
             player: { key: 'player', value: 'player' },
             admin: { key: 'admin', value: 'admin' },
-            moderator: { key: 'moderator', value: 'moderator' }
+            moderator: { key: 'moderator', value: 'moderator' },
+            superAdmin: { key: 'super', value: 'super' }
         },
         TEAMS: {
             ns: { key: 'ns', value: 'Northern Stars' },
@@ -26,7 +27,8 @@ module.exports = {
 
     WORKERS: {
         agent: { key: 0, value: 'agent' },
-        backdrop: { key: 1, value: 'backdrop' }
+        backdrop: { key: 1, value: 'backdrop' },
+        sport: { key: 2, value: 'sport' }
     }
 
 };
