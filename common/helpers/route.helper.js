@@ -15,27 +15,43 @@ exports.traverse = function (obj, keys) {
 };
 
 /**
- * @description Gets route by its ID
- * @param id
- * @param worker
+ * @description Returns fuck TOOD:
+ * @author dr-fred
+ * @param o
+ * @param val
+ * @return {*}
  */
-exports.routeById = function(id, worker) {
+exports.routeById = function (o, val) {
+    const prop = 'id';
 
-    return _.find(endpointCollection[worker], { id: id });
+    if(o==null) return false;
+    if( o[prop] === val ){
+        return o;
+    }
+    let result, p;
+    for (p in o) {
+        if( o.hasOwnProperty(p) && typeof o[p] === 'object' ) {
+            result = exports.routeById(o[p], val);
+            if(result){
+                return result;
+            }
+        }
+    }
+    return result;
 
 };
 
 exports.getRouteMethod = function (id, worker) {
-    return exports.routeById(id, worker).meta.method;
+    return exports.routeById(endpointCollection[worker], id).meta.method;
 };
 
 exports.getRouteEndpoint = function (id, worker) {
-    return '/' + exports.routeById(id, worker).endpoint;
+    return '/' + exports.routeById(endpointCollection[worker], id).endpoint;
 };
 
 exports.getRouteAuth = function (id, worker) {
     const StrategiesCtrl = require('../controllers/strategies.controller');
-    const roles = exports.routeById(id, worker).meta.authorization;
+    const roles = exports.routeById(endpointCollection[worker], id).meta.authorization;
     return StrategiesCtrl.roleAuthorization(roles);
 };
 
@@ -62,13 +78,12 @@ exports.matrix = function (obj, endpath, fnc = false, endpoints, collName) {
                         each(value, key);
                     }
 
-                    if (!endpointCollection[collName]) endpointCollection[collName] = {};
-                    _.forEach(value, (val, prop) => {
-                        if (val instanceof IEndpoint) delete value[prop];
-                    });
-
-                    endpointCollection[collName][key] = value;
-                        // .push({[key]: value});
+                    // if (!endpointCollection[collName]) endpointCollection[collName] = {};
+                    // _.forEach(value, (val, prop) => {
+                    //     if (val instanceof IEndpoint) delete value[prop];
+                    // });
+                    //
+                    // endpointCollection[collName][key] = value;
                     resolve();
                 }
             } else {

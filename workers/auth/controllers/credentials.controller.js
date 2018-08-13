@@ -1,8 +1,8 @@
+const _ = require('lodash');
 const codes = require('../../../common/assets/codes');
 const PwdResetRequest = require('../models/pwd-reset-request.model');
 const User = require('../models/user.model');
 const codeHelper = require('../../../common/helpers/code.helper');
-const _ = require('lodash');
 const mailHelper = require('../../../common/helpers/mail.helper');
 const errorHelper = require('../../../common/helpers/error.helper');
 

@@ -1,24 +1,23 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const API = router;
+const worker = require('../config/worker.config').worker().id;
 const BaseCtrl = require('../../../common/controllers/base.controller');
 const AuthCtrl = require('../controllers/auth.controller');
 const requireLogin = require('../../../common/controllers/strategies.controller').requireLogin;
-const API = router;
-const worker = require('../config/worker.config').worker().id;
 const CredRoute = require('./credentials.route');
-const _method = require('../../../common/helpers/route.helper').getRouteMethod;
-const method = function(id) { return _method(id, worker) };
-const _endpoint = require('../../../common/helpers/route.helper').getRouteEndpoint;
-const endpoint = function(id) { return _endpoint(id, worker) };
-const _auth = require('../../../common/helpers/route.helper').getRouteAuth;
-const auth = function(id) { return _auth(id, worker) };
+
+/**
+ * @description Generic Getters
+ * @param id
+ */
+const method = function(id) { return require('../../../common/helpers/route.helper').getRouteMethod(id, worker) };
+const endpoint = function(id) { return require('../../../common/helpers/route.helper').getRouteEndpoint(id, worker) };
+const auth = function(id) { return require('../../../common/helpers/route.helper').getRouteAuth(id, worker) };
 
 /**
  * @description Auth API
  * @author filipditrich
- * @param req
- * @param res
- * @param next
+ * @param app
  * @returns {Router|router}
  */
 module.exports = function (app) {

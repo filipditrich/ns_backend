@@ -1,3 +1,7 @@
+/**
+ * @description Generated Worker Config
+ * @author filipditirch
+ */
 exports.workerConfig = {};
 
 exports.worker = () => { return exports.workerConfig };

@@ -1,5 +1,5 @@
 /**
- * @description Provides Easily Readable Collection of All used Endpoints
+ * @description Provides All Endpoints
  * @author filipditrich
  */
 module.exports = {};

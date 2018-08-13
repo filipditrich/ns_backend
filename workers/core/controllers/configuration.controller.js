@@ -1,12 +1,10 @@
-const enums = require('../../../common/assets/enums');
-const path = require('path');
-const BaseCtrl = require('../../../common/controllers/base.controller');
-const codes = require('../../../common/assets/codes');
-const routeHelper = require('../../../common/helpers/route.helper');
-const errorHelper = require('../../../common/helpers/error.helper');
-const commonConfig = require('../../../common/config/common.config');
-const env = require('../config/worker.config').environment();
 const _ = require('lodash');
+const codes = require('../../../common/assets/codes');
+const commonConfig = require('../../../common/config/common.config');
+const commonEndpoints = require('../../../common/config/endpoints.config');
+const env = require('../config/worker.config').environment();
+const errorHelper = require('../../../common/helpers/error.helper');
+const routeHelper = require('../../../common/helpers/route.helper');
 
 
 /**
@@ -23,7 +21,7 @@ exports.exportRoutes = (req, res, next) => {
         promises.push(new Promise((resolve, reject) => {
             const endpoints = require(`../../${worker.id}/config/endpoints.config`);
             routeHelper.matrix(endpoints, null, 'each', endpoints, worker.id)
-                .then(() => { resolve() })
+                .then(() => { commonEndpoints[worker.id] = endpoints; resolve() })
                 .catch(error => { reject(error) });
         }));
     });

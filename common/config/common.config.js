@@ -37,7 +37,7 @@ module.exports = {
                     credentials: '',
                     host: 'localhost',
                     port: 27017,
-                    name: 'NSCore'
+                    name: 'NSCoreWkr'
                 }
             },
             {
@@ -51,7 +51,21 @@ module.exports = {
                     credentials: '',
                     host: 'localhost',
                     port: 27017,
-                    name: 'NSAuth'
+                    name: 'NSAuthWkr'
+                }
+            },
+            {
+                id: 'common',
+                api: {
+                    protocol: 'http',
+                    baseUrl: 'localhost',
+                    port: 3003
+                },
+                db: {
+                    credentials: '',
+                    host: 'localhost',
+                    port: 27017,
+                    name: 'NSCommonWkr'
                 }
             }
         ],

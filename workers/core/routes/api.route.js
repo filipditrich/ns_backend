@@ -1,15 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const worker = require('../config/worker.config').worker().id;
+const router = require('express').Router();
 const ConfRoutes = router;
+const worker = require('../config/worker.config').worker().id;
 const BaseCtrl = require('../../../common/controllers/base.controller');
 const ConfCtrl = require('../controllers/configuration.controller');
-const _method = require('../../../common/helpers/route.helper').getRouteMethod;
-const method = function(id) { return _method(id, worker) };
-const _endpoint = require('../../../common/helpers/route.helper').getRouteEndpoint;
-const endpoint = function(id) { return _endpoint(id, worker) };
-const _auth = require('../../../common/helpers/route.helper').getRouteAuth;
-const auth = function(id) { return _auth(id, worker) };
+
+/**
+ * @description Generic Getters
+ * @param id
+ */
+const method = function(id) { return require('../../../common/helpers/route.helper').getRouteMethod(id, worker) };
+const endpoint = function(id) { return require('../../../common/helpers/route.helper').getRouteEndpoint(id, worker) };
+const auth = function(id) { return require('../../../common/helpers/route.helper').getRouteAuth(id, worker) };
 
 /**
  * @description Core API
@@ -23,6 +24,8 @@ module.exports = function (app) {
     ConfRoutes[method('ENDPOINTS')](endpoint('ENDPOINTS'), auth('ENDPOINTS'), ConfCtrl.exportRoutes);
 
     router[method('CONF')](endpoint('CONF'), auth('CONF'), ConfRoutes);
+    // router.get('/conf/endpoints/:worker/:id', ConfCtrl.test);
+    // router.get('/conf/endpoints', ConfCtrl.exportRoutes);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

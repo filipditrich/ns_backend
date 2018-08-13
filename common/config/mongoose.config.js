@@ -11,10 +11,10 @@ module.exports = function (workerConfig) {
 
     mongoose.connect(getMongoUrl(workerConfig), { useNewUrlParser: true })
         .then(() => {
-            console.log('%s %s', chalk.green('✅'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_SUCCESSFUL);
+            console.log('%s %s', chalk.green('✅'), `Connection to ${workerConfig.worker().db.name} database established.`);
         })
         .catch(error => {
-            console.log('%s %s : %s', chalk.red('❌'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_FAILED, error.message);
+            console.log('%s %s : %s', chalk.red('❌'), `Connection to ${workerConfig.worker().db.name} database failed.`, error.message);
             process.exit();
         });
 

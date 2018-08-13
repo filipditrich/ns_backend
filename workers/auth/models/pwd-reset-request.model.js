@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const validators = require('../../../common/helpers/validator.helper');
-const randomString = require('randomstring');
 const generators = require('../../../common/helpers/generator.helper');
 
 const passwordResetRequest = mongoose.Schema({
@@ -13,7 +11,7 @@ const passwordResetRequest = mongoose.Schema({
 passwordResetRequest.pre('save', function(next) {
 
     if (this.isNew) {
-        generators.generateRandomUnequalDocument(32, this.constructor, 'resetHash')
+        generators.generateRandomUnequalDocument(64, this.constructor, 'resetHash')
             .then(hash => {
                 this.resetHash = hash;
                 next();

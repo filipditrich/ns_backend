@@ -9,10 +9,11 @@ const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const morgan = require('morgan');
 const passport = require('passport');
-const routeHelper = require('../../common/helpers/route.helper');
 const endpoints = require('./config/endpoints.config');
+const commonEndpoints = require('../../common/config/endpoints.config');
 const workerConfig = require('./config/worker.config');
 const configHelper = require('../../common/helpers/config.helper');
+const routeHelper = require('../../common/helpers/route.helper');
 
 // App Variables
 app.set('env', process.env.NODE_ENV || 'development');
@@ -31,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Morgan Logger
-app.use(morgan('dev')); // TODO: env -dev?
+app.use(morgan('dev'));
 
 // Passport Configuration
 require('../../common/config/passport.config')(passport, workerConfig.environment());
@@ -42,6 +43,10 @@ app.use(passport.session());
 routeHelper.matrix(endpoints, null, 'each', endpoints, workerConfig.worker().id)
     .then(() => {
         console.log('%s Routes successfully provoked.', chalk.green('✅'));
+        commonEndpoints[workerConfig.worker().id] = endpoints;
+
+        // Export Routes
+        require('./routes/index.route')(app);
     })
     .catch(error => {
         console.log('%s Routes couldn\'t have been provoked! : ' + error, chalk.red('❌'));
@@ -63,6 +68,3 @@ app.use(function (req, res, next) {
         next();
     }
 });
-
-// Export Routes
-require('./routes/index.route')(app);
