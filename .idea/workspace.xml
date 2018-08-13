@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/workers/common/config/endpoints.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/config/worker.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/controllers/places.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/routes/api.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/routes/index.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/routes/places.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/common/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/templateWorker/config/endpoints.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/templateWorker/config/worker.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/templateWorker/routes/api.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/templateWorker/routes/index.route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workers/templateWorker/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config/common.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/common.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config/endpoints.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/endpoints.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config/mongoose.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/mongoose.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/helpers/config.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/helpers/config.helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/helpers/route.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/common/helpers/route.helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/config/worker.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/config/worker.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/controllers/auth.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/controllers/auth.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/controllers/credentials.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/controllers/credentials.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/models/pwd-reset-request.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/models/pwd-reset-request.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/routes/api.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/routes/api.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/routes/credentials.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/routes/credentials.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/auth/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/auth/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/core/config/worker.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/core/config/worker.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/core/controllers/configuration.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/core/controllers/configuration.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/core/routes/api.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/core/routes/api.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workers/core/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/workers/core/server.js" afterDir="false" />
-    </list>
+    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -387,7 +357,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234289000" />
+    <option name="totallyTimeSpent" value="234535000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -411,7 +381,7 @@
       <window_info id="Structure" order="1" sideWeight="0.5093023" side_tool="true" weight="0.17695168" />
       <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="8" weight="0.43398693" />
       <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.36862746" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.36862746" />
       <window_info anchor="bottom" id="Thumbnails" order="11" weight="0.32876712" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />

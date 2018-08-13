@@ -1,16 +1,16 @@
 {
 	"info": {
-		"_postman_id": "5f93bb5c-32d7-4416-a967-b966c4643278",
-		"name": "_NorthernStars",
+		"_postman_id": "e3865777-db55-49e7-809a-a83f159383f0",
+		"name": "NorthernStars",
+		"description": "Updated Northern Stars Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Backdrop Worker",
-			"description": null,
+			"name": "Core Worker",
 			"item": [
 				{
-					"name": "Export Codes",
+					"name": "Get Endpoints",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -19,34 +19,34 @@
 								"value": "application/json"
 							},
 							{
-								"key": "X-Secret",
-								"value": "937a43fc73c501dfa94d7dcf0cf668e0"
+								"key": "Application-ID",
+								"value": "6e6f7274-6865-726e-7374-6172732e637a"
 							},
 							{
-								"key": "X-Secret-Index",
-								"value": "5"
+								"key": "X-Secret",
+								"value": "937a43fc73c501dfa94d7dcf0cf668e0x7"
 							}
 						],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:3001/api/assembly/codes",
+							"raw": "http://localhost:4000/api/core/conf/endpoints",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "4000",
 							"path": [
 								"api",
-								"assembly",
-								"codes"
+								"core",
+								"conf",
+								"endpoints"
 							]
-						},
-						"description": "Returns server codes"
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Export Endpoints",
+					"name": "Get Codes",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -55,174 +55,141 @@
 								"value": "application/json"
 							},
 							{
-								"key": "X-Secret",
-								"value": "937a43fc73c501dfa94d7dcf0cf668e0"
+								"key": "Application-ID",
+								"value": "6e6f7274-6865-726e-7374-6172732e637a"
 							},
 							{
-								"key": "X-Secret-Index",
-								"value": "5"
+								"key": "X-Secret",
+								"value": "937a43fc73c501dfa94d7dcf0cf668e0x7"
 							}
 						],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:3001/api/assembly/codes",
+							"raw": "http://localhost:4000/api/core/conf/codes",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3001",
+							"port": "4000",
 							"path": [
 								"api",
-								"assembly",
+								"core",
+								"conf",
 								"codes"
 							]
-						},
-						"description": "Returns server codes"
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Agent Worker",
-			"description": "",
+			"name": "Auth Worker",
 			"item": [
 				{
-					"name": "Admin",
-					"description": null,
+					"name": "Credentials",
 					"item": [
 						{
-							"name": "Approve Registration Request",
+							"name": "Forgotten Password",
 							"request": {
-								"method": "PUT",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json"
 									},
 									{
-										"key": "Authorization",
-										"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjRmNWQ1M2QzMDczMjA0MDI3NGZmMmYiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZXMiOlsicGxheWVyIiwiYWRtaW4iXSwiaWF0IjoxNTMyMTYzNTU1LCJleHAiOjE1MzIxNjUzNTV9.H_X5kSJOgPTDTbNEB7_qVMh_Wj1TZ1EJerrUtswTE8s"
-									}
-								],
-								"body": {},
-								"url": {
-									"raw": "http://localhost:3000/api/admin/registration-requests/approve/2z2QInwix3hNTjLcXidzeaMC8OWc1Qvb",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"api",
-										"admin",
-										"registration-requests",
-										"approve",
-										"2z2QInwix3hNTjLcXidzeaMC8OWc1Qvb"
-									]
-								},
-								"description": "Approve registration request (hash from url)"
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Credentials Reset",
-					"description": "",
-					"item": [
-						{
-							"name": "Password Reset Request",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
+										"key": "Application-ID",
+										"value": "6e6f7274-6865-726e-7374-6172732e637a"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"email\": \"test@test.com\"\n}"
+									"raw": "{\n\t\"username\": \"admin\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/api/auth/request/password-reset",
+									"raw": "http://localhost:4000/api/auth/credentials/forgotten-password",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "3000",
+									"port": "4000",
 									"path": [
 										"api",
 										"auth",
-										"request",
-										"password-reset"
+										"credentials",
+										"forgotten-password"
 									]
-								},
-								"description": "Create a request for password reset with either email or username. not both (for security reasons)"
+								}
 							},
 							"response": []
 						},
 						{
-							"name": "Password Reset - Create New",
+							"name": "Forgotten Username",
 							"request": {
 								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"password\": \"test123\"\n}"
-								},
-								"url": {
-									"raw": "http://localhost:3000/api/auth/request/password-reset/1ZEGN3Q4jAwS1w4a8wzeUgIw8KBaNvar",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"api",
-										"auth",
-										"request",
-										"password-reset",
-										"1ZEGN3Q4jAwS1w4a8wzeUgIw8KBaNvar"
-									]
-								},
-								"description": "Assign new password from password field in body"
-							},
-							"response": []
-						},
-						{
-							"name": "Username Reminder (forgot username)",
-							"request": {
-								"method": "POST",
-								"header": [
+									},
 									{
-										"key": "Content-Type",
-										"value": "application/json"
+										"key": "Application-ID",
+										"value": "6e6f7274-6865-726e-7374-6172732e637a"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"email\": \"test@test.com\"\n}"
+									"raw": "{\n\t\"email\": \"ditrich@visionarygraphics.cz\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/api/auth/request/forgotten-username",
+									"raw": "http://localhost:4000/api/auth/credentials/forgotten-username",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "3000",
+									"port": "4000",
 									"path": [
 										"api",
 										"auth",
-										"request",
+										"credentials",
 										"forgotten-username"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Application-ID",
+										"value": "6e6f7274-6865-726e-7374-6172732e637a"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\": \"Admin1234\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:4000/api/auth/credentials/password-reset/CM70ohIroqHnrfJpqYp3d865EqjXKGZG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"auth",
+										"credentials",
+										"password-reset",
+										"CM70ohIroqHnrfJpqYp3d865EqjXKGZG"
 									]
 								}
 							},
@@ -232,38 +199,6 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Request Registration",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email\": \"ditrich@visionarygraphics.cz\",\n\t\"name\": \"Filip Ditrich\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/auth/request/registration",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"auth",
-								"request",
-								"registration"
-							]
-						},
-						"description": "Request for a registration with email and name"
-					},
-					"response": []
-				},
-				{
 					"name": "Login",
 					"request": {
 						"method": "POST",
@@ -271,58 +206,98 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Application-ID",
+								"value": "6e6f7274-6865-726e-7374-6172732e637a"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin123\"\n}"
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"Admin123\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/login",
+							"raw": "http://localhost:4000/api/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"auth",
 								"login"
 							]
-						},
-						"description": "Login with username and password"
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Finish Registration",
+					"name": "Registration",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Application-ID",
+								"value": "6e6f7274-6865-726e-7374-6172732e637a"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"username\" : \"\",\n\"password\" : \"\"\n}"
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"Admin123\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/register/3lMbq68uQvbqSxYXJYnws9YwY3iTccgr",
+							"raw": "http://localhost:4000/api/auth/registration/K3vSQvNaTSlvzXmNZ6Gzm7Mh95vDKbQR",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"api",
 								"auth",
-								"register",
-								"3lMbq68uQvbqSxYXJYnws9YwY3iTccgr"
+								"registration",
+								"K3vSQvNaTSlvzXmNZ6Gzm7Mh95vDKbQR"
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Application-ID",
+								"value": "6e6f7274-6865-726e-7374-6172732e637a"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"ditrich@visionarygraphics.cz\",\n\t\"name\": \"Filip Ditrich\"\n}"
 						},
-						"description": "Finish approved registration (using hash in url) with username and password"
+						"url": {
+							"raw": "http://localhost:4000/api/auth/registration-request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"registration-request"
+							]
+						}
 					},
 					"response": []
 				}
