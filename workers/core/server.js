@@ -1,5 +1,5 @@
 /**
- * @description Auth Worker Server
+ * @description Core Worker Server
  * @author filipditrich
  */
 
@@ -14,8 +14,10 @@ const routeHelper = require('../../common/helpers/route.helper');
 const endpoints = require('./config/endpoints.config');
 
 // App Variables
-app.set('port', process.env.PORT || 3005);
+app.set('port', process.env.PORT || 3001);
 app.set('env', process.env.NODE_ENV || 'development');
+app.set('worker', process.env.WKR_ID || 'core');
+
 
 // Mongoose ORM
 require('../../common/config/mongoose.config')(app.get('env'), 'auth');
@@ -33,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Provoke Routes
-routeHelper.matrix(endpoints, null, 'each', endpoints, 'auth')
+routeHelper.matrix(endpoints, null, 'each', endpoints, 'core')
     .then(() => {
         console.log('%s Routes successfully provoked.', chalk.green('✅'));
     })

@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const endpointCollection = require('../config/endpoints.config');
 
 /**
  * @description: Traverses in object to endpath (x.y.z)
@@ -15,23 +16,26 @@ exports.traverse = function (obj, keys) {
 /**
  * @description Gets route by its ID
  * @param id
- * @param endpoints
+ * @param worker
  */
-exports.routeById = function(id, endpoints) {
-    return _.find(endpoints, { id: id });
+exports.routeById = function(id, worker) {
+
+    console.log(endpointCollection, worker);
+    _.find(endpointCollection[worker], { id: id });
+
 };
 
-exports.getRouteMethod = function (id, endpoints) {
-    return exports.routeById(id, endpoints).meta.method;
+exports.getRouteMethod = function (id, worker) {
+    return exports.routeById(id, worker).meta.method;
 };
 
-exports.getRouteEndpoint = function (id, endpoints) {
-    return '/' + exports.routeById(id, endpoints).endpoint;
+exports.getRouteEndpoint = function (id, worker) {
+    return '/' + exports.routeById(id, worker).endpoint;
 };
 
-exports.getRouteAuth = function (id, endpoints) {
+exports.getRouteAuth = function (id, worker) {
     const StrategiesCtrl = require('../controllers/strategies.controller');
-    const roles = exports.routeById(id, endpoints).meta.authorization;
+    const roles = exports.routeById(id, worker).meta.authorization;
     return StrategiesCtrl.roleAuthorization(roles);
 };
 
@@ -43,7 +47,7 @@ exports.getRouteAuth = function (id, endpoints) {
  * @param endpoints
  * @return {Promise<any[]>}
  */
-exports.matrix = function (obj, endpath, fnc = false, endpoints) {
+exports.matrix = function (obj, endpath, fnc = false, endpoints, collName) {
 
     let promises = [];
 
@@ -57,6 +61,10 @@ exports.matrix = function (obj, endpath, fnc = false, endpoints) {
                     } else {
                         each(value, key);
                     }
+                    if (!endpointCollection[collName]) {
+                        endpointCollection[collName] = [];
+                    }
+                    endpointCollection[collName].push(key = value);
                     resolve();
                 }
             } else {

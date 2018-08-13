@@ -1,5 +1,6 @@
 const BaseCtrl = require('../../../common/controllers/base.controller');
 const ApiConsumers = require('../../../common/controllers/strategies.controller').apiConsumers;
+const ServerSecret = require('../../../common/controllers/strategies.controller').requireSecret;
 const apiRoutes = require('./api.route');
 
 /**
@@ -11,6 +12,7 @@ module.exports = function (app) {
 
     // Check for all incoming requests -- Very first Express Middleware (for routes)
     app.use((req, res, next) => { ApiConsumers(req, res, next) });
+    app.use((req, res, next) => { ServerSecret(req, res, next) });
 
     app.use('/api/', apiRoutes(app));
 

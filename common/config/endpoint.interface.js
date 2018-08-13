@@ -31,6 +31,10 @@ let Endpoint = function (id, endpoint, sub = false, meta = false) {
         }
     }
 
+    function clearEndpoint() {
+        delete this;
+    }
+
 };
 
 /**
