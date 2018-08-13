@@ -4,56 +4,36 @@ const BaseCtrl = require('../../../common/controllers/base.controller');
 const codes = require('../../../common/assets/codes');
 const routeHelper = require('../../../common/helpers/route.helper');
 const errorHelper = require('../../../common/helpers/error.helper');
+const commonConfig = require('../../../common/config/common.config');
+const env = require('../config/worker.config').environment();
+const _ = require('lodash');
+
 
 /**
- * @description Export Server Routes
+ * @description Export All Endpoints
  * @param req
  * @param res
  * @param next
  */
 exports.exportRoutes = (req, res, next) => {
 
-    let type = req.params['worker'];
+    const promises = [];
 
-    if (type === enums.WORKERS.agent.value) {
+    _.forEach(commonConfig[env].workers, worker => {
+        promises.push(new Promise((resolve, reject) => {
+            const endpoints = require(`../../${worker.id}/config/endpoints.config`);
+            routeHelper.matrix(endpoints, null, 'each', endpoints, worker.id)
+                .then(() => { resolve() })
+                .catch(error => { reject(error) });
+        }));
+    });
 
-        const endpointsRaw = require(path.join(__dirname, '../../agent/config/endpoints.config'));
-        routeHelper.matrix(endpointsRaw, null, 'each', endpointsRaw)
-            .then(() => {
-                res.json({
-                    response: codes.RESOURCE.LOADED,
-                    endpoints: endpointsRaw
-                });
-            })
-            .catch(error => {
-                return next(errorHelper.prepareError(error))
-            });
-
-    } else if (type === enums.WORKERS.sport.value) {
-
-        const endpointsRaw = require(path.join(__dirname, '../../sport/config/endpoints.config'));
-        routeHelper.matrix(endpointsRaw, null, 'each', endpointsRaw)
-            .then(() => {
-                res.json({
-                    response: codes.RESOURCE.LOADED,
-                    endpoints: endpointsRaw
-                });
-            })
-            .catch(error => {
-                return next(errorHelper.prepareError(error))
-            });
-
-    } else if (type === enums.WORKERS.backdrop.value) {
-
-        const endpoints = require(path.join(__dirname, '../config/endpoints.config'));
+    Promise.all(promises).then(() => {
         res.json({
             response: codes.RESOURCE.LOADED,
-            endpoints: endpoints
+            output: require('../../../common/config/endpoints.config')
         });
-
-    } else {
-        BaseCtrl.invalidEndpoint(req, res, next);
-    }
+    }).catch(error => { return next(errorHelper.prepareError(error)) });
 
 };
 
@@ -67,7 +47,7 @@ exports.exportCodes = (req, res, next) => {
 
     res.json({
         response: codes.RESOURCE.LOADED,
-        codes: codes
+        output: codes
     });
 
 };

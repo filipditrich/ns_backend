@@ -17,7 +17,7 @@ module.exports = {
     CONF: new IEndpoint('CONF', 'conf', [
         { id: 'WORKERS', endpoint: new IEndpoint('WORKERS', 'workers', false, { method: _get, authorization: false })},
         { id: 'CODES', endpoint: new IEndpoint('CODES', 'codes', false, { method: _get, authorization: false }) },
-        { id: 'ENDPOINTS', endpoint: new IEndpoint('ENDPOINTS', 'endpoints/:worker', false, { method: _get, authorization: false }) }
+        { id: 'ENDPOINTS', endpoint: new IEndpoint('ENDPOINTS', 'endpoints', false, { method: _get, authorization: false }) }
     ], { method: _use, authorization: false })
 
 };

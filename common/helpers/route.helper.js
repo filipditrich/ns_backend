@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const endpointCollection = require('../config/endpoints.config');
+const IEndpoint = require('../config/endpoint.interface');
 
 /**
  * @description: Traverses in object to endpath (x.y.z)
@@ -20,8 +21,7 @@ exports.traverse = function (obj, keys) {
  */
 exports.routeById = function(id, worker) {
 
-    console.log(endpointCollection, worker);
-    _.find(endpointCollection[worker], { id: id });
+    return _.find(endpointCollection[worker], { id: id });
 
 };
 
@@ -61,10 +61,14 @@ exports.matrix = function (obj, endpath, fnc = false, endpoints, collName) {
                     } else {
                         each(value, key);
                     }
-                    if (!endpointCollection[collName]) {
-                        endpointCollection[collName] = [];
-                    }
-                    endpointCollection[collName].push(key = value);
+
+                    if (!endpointCollection[collName]) endpointCollection[collName] = {};
+                    _.forEach(value, (val, prop) => {
+                        if (val instanceof IEndpoint) delete value[prop];
+                    });
+
+                    endpointCollection[collName][key] = value;
+                        // .push({[key]: value});
                     resolve();
                 }
             } else {

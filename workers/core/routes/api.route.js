@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const worker = express().get('worker');
-console.log(worker);
-const API = router;
+const worker = require('../config/worker.config').worker().id;
 const ConfRoutes = router;
 const BaseCtrl = require('../../../common/controllers/base.controller');
 const ConfCtrl = require('../controllers/configuration.controller');
@@ -16,20 +14,15 @@ const auth = function(id) { return _auth(id, worker) };
 /**
  * @description Core API
  * @author filipditrich
- * @param req
- * @param res
- * @param next
+ * @param app
  * @returns {Router|router}
  */
-module.exports = function (req, res, next) {
-
+module.exports = function (app) {
 
     ConfRoutes[method('CODES')](endpoint('CODES'), auth('CODES'), ConfCtrl.exportCodes);
     ConfRoutes[method('ENDPOINTS')](endpoint('ENDPOINTS'), auth('ENDPOINTS'), ConfCtrl.exportRoutes);
 
-    API[method('CONF')](endpoint('CONF'), auth('CONF'), ConfRoutes);
-
-    router.use('/api', API);
+    router[method('CONF')](endpoint('CONF'), auth('CONF'), ConfRoutes);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

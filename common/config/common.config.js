@@ -27,11 +27,25 @@ module.exports = {
         },
         workers: [
             {
+                id: 'core',
+                api: {
+                    protocol: 'http',
+                    baseUrl: 'localhost',
+                    port: 3001
+                },
+                db: {
+                    credentials: '',
+                    host: 'localhost',
+                    port: 27017,
+                    name: 'NSCore'
+                }
+            },
+            {
                 id: 'auth',
                 api: {
                     protocol: 'http',
                     baseUrl: 'localhost',
-                    port: 3005
+                    port: 3002
                 },
                 db: {
                     credentials: '',

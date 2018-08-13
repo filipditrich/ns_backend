@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
-const chalk = require('chalk');
 const messages = require('../assets/messages');
-const config =  require('./common.config');
-const _ = require('lodash');
+const chalk = require('chalk');
 
 /**
  * @description Initializes Connection to MongoDB
  * @author filipditrich
- * @param env
- * @param worker
+ * @param workerConfig
  */
-module.exports = function (env, worker) {
+module.exports = function (workerConfig) {
 
-    let wdb = _.find(config[env].workers, { id: worker });
-
-    mongoose.connect(getMongoUrl(wdb), { useNewUrlParser: true })
+    mongoose.connect(getMongoUrl(workerConfig), { useNewUrlParser: true })
         .then(() => {
             console.log('%s %s', chalk.green('✅'), messages.SYSTEM.DATABASE.MONGOOSE.CONNECTION_SUCCESSFUL);
         })
@@ -25,10 +20,7 @@ module.exports = function (env, worker) {
 
 };
 
-function getMongoUrl(worker) {
-    const credentials = worker.db.credentials;
-    const host = worker.db.host;
-    const port = worker.db.port;
-    const name = worker.db.name;
-    return `mongodb://${credentials}${host}:${port}/${name}`;
+function getMongoUrl(workerConf) {
+    const db = workerConf.worker().db;
+    return `mongodb://${db.credentials}${db.host}:${db.port}/${db.name}`;
 }

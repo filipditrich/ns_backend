@@ -35,7 +35,20 @@ mailing.checkAuth().then(() => {
     console.log('%s SMTP Connection could not be established! : %s', chalk.red('❌'), error);
 });
 
-// Listen on Server
+// // TODO: Https
+// const fs = require('fs');
+// const https = require('https');
+// const options = {
+//     key: fs.readFileSync('../../common/assets/ssl/app.key'),
+//     cert: fs.readFileSync('../../common/assets/ssl/app.crt'),
+//     requestCert: false,
+//     rejectUnauthorized: false
+// };
+// // Listen on Server
+// const server = https.createServer(options, app).listen(app.get('port'), () => {
+//     console.log('%s API Gateway server listening on port %d in %s mode', chalk.green('✅'), app.get('port'), app.get('env'));
+// });
+
 app.listen(app.get('port'), () => {
     console.log('%s API Gateway server listening on port %d in %s mode', chalk.green('✅'), app.get('port'), app.get('env'));
 });

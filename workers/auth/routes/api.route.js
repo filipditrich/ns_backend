@@ -4,9 +4,8 @@ const BaseCtrl = require('../../../common/controllers/base.controller');
 const AuthCtrl = require('../controllers/auth.controller');
 const requireLogin = require('../../../common/controllers/strategies.controller').requireLogin;
 const API = router;
-const worker = express().get('worker');
+const worker = require('../config/worker.config').worker().id;
 const CredRoute = require('./credentials.route');
-const endpoints = require('../config/endpoints.config');
 const _method = require('../../../common/helpers/route.helper').getRouteMethod;
 const method = function(id) { return _method(id, worker) };
 const _endpoint = require('../../../common/helpers/route.helper').getRouteEndpoint;
@@ -22,15 +21,14 @@ const auth = function(id) { return _auth(id, worker) };
  * @param next
  * @returns {Router|router}
  */
-module.exports = function (req, res, next) {
+module.exports = function (app) {
 
 
     API[method('LOGIN')](endpoint('LOGIN'), auth('LOGIN'), requireLogin, AuthCtrl.login);
-    API[method('REG_FIN')](endpoint('REG_FIN'), auth('REG_FIN'), AuthCtrl.finishRegistration);
-    API[method('REG_REQ')](endpoint('REG_REQ'), auth('REG_REQ'), AuthCtrl.requestRegistration);
-    API[method('CREDS')](endpoint('CREDS'), auth('CREDS'), CredRoute);
+    router[method('REG_FIN')](endpoint('REG_FIN'), auth('REG_FIN'), AuthCtrl.finishRegistration);
+    router[method('REG_REQ')](endpoint('REG_REQ'), auth('REG_REQ'), AuthCtrl.requestRegistration);
+    router[method('CREDS')](endpoint('CREDS'), auth('CREDS'), CredRoute(app));
 
-    router.use('/api', API);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));
