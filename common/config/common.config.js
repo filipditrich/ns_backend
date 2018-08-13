@@ -5,9 +5,6 @@
 module.exports = {
 
     development: {
-        db: {
-            url: "mongodb://localhost:27017/northern_stars"
-        },
         token: {
             secret: 'n0rt43rn5tar5',
             ttl: 1800
@@ -28,6 +25,22 @@ module.exports = {
             },
             sender: '"NS Support" <awehdx@gmail.com>'
         },
+        workers: [
+            {
+                id: 'auth',
+                api: {
+                    protocol: 'http',
+                    baseUrl: 'localhost',
+                    port: 3005
+                },
+                db: {
+                    credentials: '',
+                    host: 'localhost',
+                    port: 27017,
+                    name: 'NSAuth'
+                }
+            }
+        ],
         api: {
             consumers: [ '6e6f7274-6865-726e-7374-6172732e637a' ]
         }

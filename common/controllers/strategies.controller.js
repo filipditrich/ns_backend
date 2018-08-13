@@ -1,5 +1,5 @@
 const passport = require('passport');
-const User = require('../../workers/agent/models/user.model');
+const User = require('../../workers/auth/models/user.model');
 const codes = require('../assets/codes');
 const errorHelper = require('../helpers/error.helper');
 const BaseCtrl = require('./base.controller');
@@ -76,7 +76,10 @@ exports.requireSecret = (req, res, next) => {
  */
 exports.roleAuthorization = roles => {
   return (req, res, next) => {
+
+      if (!roles) return next();
       let user = req.user;
+      if (!user) return next(errorHelper.prepareError(codes.AUTH.AUTH_ROLES.UNAUTHORIZED_ACCESS));
       User.findById(user._id).exec()
           .then(user => {
              if (!user) return next(errorHelper.prepareError(codes.UNEXPECTED));

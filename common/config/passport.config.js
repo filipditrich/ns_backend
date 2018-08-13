@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const config = require('./common.config');
 const codes = require('../assets/codes');
-const User = require('../../workers/agent/models/user.model');
+const User = require('../../workers/auth/models/user.model');
 
 /**
  * @description: Creates passport authentication strategies
@@ -43,7 +43,7 @@ module.exports = function (passport, env) {
     passport.use('jwt', new JwtStrategy(options.jwt, (payload, done) => {
         User.findById(payload._id).exec()
             .then(user => {
-                if (user) return done(null, user, codes.AUTH.TOKEN.VALID)
+                if (user) return done(null, user, codes.AUTH.TOKEN.VALID);
                 return done(null, false, codes.AUTH.TOKEN.INVALID)
             })
             .catch(error => {

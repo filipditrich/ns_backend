@@ -13,6 +13,29 @@ exports.traverse = function (obj, keys) {
 };
 
 /**
+ * @description Gets route by its ID
+ * @param id
+ * @param endpoints
+ */
+exports.routeById = function(id, endpoints) {
+    return _.find(endpoints, { id: id });
+};
+
+exports.getRouteMethod = function (id, endpoints) {
+    return exports.routeById(id, endpoints).meta.method;
+};
+
+exports.getRouteEndpoint = function (id, endpoints) {
+    return '/' + exports.routeById(id, endpoints).endpoint;
+};
+
+exports.getRouteAuth = function (id, endpoints) {
+    const StrategiesCtrl = require('../controllers/strategies.controller');
+    const roles = exports.routeById(id, endpoints).meta.authorization;
+    return StrategiesCtrl.roleAuthorization(roles);
+};
+
+/**
  * @description: Generates URL endpath (without host and port) from endpoints config
  * @param obj
  * @param endpath
@@ -39,7 +62,7 @@ exports.matrix = function (obj, endpath, fnc = false, endpoints) {
             } else {
                 if (key === 'url') {
                     try {
-                        exports.traverse(endpoints, endpath).url = '/' + endpath.toLowerCase().split(".").join("/");
+                        exports.traverse(endpoints, endpath).url = '/' + endpath.toLowerCase().split(".").join("/").replace(/_/g, '-');
                         resolve();
                     } catch (error) { reject(error); }
                 }

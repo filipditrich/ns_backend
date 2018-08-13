@@ -22,7 +22,8 @@ module.exports = {
         post: { key: 1, value: 'post' },
         put: { key: 2, value: 'put' },
         delete: { key: 3, value: 'delete' },
-        options: { key: 4, value: 'options' }
+        options: { key: 4, value: 'options' },
+        use: { key: 5, value: 'use' }
     },
 
     WORKERS: {

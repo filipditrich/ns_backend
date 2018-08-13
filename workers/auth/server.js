@@ -1,3 +1,8 @@
+/**
+ * @description Auth Worker Server
+ * @author filipditrich
+ */
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -5,40 +10,27 @@ const chalk = require('chalk');
 const routes = require('./routes/index.route');
 const morgan = require('morgan');
 const passport = require('passport');
-const cors = require('cors');
-const config = require('../../common/config/common.config');
-const mailing = require('../../common/config/nodemailer.config');
 const routeHelper = require('../../common/helpers/route.helper');
 const endpoints = require('./config/endpoints.config');
 
 // App Variables
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3005);
 app.set('env', process.env.NODE_ENV || 'development');
 
 // Mongoose ORM
-require('../../common/config/mongoose.config')(app.get('env'));
+require('../../common/config/mongoose.config')(app.get('env'), 'auth');
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Cross-Origin Requests
-// app.use(cors());
-
 // Morgan Logger
-app.use(morgan('dev'));
+app.use(morgan('dev')); // TODO: env -dev?
 
 // Passport Configuration
 require('../../common/config/passport.config')(passport, app.get('env'));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Check SMTP Connection
-mailing.checkAuth().then(() => {
-   console.log('%s SMTP Connection has been established.', chalk.green('✅'));
-}).catch(error => {
-    console.log('%s SMTP Connection could not be established! : %s', chalk.red('❌'), error);
-});
 
 // Provoke Routes
 routeHelper.matrix(endpoints, null, 'each', endpoints)
@@ -51,7 +43,7 @@ routeHelper.matrix(endpoints, null, 'each', endpoints)
 
 // Listen on Server
 app.listen(app.get('port'), () => {
-   console.log('%s Agent Worker server listening on port %d in %s mode', chalk.green('✅'), app.get('port'), app.get('env'));
+    console.log('%s Auth Worker server listening on port %d in %s mode', chalk.green('✅'), app.get('port'), app.get('env'));
 });
 
 // CORS

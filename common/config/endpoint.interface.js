@@ -2,7 +2,8 @@ const _ = require('lodash');
 
 
 /**
- * @description: Simple endpoint interface model
+ * @description Simple endpoint interface model
+ * @author filipditrich
  * @param id
  * @param endpoint
  * @param sub
