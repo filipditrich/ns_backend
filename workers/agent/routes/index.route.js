@@ -12,7 +12,7 @@ module.exports = function (app) {
     // Check for all incoming requests -- Very first Express Middleware (for routes)
     app.use((req, res, next) => { ApiConsumers(req, res, next) });
 
-    app.use('/api/', apiRoutes(app));
+    app.use('/api', apiRoutes(app));
 
     // Invalid Endpoints (Routes)
     app.use((req, res, next) => { BaseCtrl.invalidEndpoint(req, res, next) });

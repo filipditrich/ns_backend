@@ -27,6 +27,23 @@ module.exports = {
         },
         workers: [
             {
+                id: 'agent',
+                api: {
+                    protocol: 'http',
+                    baseUrl: 'localhost',
+                    port: 4000
+                },
+                db: {
+                    credentials: '',
+                    host: 'localhost',
+                    port: 27017,
+                    name: 'NSAgentWkr'
+                },
+                auth: {
+                    doesRequireToken: false
+                }
+            },
+            {
                 id: 'core',
                 api: {
                     protocol: 'http',
@@ -38,20 +55,9 @@ module.exports = {
                     host: 'localhost',
                     port: 27017,
                     name: 'NSCoreWkr'
-                }
-            },
-            {
-                id: 'auth',
-                api: {
-                    protocol: 'http',
-                    baseUrl: 'localhost',
-                    port: 3002
                 },
-                db: {
-                    credentials: '',
-                    host: 'localhost',
-                    port: 27017,
-                    name: 'NSAuthWkr'
+                auth: {
+                    doesRequireToken: false
                 }
             },
             {
@@ -66,6 +72,9 @@ module.exports = {
                     host: 'localhost',
                     port: 27017,
                     name: 'NSCommonWkr'
+                },
+                auth: {
+                    doesRequireToken: true
                 }
             }
         ],

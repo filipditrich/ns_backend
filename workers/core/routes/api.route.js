@@ -24,8 +24,6 @@ module.exports = function (app) {
     ConfRoutes[method('ENDPOINTS')](endpoint('ENDPOINTS'), auth('ENDPOINTS'), ConfCtrl.exportRoutes);
 
     router[method('CONF')](endpoint('CONF'), auth('CONF'), ConfRoutes);
-    // router.get('/conf/endpoints/:worker/:id', ConfCtrl.test);
-    // router.get('/conf/endpoints', ConfCtrl.exportRoutes);
 
     // Invalid Endpoints
     router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));

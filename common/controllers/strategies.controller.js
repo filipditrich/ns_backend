@@ -1,11 +1,12 @@
 const passport = require('passport');
-const User = require('../../workers/auth/models/user.model');
+const User = require('../../workers/agent/models/user.model');
 const codes = require('../assets/codes');
 const errorHelper = require('../helpers/error.helper');
 const BaseCtrl = require('./base.controller');
 const env = require('express')().get('env');
 const config = require('../config/common.config');
 const generatorHelper = require('../helpers/generator.helper');
+const jwtDecode = require('jwt-decode');
 
 /**
  * @description: Tries to login a user based on incoming login data
@@ -77,21 +78,17 @@ exports.requireSecret = (req, res, next) => {
 exports.roleAuthorization = roles => {
   return (req, res, next) => {
 
-      if (!roles) return next();
-      let user = req.user;
+      if (roles === 'anybody') { return next() }
+
+      let user = !!req.user ? req.user : !!req.headers['authorization'] ? jwtDecode(req.headers['authorization']) : false;
       if (!user) return next(errorHelper.prepareError(codes.AUTH.AUTH_ROLES.UNAUTHORIZED_ACCESS));
-      User.findById(user._id).exec()
-          .then(user => {
-             if (!user) return next(errorHelper.prepareError(codes.UNEXPECTED));
-             if (user.roles.some(role => roles.indexOf(role) >= 0)){
-                 return next();
-             } else {
-                 return next(errorHelper.prepareError(codes.AUTH.AUTH_ROLES.UNAUTHORIZED_ACCESS));
-             }
-          })
-          .catch(error => {
-              return next(errorHelper.prepareError(error));
-          });
+
+      if (user.roles.some(role => roles.indexOf(role) >= 0)){
+          return next();
+      } else {
+          return next(errorHelper.prepareError(codes.AUTH.AUTH_ROLES.UNAUTHORIZED_ACCESS));
+      }
+
   }
 };
 
@@ -105,6 +102,7 @@ exports.roleAuthorization = roles => {
 exports.apiConsumers = (req, res, next) => {
     const headers = req.headers;
     if (!headers['application-id'] || config[env].api.consumers.indexOf(headers['application-id']) < 0) {
+
         // development purposes
         if (env === 'development'){ return next(); }
 

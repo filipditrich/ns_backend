@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const PlacesCtrl = require('../controllers/places.controller');
 const worker = require('../config/worker.config').worker().id;
+const BaseCtrl = require('../../../common/controllers/base.controller');
+const GatewayCtrl = require('../controllers/gateway.controller');
+const AuthRoute = require('./auth.route');
 
 /**
  * @description Generic Getters
@@ -11,17 +13,20 @@ const endpoint = function(id) { return require('../../../common/helpers/route.he
 const auth = function(id) { return require('../../../common/helpers/route.helper').getRouteAuth(id, worker) };
 
 /**
- * @description Places Sub-Route of Common Worker
+ * @description Auth API
  * @author filipditrich
  * @param app
  * @returns {Router|router}
  */
 module.exports = function (app) {
 
-    router[method('ADD_PLACE')](endpoint('ADD_PLACE'), auth('ADD_PLACE'), PlacesCtrl.addPlace);
-    router[method('GET_PLACE')](endpoint('GET_PLACE'), auth('GET_PLACE'), PlacesCtrl.getPlaces);
-    router[method('UPD_PLACE')](endpoint('UPD_PLACE'), auth('UPD_PLACE'), PlacesCtrl.updatePlace);
-    router[method('DEL_PLACE')](endpoint('DEL_PLACE'), auth('DEL_PLACE'), PlacesCtrl.deletePlace);
+
+    router[method('AUTH')](endpoint('AUTH'), auth('AUTH'), AuthRoute(app));
+
+    router.use('/:endpoint', GatewayCtrl.authTokenIfNeeded,  GatewayCtrl.handleGatewayRequest);
+
+    // Invalid Endpoints
+    router.use((req, res, next) => BaseCtrl.invalidEndpoint(req, res, next));
 
     return router;
 

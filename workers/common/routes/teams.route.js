@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const PlacesCtrl = require('../controllers/places.controller');
+const TeamsCtrl = require('../controllers/teams.controller');
 const worker = require('../config/worker.config').worker().id;
 
 /**
@@ -11,17 +11,17 @@ const endpoint = function(id) { return require('../../../common/helpers/route.he
 const auth = function(id) { return require('../../../common/helpers/route.helper').getRouteAuth(id, worker) };
 
 /**
- * @description Places Sub-Route of Common Worker
+ * @description Team Sub-Route of Common Worker
  * @author filipditrich
  * @param app
  * @returns {Router|router}
  */
 module.exports = function (app) {
 
-    router[method('ADD_PLACE')](endpoint('ADD_PLACE'), auth('ADD_PLACE'), PlacesCtrl.addPlace);
-    router[method('GET_PLACE')](endpoint('GET_PLACE'), auth('GET_PLACE'), PlacesCtrl.getPlaces);
-    router[method('UPD_PLACE')](endpoint('UPD_PLACE'), auth('UPD_PLACE'), PlacesCtrl.updatePlace);
-    router[method('DEL_PLACE')](endpoint('DEL_PLACE'), auth('DEL_PLACE'), PlacesCtrl.deletePlace);
+    router[method('ADD_TEAM')](endpoint('ADD_TEAM'), auth('ADD_TEAM'), TeamsCtrl.addTeam);
+    router[method('GET_TEAM')](endpoint('GET_TEAM'), auth('GET_TEAM'), TeamsCtrl.getTeams);
+    router[method('UPD_TEAM')](endpoint('UPD_TEAM'), auth('UPD_TEAM'), TeamsCtrl.updateTeam);
+    router[method('DEL_TEAM')](endpoint('DEL_TEAM'), auth('DEL_TEAM'), TeamsCtrl.deleteTeam);
 
     return router;
 

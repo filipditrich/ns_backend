@@ -32,7 +32,7 @@ const registrationRequestSchema = mongoose.Schema({
 registrationRequestSchema.pre('save', function(next) {
 
     if (this.isNew) {
-        generators.generateRandomUnequalDocument(32, this.constructor, 'registration.registrationHash')
+        generators.generateRandomUnequalDocument(64, this.constructor, 'registration.registrationHash')
             .then(hash => {
                 this.registration.registrationHash = hash;
                 next();

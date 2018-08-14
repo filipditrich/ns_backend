@@ -49,7 +49,7 @@ routeHelper.matrix(endpoints, null, 'each', endpoints, workerConfig.worker().id)
         require('./routes/index.route')(app);
     })
     .catch(error => {
-        console.log('%s Routes couldn\'t have been provoked! : ' + error, chalk.red('❌'));
+        console.log(`${chalk.red('❌')} Routes couldn't have been provoked! :`, error); process.exit(1)
     });
 
 // Listen on Server

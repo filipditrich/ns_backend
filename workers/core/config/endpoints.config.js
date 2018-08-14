@@ -6,6 +6,7 @@ const _use = enums.METHODS.use.value;
 const _get = enums.METHODS.get.value;
 const _put = enums.METHODS.put.value;
 const _delete = enums.METHODS.delete.value;
+const anybody = 'anybody';
 
 /**
  * @description Endpoints configuration for Core Worker
@@ -15,9 +16,9 @@ const _delete = enums.METHODS.delete.value;
 module.exports = {
 
     CONF: new IEndpoint('CONF', 'conf', [
-        { id: 'WORKERS', endpoint: new IEndpoint('WORKERS', 'workers', false, { method: _get, authorization: false })},
-        { id: 'CODES', endpoint: new IEndpoint('CODES', 'codes', false, { method: _get, authorization: false }) },
-        { id: 'ENDPOINTS', endpoint: new IEndpoint('ENDPOINTS', 'endpoints', false, { method: _get, authorization: false }) }
-    ], { method: _use, authorization: false })
+        { id: 'WORKERS', endpoint: new IEndpoint('WORKERS', 'workers', noChildren, { method: _get, authorization: anybody })},
+        { id: 'CODES', endpoint: new IEndpoint('CODES', 'codes', noChildren, { method: _get, authorization: anybody }) },
+        { id: 'ENDPOINTS', endpoint: new IEndpoint('ENDPOINTS', 'endpoints', noChildren, { method: _get, authorization: anybody }) }
+    ], { method: _use, authorization: anybody })
 
 };

@@ -332,6 +332,19 @@ module.exports = {
             status: 200,
             success: true
         }
+    },
+
+    CONFIG: {
+        WRONG_CONFIG_STRUCTURE: {
+            name: 'WRONG_WORKER_CONFIG_STRUCTURE',
+            status: 500,
+            success: true
+        },
+        CONFIG_MISSING: {
+            name: 'WORKER_CONFIG_MISSING',
+            status: 500,
+            success: true
+        }
     }
 
 };

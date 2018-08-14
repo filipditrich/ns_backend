@@ -23,7 +23,7 @@ const auth = function(id) { return require('../../../common/helpers/route.helper
 module.exports = function (app) {
 
 
-    API[method('LOGIN')](endpoint('LOGIN'), auth('LOGIN'), requireLogin, AuthCtrl.login);
+    router[method('LOGIN')](endpoint('LOGIN'), auth('LOGIN'), requireLogin, AuthCtrl.login);
     router[method('REG_FIN')](endpoint('REG_FIN'), auth('REG_FIN'), AuthCtrl.finishRegistration);
     router[method('REG_REQ')](endpoint('REG_REQ'), auth('REG_REQ'), AuthCtrl.requestRegistration);
     router[method('CREDS')](endpoint('CREDS'), auth('CREDS'), CredRoute(app));
