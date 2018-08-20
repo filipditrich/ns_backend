@@ -9,6 +9,7 @@ const User = require('../models/user.schema');
 const codeHelper = require('../../../../../_repo/helpers/code.helper');
 const mailHelper = require('../../../../../_repo/helpers/mail.helper');
 const errorHelper = require('../../../../../_repo/helpers/error.helper');
+const routeHelper = require('../../../../../_repo/helpers/route.helper');
 
 /**
  * @description: generates and signs new JWT token
@@ -59,6 +60,25 @@ exports.login = (req, res, next) => {
 };
 
 /**
+ * @description: Checks if the request with hash is valid (due to Angular)
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.preFinishRegistration = (req, res, next) => {
+    RegistrationRequest.findOne({ 'registration.registrationHash': req.params['hash'] }).exec()
+        .then(request => {
+            if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+            if (!request.approval.approved) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+            if (request.registration.userRegistered) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+            res.json({ response: sysCodes.REQUEST.VALID, output: request });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+};
+
+/**
  * @description: Requests a new registration request
  * @param req
  * @param res
@@ -102,6 +122,16 @@ exports.requestRegistration = (req, res, next) => {
                             name: saved.name,
                             subject: 'Registration Request Processed!'
                         }).then(() => {
+
+                            // TODO: revert this
+
+                            mailHelper.mail('registration-approved', {
+                                email: saved.email,
+                                name: saved.name,
+                                hash: saved.registration.registrationHash,
+                                subject: 'Registration Approved!'
+                            });
+
                             res.json({
                                 response: codes.REGISTRATION.REQUEST.SUCCESS,
                                 email: saved.email
@@ -208,6 +238,5 @@ exports.tokenCheck = (req, res, next) => {
         res.json({ response: sysCodes.AUTH.TOKEN.VALID });
 
     }).catch(error => { return next(errorHelper.prepareError(error)) });
-
 
 };

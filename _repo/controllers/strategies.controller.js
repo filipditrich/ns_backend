@@ -78,3 +78,19 @@ exports.apiConsumers = (req, res, next, serviceConfig) => {
         return next();
     }
 };
+
+exports.microserviceCommunication = (req, res, next) => {
+    const headers = req.headers;
+
+    if (!headers['x-microservice-communication-secret']) {
+        const error = errorHelper.prepareError(codes.API.NOT_GATEWAY);
+        return next(error);
+    }
+
+    if (config[env].secret.microSvcCommunication !== headers['x-microservice-communication-secret']) {
+        const error = errorHelper.prepareError(codes.HEADERS.BAD_STRUCT);
+        return next(error);
+    }
+
+    return next();
+};

@@ -10,13 +10,25 @@ let Route = function (id, method, path, controller, auth = {}) {
     this.controller = (req, res, next) => { controller(req, res, next) };
     this.authRoles = auth.authRoles;
     this.pre = {};
+    this.params = [];
 
+    // Get the params
+    this.path.split("/").filter(x => x.startsWith(":")).forEach((param, i) => {
+       param = param.replace(/\((.*?)\)/, "").replace("?", "").replace(":", "");
+       this.params.push(param);
+    });
+
+    // Remove the params and its regexps from the url
+    this.url = path.split("/").filter(x => !x.startsWith(":")).join("/");
+
+    // Require Secret Method
     if (auth.doesRequireSecret) {
         this.pre.secretAuth = (req, res, next) => {
             return StrategiesCtrl.requireSecret(req, res, next);
         }
     }
 
+    // Role Authorization Method
     if (this.authRoles) {
         this.pre.roleAuth = (req, res, next) => {
             return StrategiesCtrl.roleAuthorization(req, res, next, this.authRoles);

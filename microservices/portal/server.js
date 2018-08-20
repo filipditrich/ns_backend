@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const BaseCtrl = require('../../_repo/helpers/generic.helper');
 const serviceConfig = require('./api/v1/config/self.config');
+const mailing = require('../../_repo/helpers/nodemailer.helper');
 
 /** App Variables **/
 app.set('env', process.env.NODE_ENV || serviceConfig.environment);

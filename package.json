@@ -11,10 +11,14 @@
     "Stars"
   ],
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "*",
     "bluebird": "^3.5.1",
     "body-parser": "*",
     "boom": "^7.2.0",
+    "caller": "^1.0.1",
+    "caller-path": "^2.0.0",
+    "callsite": "^1.0.0",
     "chalk": "^2.4.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
@@ -48,6 +52,7 @@
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "request-promise-native": "^1.0.5",
     "smtp-connection": "^4.0.2",
     "smtp-connection-as-promised": "^3.3.0"
   },

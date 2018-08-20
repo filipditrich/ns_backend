@@ -29,7 +29,7 @@ exports.notFound = function(field) {
 
 exports.multipleNotFound = function(field) {
     return {
-        name: `NO_${field}S_FOUND`,
+        name: `NO_${field.toUpperCase()}S_FOUND`,
         message: messageGenerator.multipleNotFound(field),
         status: 404,
         success: false
@@ -67,6 +67,33 @@ exports.success = function(field) {
     return {
         name: `${field.toUpperCase()}_SUCCESSFUL`,
         message: messageGenerator.success(field),
+        status: 200,
+        success: true
+    }
+};
+
+exports.create = function (field) {
+    return {
+        name: `${field.toUpperCase()}_CREATE_OK`,
+        message: messageGenerator.create(field),
+        status: 200,
+        success: true
+    }
+};
+
+exports.update = function (field) {
+    return {
+        name: `${field.toUpperCase()}_UPDATE_OK`,
+        message: messageGenerator.update(field),
+        status: 200,
+        success: true
+    }
+};
+
+exports.delete = function (field) {
+    return {
+        name: `${field.toUpperCase()}_DELETE_OK`,
+        message: messageGenerator.delete(field),
         status: 200,
         success: true
     }

@@ -1,6 +1,8 @@
 const codes = require('../assets/system-codes.asset');
+const services = require('../config/services.config');
 const env = require('express')().get('env');
 const errorHelper = require('./error.helper');
+const _ = require('lodash');
 
 
 /**
@@ -22,18 +24,19 @@ exports.invalidEndpoint = function (req, res, next) {
  */
 exports.handleError = function (error, req, res, next) {
 
-    res.status(error.status || error.statusCode || 500);
+    let input = errorHelper.prepareError(error);
 
     let response = {
-        name: error.name,
-        message: error.message || false,
-        status: error.status || error.statusCode || 500,
-        success: error.success || false,
+        name: input.name,
+        message: input.message || false,
+        status: input.status || error.statusCode || 500,
+        success: input.success || false,
+        errorAt: input.errorAt || 'undefined'
     };
 
     // show error stack only in development environment
     if (env === 'development') response['stack'] = error.stack || null;
 
-    res.json({ response });
+    res.status(response.status).json({ response });
 
 };

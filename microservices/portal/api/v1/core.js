@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const StrategiesCtrl = require('../../../../_repo/controllers/strategies.controller');
 const serviceConfig = require('./config/self.config');
-const microservices = require('./config/microservices.config');
-const request = require('request-promise');
+const microservices = require('../../../../_repo/config/services.config');
+const commonConfig = require('../../../../_repo/config/server.config');
+const axios = require('axios');
 const _ = require('lodash');
 
 module.exports = function (app) {
@@ -14,9 +15,11 @@ module.exports = function (app) {
     router.use('/:msvc', (req, res, next) => {
         const match = _.find(microservices, { id: req.params['msvc'] });
         const originalReq = req;
+        delete originalReq.headers['content-type'];
+        originalReq.headers['X-Microservice-Communication-Secret'] = commonConfig[serviceConfig.environment].secret.microSvcCommunication;
 
         if (match) {
-            const url = req.originalUrl
+            const url = originalReq.originalUrl
                 .split("/")
                 .filter(x => x !== 'api' && x !== "" && x !== match.id && !/v[0-9][0-9]*/.test(x))
                 .join("/");
@@ -24,28 +27,49 @@ module.exports = function (app) {
             const redirect = `http://localhost:${match.port}/api/${match.api.version}/${url}`;
 
             if (match.api.tokenAuth) {
-                request.get({
-                    uri: 'http://localhost:3001/api/v1/authenticate-token',
-                    headers: { 'Authorization': req.headers['authorization'] },
-                    json: true
-                }).then(response => {
+                const authMsvc = _.find(microservices, { id: 'auth' });
+                const reqUrl = `http://localhost:${authMsvc.port}/api/${authMsvc.api.version}/${authMsvc.pathToTokenAuth}`;
 
-                    try {
-                        res.redirect(307, redirect);
-                    } catch(error) { return next(error); }
+                axios({
+                    method: 'GET',
+                    url: reqUrl.toString(),
+                    headers: originalReq.headers
+                }).then(resp => {
+
+                    axios({
+                        method: originalReq.method,
+                        url: redirect.toString(),
+                        headers: originalReq.headers,
+                        data: originalReq.body,
+                    }).then(response => {
+                        res.json(response.data);
+                    }).catch(error => {
+                        const err = !!error.response ? !!error.response.data ? !!error.response.data.response ? error.response.data.response : error.response.data : error.response : error;
+                        return next(err);
+                    });
 
                 }).catch(error => {
-                    return next(error);
+                    const err = !!error.response ? !!error.response.data ? !!error.response.data.response ? error.response.data.response : error.response.data : error.response : error;
+                    return next(err)
                 });
+
             } else {
 
-                try {
-                    res.redirect(307, redirect);
-                } catch(error) { return next(error); }
+                axios({
+                    method: originalReq.method,
+                    url: redirect.toString(),
+                    headers: originalReq.headers,
+                    data: originalReq.body,
+                }).then(response => {
+                    res.json(response.data);
+                }).catch(error => {
+                    const err = !!error.response ? !!error.response.data ? !!error.response.data.response ? error.response.data.response : error.response.data : error.response : error;
+                    return next(err);
+                });
 
             }
 
-        } else { next(); }
+        } else { return next(); }
 
     });
 

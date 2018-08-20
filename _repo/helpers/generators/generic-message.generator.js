@@ -30,6 +30,18 @@ exports.success = function (name) {
     return `${formatName(name)} was successful.`;
 };
 
+exports.create = function (name) {
+    return `${formatName(name)} has been created successfully.`
+};
+
+exports.update = function (name) {
+    return `${formatName(name)} has been updated successfully.`
+};
+
+exports.delete = function (name) {
+    return `${formatName(name)} has been deleted successfully.`
+};
+
 function formatName(name) {
     return name.split("_").filter(x => x !== "_").join(" ").replace(/\b\w/g, l => l.toUpperCase());
 }

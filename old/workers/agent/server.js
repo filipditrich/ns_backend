@@ -14,6 +14,7 @@ const commonEndpoints = require('../../common/config/endpoints.config');
 const workerConfig = require('./config/worker.config');
 const configHelper = require('../../common/helpers/config.helper');
 const routeHelper = require('../../common/helpers/route.helper');
+const mailing = require('../../../_repo/helpers/nodemailer.helper');
 
 // App Variables
 app.set('env', process.env.NODE_ENV || 'development');
@@ -54,6 +55,13 @@ routeHelper.matrix(endpoints, null, 'each', endpoints)
     .catch(error => {
         console.log(`${chalk.red('❌')} Routes couldn't have been provoked! :`, error); process.exit(1)
     });
+
+// Check SMTP Connection
+mailing.checkAuth().then(() => {
+    console.log('%s SMTP Connection has been established.', chalk.green('✅'));
+}).catch(error => {
+    console.log('%s SMTP Connection could not be established! : %s', chalk.red('❌'), error);
+});
 
 // Listen on Server
 app.listen(app.get('port'), () => {

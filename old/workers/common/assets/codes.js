@@ -94,7 +94,7 @@ function multipleNotFound(field) {
     field = field.toUpperCase();
 
     return {
-        name: `NO_${field}S_FOUND`,
+        name: `NO_${field.toUpperCase()}S_FOUND`,
         status: 404,
         success: false
     }

@@ -67,6 +67,26 @@ module.exports = {
             status: 403,
             success: false
         },
+        CHECK: {
+            QUERY_MISSING: {
+                name: 'CHECK_QUERY_MISSING',
+                message: 'Check query is missing from the request',
+                status: 400,
+                success: false
+            },
+            NOT_FOUND: {
+                name: 'CHECK_RESULT_NOT_FOUND',
+                message: 'The check provided no results.',
+                status: 404,
+                success: false
+            },
+            FOUND: {
+                name: 'CHECK_RESULT_FOUND',
+                message: 'The check resulted with found data.',
+                status: 200,
+                success: true
+            }
+        },
         PROCESSED: {
             name: 'REQUEST_PROCESSED',
             status: 200,

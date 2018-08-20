@@ -44,7 +44,7 @@ module.exports = {
                 }
             },
             {
-                id: 'core',
+                id: 'config',
                 api: {
                     protocol: 'http',
                     baseUrl: 'localhost',

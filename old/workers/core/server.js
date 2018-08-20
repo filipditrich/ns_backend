@@ -1,5 +1,5 @@
 /**
- * @description Core Worker Server
+ * @description Config Worker Server
  * @author filipditrich
  */
 
@@ -17,7 +17,7 @@ const routeHelper = require('../../common/helpers/route.helper');
 
 // App Variables
 app.set('env', process.env.NODE_ENV || 'development');
-app.set('worker', process.env.WKR_ID || 'core');
+app.set('worker', process.env.WKR_ID || 'config');
 
 // Create the Worker Configuration
 configHelper(app.get('env'), app.get('worker'), workerConfig);
