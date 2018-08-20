@@ -17,7 +17,7 @@ const registrationRequestSchema = mongoose.Schema({
     },
     requestedOn: { type: Date, default: Date.now() },
     approval: {
-        approved: { type: Boolean, default: true }, // TODO: revert this back (presentation purposes)
+        approved: { type: Boolean, default: false },
         approvedBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
         approvedByUser: { type: String },
         approvedOn: { type: Date }

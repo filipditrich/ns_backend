@@ -9,6 +9,7 @@ let Route = function (id, method, path, controller, auth = {}) {
     this.method = method;
     this.controller = (req, res, next) => { controller(req, res, next) };
     this.authRoles = auth.authRoles;
+    this.doesRequireToken = auth.doesRequireToken;
     this.pre = {};
     this.params = [];
 

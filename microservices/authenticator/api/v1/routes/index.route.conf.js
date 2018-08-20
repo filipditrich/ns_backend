@@ -1,8 +1,15 @@
 const Route = require('../../../../../_repo/interfaces/route.interface');
-const AuthCtrl = require('../controllers/auth.controller');
-const CredCtrl = require('../controllers/credentials.controller');
+const AuthCtrl = require('../controllers/user/auth.controller');
+const CredCtrl = require('../controllers/user/credentials.controller');
 const SysCtrl = require('../controllers/sys.controller');
 
+const AdminRegReqCtrl = require('../controllers/admin/registration-requests.controller');
+
+const commonEnums = require('../../../../../_repo/assets/system-enums.asset');
+const adminAndMods = [ commonEnums.AUTH.ROLES.admin.key, commonEnums.AUTH.ROLES.super.key, commonEnums.AUTH.ROLES.moderator.key ];
+const everybody = [ commonEnums.AUTH.ROLES.admin.key, commonEnums.AUTH.ROLES.super.key, commonEnums.AUTH.ROLES.moderator.key, commonEnums.AUTH.ROLES.player.key ];
+
+// TODO: export routes from multiple config files
 module.exports = [
 
     /** BASIC AUTH ROUTES **/
@@ -23,5 +30,8 @@ module.exports = [
     new Route('EPT_CODES', 'get', '/sys/export/codes', SysCtrl.exportCodes),
     new Route('EPT_ROUTES', 'get', '/sys/export/routes', SysCtrl.exportRoutes),
     new Route('EXIST_CHECK', 'post', '/sys/exist-check/:schema', SysCtrl.existCheck),
+
+    /** ADMIN **/
+    new Route('ADMIN_REG_REQ_APPROVE', 'post', '/admin/registration-requests/approve/:hash', AdminRegReqCtrl.approveRegistrationRequest, { doesRequireToken: true, authRoles: adminAndMods })
 
 ];

@@ -1,15 +1,15 @@
 const _ = require('lodash');
-const codes = require('../assets/codes.asset');
-const sysCodes = require('../../../../../_repo/assets/system-codes.asset');
+const codes = require('../../assets/codes.asset');
+const sysCodes = require('../../../../../../_repo/assets/system-codes.asset');
 const jwt = require('jsonwebtoken');
-const config = require('../config/self.config');
-const StrategyCtrl = require('./strategy.controller');
-const RegistrationRequest = require('../models/registration-request.schema');
-const User = require('../models/user.schema');
-const codeHelper = require('../../../../../_repo/helpers/code.helper');
-const mailHelper = require('../../../../../_repo/helpers/mail.helper');
-const errorHelper = require('../../../../../_repo/helpers/error.helper');
-const routeHelper = require('../../../../../_repo/helpers/route.helper');
+const config = require('../../config/self.config');
+const StrategyCtrl = require('../strategy.controller');
+const RegistrationRequest = require('../../models/registration-request.schema');
+const User = require('../../models/user.schema');
+const codeHelper = require('../../../../../../_repo/helpers/code.helper');
+const mailHelper = require('../../../../../../_repo/helpers/mail.helper');
+const errorHelper = require('../../../../../../_repo/helpers/error.helper');
+const routeHelper = require('../../../../../../_repo/helpers/route.helper');
 
 /**
  * @description: generates and signs new JWT token
@@ -45,7 +45,7 @@ function setUserInfo(request) {
  */
 exports.login = (req, res, next) => {
 
-    const reqLogin = require('./strategy.controller').requireLogin;
+    const reqLogin = require('../strategy.controller').requireLogin;
 
     reqLogin(req, res, next).then(() => {
         let userInfo = setUserInfo(req.user);
@@ -122,16 +122,6 @@ exports.requestRegistration = (req, res, next) => {
                             name: saved.name,
                             subject: 'Registration Request Processed!'
                         }).then(() => {
-
-                            // TODO: revert this
-
-                            mailHelper.mail('registration-approved', {
-                                email: saved.email,
-                                name: saved.name,
-                                hash: saved.registration.registrationHash,
-                                subject: 'Registration Approved!'
-                            });
-
                             res.json({
                                 response: codes.REGISTRATION.REQUEST.SUCCESS,
                                 email: saved.email

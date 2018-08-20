@@ -1,11 +1,11 @@
 const _ = require('lodash');
-const codes = require('../assets/codes.asset');
-const sysCodes = require('../../../../../_repo/assets/system-codes.asset');
-const PwdResetRequest = require('../models/pwd-reset-request.schema');
-const User = require('../models/user.schema');
-const codeHelper = require('../../../../../_repo/helpers/code.helper');
-const mailHelper = require('../../../../../_repo/helpers/mail.helper');
-const errorHelper = require('../../../../../_repo/helpers/error.helper');
+const codes = require('../../assets/codes.asset');
+const sysCodes = require('../../../../../../_repo/assets/system-codes.asset');
+const PwdResetRequest = require('../../models/pwd-reset-request.schema');
+const User = require('../../models/user.schema');
+const codeHelper = require('../../../../../../_repo/helpers/code.helper');
+const mailHelper = require('../../../../../../_repo/helpers/mail.helper');
+const errorHelper = require('../../../../../../_repo/helpers/error.helper');
 
 /**
  * @description: Requests a new password reset request if there is none already
@@ -82,7 +82,7 @@ exports.resetPassword = (req, res, next) => {
 
     // This needs to be done manually now, since mongoose will not
     // validate all fields again on .save()
-    const schemaFields = require('../../../../../_repo/assets/schema-fields.asset');
+    const schemaFields = require('../../../../../../_repo/assets/schema-fields.asset');
     if (password.length > schemaFields.PASSWORD.MAX_LENGTH) return next(errorHelper.prepareError(codes.PASSWORD.MAX_LENGTH));
     if (password.length < schemaFields.PASSWORD.MIN_LENGTH) return next(errorHelper.prepareError(codes.PASSWORD.MIN_LENGTH));
     if (!schemaFields.PASSWORD.REG_EXP.test(password)) return next(errorHelper.prepareError(codes.PASSWORD.WEAK));
