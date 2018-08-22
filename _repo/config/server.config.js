@@ -20,6 +20,11 @@ module.exports = {
             microSvcCommunication: 'f350fcc7721c44a683107c1f75f9e3d5',
             index: 7
         },
+
+        token: {
+            secret: 'v90q4gj1kp9hs9cbo8u7tfm78j26qaiv',
+            ttl: 1800
+        }
     },
 
     production: {}

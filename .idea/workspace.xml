@@ -2,14 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/admin/registration-requests.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_repo/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/assets/codes.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/assets/enums.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/assets/messages.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/config/passport.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/config/service.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/models/pwd-reset-request.schema.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/models/registration-request.schema.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/v1/models/user.schema.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/assets/schema-fields.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/assets/system-codes.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/assets/system-enums.asset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/config/server.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/config/services.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/controllers/strategies.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/code.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/enum.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/error.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/generators/base.generator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/generators/generic-code.generator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/generators/generic-message.generator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/generic.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/mail.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/mongoose.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/nodemailer.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/passport.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/route.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/user.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/helpers/validator.helper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/interfaces/route.interface.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/forgotten-username/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/password-reset-request/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/registration-approved/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/registration-finished/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/registration-invitation/index.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/registration-requested/footer.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/templates/emails/registration-requested/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_repo/interfaces/route.interface.js" beforeDir="false" afterPath="$PROJECT_DIR$/_repo/interfaces/route.interface.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/auth.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user/auth.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/credentials.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user/credentials.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/authenticator/api/v1/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/authenticator/api/v1/models/registration-request.schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/models/registration-request.schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservices/authenticator/api/v1/routes/index.route.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservices/authenticator/api/v1/routes/index.route.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_repo/config/server.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/_repo/config/server.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_repo/helpers/generic.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/_repo/helpers/generic.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_repo/helpers/mongoose.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/_repo/helpers/mongoose.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postman_collection.json" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,24 +66,25 @@
     <session id="-154566533">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.0" value="2" />
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="8" />
-          <entry key="js" value="25954" />
-          <entry key="json" value="6" />
+          <entry key="js" value="26772" />
+          <entry key="json" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="6" />
-          <entry key="JavaScript" value="25954" />
+          <entry key="JSON" value="65" />
+          <entry key="JavaScript" value="26772" />
           <entry key="PLAIN_TEXT" value="8" />
         </counts>
       </usages-collector>
@@ -49,15 +92,17 @@
         <counts>
           <entry key="ejs" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="js" value="408" />
-          <entry key="json" value="2" />
+          <entry key="js" value="455" />
+          <entry key="json" value="12" />
+          <entry key="md" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="EJS" value="1" />
-          <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="408" />
+          <entry key="JSON" value="12" />
+          <entry key="JavaScript" value="455" />
+          <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -67,21 +112,21 @@
     <favorites_list name="backend" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/core.js">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/operator/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="42" column="47" lean-forward="true" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
+            <state relative-caret-position="75">
+              <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/config/passport.config.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_repo/helpers/generic.helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="30">
+              <caret line="2" column="44" lean-forward="true" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -184,25 +229,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/microservices/backdrop/api/v1/assets/codes.asset.js" />
-        <option value="$PROJECT_DIR$/microservices/backdrop/api/v1/controllers/export.controller.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/controllers/export.controller.js" />
-        <option value="$PROJECT_DIR$/old/workers/core/server.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/config/self.config.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/controllers/places.controller.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/controllers/teams.controller.js" />
-        <option value="$PROJECT_DIR$/_repo/helpers/user.helper.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/controllers/matches.controller.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/assets/enums.asset.js" />
-        <option value="$PROJECT_DIR$/microservices/core/api/v1/models/match.model.js" />
-        <option value="$PROJECT_DIR$/_repo/helpers/sys.route.helper.js" />
-        <option value="$PROJECT_DIR$/_repo/helpers/generators/generic-message.generator.js" />
         <option value="$PROJECT_DIR$/microservices/core/api/v1/assets/codes.asset.js" />
         <option value="$PROJECT_DIR$/microservices/core/api/v1/routes/index.route.conf.js" />
         <option value="$PROJECT_DIR$/old/common/assets/codes.js" />
         <option value="$PROJECT_DIR$/microservices/portal/api/v1/core.js" />
         <option value="$PROJECT_DIR$/_repo/helpers/error.helper.js" />
-        <option value="$PROJECT_DIR$/_repo/helpers/generic.helper.js" />
         <option value="$PROJECT_DIR$/microservices/config/api/v1/controllers/export.controller.js" />
         <option value="$PROJECT_DIR$/microservices/config/api/v1/core.js" />
         <option value="$PROJECT_DIR$/microservices/core/api/v1/core.js" />
@@ -212,7 +243,6 @@
         <option value="$PROJECT_DIR$/old/workers/common/assets/codes.js" />
         <option value="$PROJECT_DIR$/_repo/helpers/generators/generic-code.generator.js" />
         <option value="$PROJECT_DIR$/old/workers/agent/server.js" />
-        <option value="$PROJECT_DIR$/_repo/config/server.config.js" />
         <option value="$PROJECT_DIR$/microservices/portal/server.js" />
         <option value="$PROJECT_DIR$/microservices/authenticator/server.js" />
         <option value="$PROJECT_DIR$/microservices/config/server.js" />
@@ -235,6 +265,21 @@
         <option value="$PROJECT_DIR$/_repo/interfaces/route.interface.js" />
         <option value="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user/auth.controller.js" />
         <option value="$PROJECT_DIR$/microservices/authenticator/api/v1/core.js" />
+        <option value="$PROJECT_DIR$/packages/system-codes/index.js" />
+        <option value="$PROJECT_DIR$/packages/error-helper/package.json" />
+        <option value="$PROJECT_DIR$/packages/svc-config/index.js" />
+        <option value="$PROJECT_DIR$/packages/error-helper/index.js" />
+        <option value="$PROJECT_DIR$/shared/index.js" />
+        <option value="$PROJECT_DIR$/services/operator/package.json" />
+        <option value="$PROJECT_DIR$/services/operator/src/v1/config/service.config.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/v1/index.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/v1/config/passport.js" />
+        <option value="$PROJECT_DIR$/_repo/config/server.config.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/v1/config/passport.config.js" />
+        <option value="$PROJECT_DIR$/_repo/helpers/mongoose.helper.js" />
+        <option value="$PROJECT_DIR$/services/operator/server.js" />
+        <option value="$PROJECT_DIR$/_repo/package.json" />
+        <option value="$PROJECT_DIR$/_repo/helpers/generic.helper.js" />
       </list>
     </option>
   </component>
@@ -251,11 +296,14 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
+    <handled-path value="$PROJECT_DIR$/_repo/node_modules" />
+    <handled-path value="$PROJECT_DIR$/services/operator/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/package.json" />
+      <path value="$PROJECT_DIR$/_repo/package.json" />
+      <path value="$PROJECT_DIR$/services/operator/package.json" />
+      <path value="$PROJECT_DIR$/shared/package.json" />
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
@@ -271,6 +319,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -281,43 +330,23 @@
             <path>
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="microservices" type="462c0819:PsiDirectoryNode" />
+              <item name="_repo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="microservices" type="462c0819:PsiDirectoryNode" />
-              <item name="authenticator" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="microservices" type="462c0819:PsiDirectoryNode" />
-              <item name="authenticator" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="microservices" type="462c0819:PsiDirectoryNode" />
-              <item name="authenticator" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="v1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="microservices" type="462c0819:PsiDirectoryNode" />
-              <item name="authenticator" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="v1" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="operator" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -331,19 +360,19 @@
     <property name="settings.editor.selected.configurable" value="settings.nodejs" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/microservices/core/api/v1/controllers" />
-      <recent name="$PROJECT_DIR$/microservices/core/api/v1/assets" />
-      <recent name="$PROJECT_DIR$/microservices/core/api/v1/models" />
-      <recent name="$PROJECT_DIR$/microservices" />
-      <recent name="$PROJECT_DIR$/microservices/backdrop/api/v1" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user" />
       <recent name="$PROJECT_DIR$/microservices/backdrop/api/v1" />
       <recent name="$PROJECT_DIR$/_repo/helpers" />
       <recent name="$PROJECT_DIR$/microservices/authenticator/api/v1/models" />
       <recent name="$PROJECT_DIR$/microservices/authenticator/api/v1" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/_repo" />
+      <recent name="$PROJECT_DIR$/services/operator/src/v1/models" />
+      <recent name="$PROJECT_DIR$/services/operator/src/v1/assets" />
+      <recent name="$PROJECT_DIR$/shared/src" />
+      <recent name="$PROJECT_DIR$/package" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -358,7 +387,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.Config">
+  <component name="RunManager" selected="Node.js.server.js">
     <configuration name="Authenticator" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/microservices/authenticator">
       <envs>
         <env name="NODE_ENV" value="development" />
@@ -391,14 +420,19 @@
       </envs>
       <method v="2" />
     </configuration>
+    <configuration name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/services/operator">
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Node.js.Portal Gateway" />
       <item itemvalue="Node.js.Authenticator" />
       <item itemvalue="Node.js.Config" />
       <item itemvalue="Node.js.Core" />
+      <item itemvalue="Node.js.server.js" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.server.js" />
         <item itemvalue="Node.js.Authenticator" />
         <item itemvalue="Node.js.Config" />
         <item itemvalue="Node.js.Core" />
@@ -450,12 +484,13 @@
       <workItem from="1534500279983" duration="4215000" />
       <workItem from="1534519346459" duration="1955000" />
       <workItem from="1534536629332" duration="239000" />
-      <workItem from="1534746296438" duration="5661000" />
+      <workItem from="1534746296438" duration="5745000" />
+      <workItem from="1534929829027" duration="5813000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="342818000" />
+    <option name="totallyTimeSpent" value="348715000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -470,20 +505,20 @@
     <frame x="0" y="22" width="1920" height="1105" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49069768" visible="true" weight="0.1032666" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49069768" visible="true" weight="0.1938883" />
       <window_info id="Structure" order="1" sideWeight="0.5093023" side_tool="true" weight="0.17695168" />
       <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3281046" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.19080068" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.26506025" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19076306" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.36646587" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="9" weight="0.43473896" />
+      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="9" weight="0.3263052" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3270548" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32876712" />
@@ -491,6 +526,28 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49069768" weight="0.1938883" />
+      <window_info id="Structure" order="1" sideWeight="0.5093023" side_tool="true" weight="0.17695168" />
+      <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
+      <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3281046" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19076306" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.26506025" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TypeScript" order="8" />
+      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="9" weight="0.3263052" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3270548" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32876712" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -515,221 +572,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/microservices/core/api/v1/controllers/sys.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/common/config/nodemailer.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-123" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/helpers/mail.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="22" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/workers/agent/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="58" selection-start-line="58" selection-end-line="63" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/config/server.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/portal/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/config/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/core/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/assets/system-codes.asset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="156" column="23" lean-forward="true" selection-start-line="156" selection-start-column="23" selection-end-line="156" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/portal/api/v1/config/self.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/forgotten-username/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="15" lean-forward="true" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/registration-approved/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="15" lean-forward="true" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/password-reset-request/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/registration-invitation/index.ejs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/registration-requested/footer.ejs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/registration-finished/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/templates/emails/registration-requested/index.ejs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/core/api/v1/controllers/jerseys.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/workers/agent/controllers/auth.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-348">
-          <caret line="116" selection-start-line="116" selection-end-line="133" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/helpers/nodemailer.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/helpers/mongoose.helper.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/helpers/generic.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/core/api/v1/controllers/matches.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-339">
-          <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/core/api/v1/controllers/places.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="95" column="71" lean-forward="true" selection-start-line="95" selection-start-column="71" selection-end-line="95" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/config/api/v1/controllers/export.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/admin/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="16" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/admin/server.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/admin/api/v1/core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/admin/api/v1/routes/index.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="183" lean-forward="true" selection-start-line="10" selection-start-column="183" selection-end-line="10" selection-end-column="183" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/models/registration-request.schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/admin/api/v1/controllers/registration-requests.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/core/api/v1/core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/config/self.config.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/assets/enums.asset.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/models/pwd-reset-request.schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/sys.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -751,13 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="602">
           <caret line="156" column="12" selection-start-line="156" selection-start-column="12" selection-end-line="156" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/config/services.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -803,27 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/config/passport.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_repo/helpers/error.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="11" lean-forward="true" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/strategy.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -833,8 +647,242 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="42" column="47" lean-forward="true" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
+        <state relative-caret-position="705">
+          <caret line="47" column="31" lean-forward="true" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/system-codes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/assets/system-codes.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/system-codes/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/error-helper/node_modules/@northernstars/system-codes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/config/services.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="28" selection-end-line="29" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/svc-config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/error-helper/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/error-helper/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package/assets/schema-fields.asset.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package/assets/system-enums.asset.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package/assets/system-codes.asset.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/helpers/error.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="165">
+            <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/assets/system-codes.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/helpers/error.helper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/config/self.config.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/microservices/authenticator/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="18" selection-start-line="18" selection-end-line="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/passport/lib/authenticator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/config/passport.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" lean-forward="true" selection-end-line="52" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/config/server.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/assets/schema-fields.asset.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/models/pwd-reset-request.schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/models/registration-request.schema.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/models/user.schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-196" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/microservices/authenticator/api/v1/models/user.schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="19" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/assets/codes.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/config/passport.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="66" selection-start-line="26" selection-start-column="66" selection-end-line="26" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/microservices/portal/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="33" selection-end-line="47" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="43" selection-start-column="43" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/node_modules/mongoose/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/v1/config/service.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/helpers/mongoose.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_repo/helpers/generic.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="44" lean-forward="true" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
         </state>
       </provider>
     </entry>
