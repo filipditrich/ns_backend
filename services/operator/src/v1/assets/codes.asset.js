@@ -1,5 +1,5 @@
-const codeGenerator = require('../../../../../_repo/helpers/generators/generic-code.generator');
-const schemaFields = require('../../../../../_repo/assets/schema-fields.asset');
+const codeGenerator = require('northernstars-shared').baseCodeGenerator;
+const schemaFields = require('northernstars-shared').schemaFields;
 
 module.exports = {
 

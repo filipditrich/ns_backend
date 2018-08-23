@@ -1,42 +1,34 @@
+const _ = require('lodash');
 const pathToRegExp = require('path-to-regexp');
 const StrategiesCtrl = require('../controllers/strategies.controller');
 
-let Route = function (id, method, path, controller, auth = {}) {
+class Route {
 
-    this.id = id;
-    this.path = path;
-    this.regExp = pathToRegExp(this.path);
-    this.method = method;
-    this.controller = (req, res, next) => { controller(req, res, next) };
-    this.authRoles = auth.authRoles;
-    this.doesRequireToken = auth.doesRequireToken;
-    this.pre = {};
-    this.params = [];
+    constructor(id, method, path, controller, auth = {}) {
+        this.id = id;
+        this.method = method.toLowerCase();
+        this.scope = _.join([this.id, this.method], ':');
+        this.path = path;
+        this.url = this.path.split('/').filter(x => !x.startsWith(':')).join('/');
+        this.regexp = pathToRegExp(this.path);
+        this.roles = auth.roles || false;
 
-    // Get the params
-    this.path.split("/").filter(x => x.startsWith(":")).forEach((param, i) => {
-       param = param.replace(/\((.*?)\)/, "").replace("?", "").replace(":", "");
-       this.params.push(param);
-    });
+        this.middleware = {
+            secret: !!auth.secret && auth.secret ? (req, res, next) => { return StrategiesCtrl.requireSecret(req, res, next); } : false,
+            authorization: !!auth.roles && auth.roles ? (req, res, next) => { return StrategiesCtrl.roleAuthorization(req, res, next, auth.roles); } : false
+        };
+        this.controller = controller;
 
-    // Remove the params and its regexps from the url
-    this.url = path.split("/").filter(x => !x.startsWith(":")).join("/");
+        this.params = [];
+        this.path.split('/').filter(x => x.startsWith(':')).forEach(param => {
+            param = param.replace(/\((.*?)\)/, '').replace('?', '').replace(':', '');
+            this.params.push(param);
 
-    // Require Secret Method
-    if (auth.doesRequireSecret) {
-        this.pre.secretAuth = (req, res, next) => {
-            return StrategiesCtrl.requireSecret(req, res, next);
-        }
+        });
     }
 
-    // Role Authorization Method
-    if (this.authRoles) {
-        this.pre.roleAuth = (req, res, next) => {
-            return StrategiesCtrl.roleAuthorization(req, res, next, this.authRoles);
-        }
-    }
+}
 
-};
 
 /**
  * @description Exports Route Interface

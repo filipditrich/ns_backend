@@ -1,17 +1,17 @@
 const app = require('express')();
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const serviceConfig = require('./src/v1/config/service.config');
 const passport = require('passport');
-const BaseCtrl = require('../../_repo/helpers/generic.helper');
+const bodyParser = require('body-parser');
+const serviceSettings = require('./src/v1/config/settings.config');
+const BaseCtrl = require('northernstars-shared').genericHelper;
 
 /** App Variables **/
-app.set('env', serviceConfig.environment);
-app.set('serviceID', serviceConfig.id);
-app.set('port', serviceConfig.port);
+app.set('env', serviceSettings.environment);
+app.set('serviceID', serviceSettings.id);
+app.set('port', serviceSettings.port);
 
 /** Mongoose **/
-require('../../_repo/helpers/mongoose.helper')(serviceConfig);
+require('northernstars-shared').mongooseHelper(serviceSettings);
 
 /** Body Parser **/
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,7 +26,7 @@ app.use(passport.session());
 app.use(morgan('dev'));
 
 /** Cross-Origin Requests **/
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, App-Handle-Errors-Generically, Application-ID, X-Secret");
     res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
@@ -39,11 +39,11 @@ app.use(function (req, res, next) {
 
 /** Server **/
 app.listen(app.get('port'), () => {
-    console.log(`✅ ${serviceConfig.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
+    console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
 });
 
 /** Expose API (v1) **/
-// app.use('/api/v1/', require('./src/v1')(app));
+app.use('/api/v1/', require('./src/v1')(app));
 
 /** Invalid Endpoints **/
 app.use(BaseCtrl.invalidEndpoint);

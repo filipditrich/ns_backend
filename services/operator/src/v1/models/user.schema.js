@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const schemaFields = require('../../../../../_repo/assets/schema-fields.asset');
-const validators = require('../../../../../_repo/helpers/validator.helper');
-const enumHelper = require('../../../../../_repo/helpers/enum.helper');
+const schemaFields = require('northernstars-shared').schemaFields;
+const validators = require('northernstars-shared').validatorHelper;
+const enumHelper = require('northernstars-shared').enumHelper;
+const sysEnums = require('northernstars-shared').sysEnums;
 const codes = require('../assets/codes.asset');
-const sysEnums = require('../../../../../_repo/assets/system-enums.asset');
 
 const userSchema = mongoose.Schema({
     name: {

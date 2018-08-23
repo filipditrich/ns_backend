@@ -1,34 +1,47 @@
 const _ = require('lodash');
-let routes;
 
+/**
+ * @description Imports Routes
+ * @param imported
+ */
+let routes;
 exports.importRoutes = (imported) => {
     routes = imported;
 };
 
+/**
+ * @description Generic Route Handler
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.genericRouteHandler = (req, res, next) => {
 
-    const match = _.find(routes, route => {
-        return (new RegExp(route.regExp)).test(req.path) && route.method.toUpperCase() === req.method;
+    const route = _.find(routes, _route => {
+        return (new RegExp(_route.regexp)).test(req.path) && _route.method.toUpperCase() === req.method.toUpperCase();
     });
 
-    if (match) {
+    if (route) {
 
-        const params = (new RegExp(match.regExp)).exec(req.path);
-        params.shift(); // get rid of the full match (leaves only the params)
+        // get all params
+        const params = (new RegExp(route.regexp)).exec(req.path);
+        params.shift();
 
-        match.path.split("/").filter(x => x.startsWith(":")).forEach((param, i) => {
-            // format the param (delete ':' selector and delete possible Regular Expression
-            param = param.replace(/\((.*?)\)/, "").replace("?", "").replace(":", "");
+        // assign params and its values to the request
+        route.path.split('/').filter(x => x.startsWith(':')).forEach((param, i) => {
+            param = param.replace(/\((.*?)\)/, '').replace('?', '').replace(':', '');
             req.params[param] = params[i];
         });
 
-        const pre = [];
-        _.forEach(match.pre, p => pre.push(p(req, res, next)));
+        // run all middleware functions
+        const middleware = [];
+        _.each(route.middleware, _middleware => middleware.push(_middleware(req, res, next)));
 
-        Promise.all(pre).then(() => {
+        Promise.all(middleware).then(() => {
 
+            // run the controller function
             try {
-                match.controller(req, res, next);
+                route.controller(req, res, next);
             } catch (error) {
                 return next(error);
             }
@@ -37,9 +50,8 @@ exports.genericRouteHandler = (req, res, next) => {
             return next(error);
         });
 
-
     } else {
-        return next();
+        next();
     }
 
 };

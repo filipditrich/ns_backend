@@ -1,9 +1,9 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const sysCodes = require('../../../../../_repo/assets/system-codes.asset');
-const config = require('../../../../../_repo/config/server.config');
-const serviceConfig = require('./service.config');
+const sysCodes = require('northernstars-shared').sysCodes;
+const config = require('northernstars-shared').serverConfig;
+const serviceConfig = require('./settings.config');
 const codes = require('../assets/codes.asset');
 const User = require('../models/user.schema');
 

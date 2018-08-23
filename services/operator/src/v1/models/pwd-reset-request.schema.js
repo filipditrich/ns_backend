@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const generators = require('../../../../../old/common/helpers/generator.helper');
+const generators = require('northernstars-shared').baseGenerator;
 
 const passwordResetRequest = mongoose.Schema({
 

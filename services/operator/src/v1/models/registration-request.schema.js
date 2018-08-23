@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const validators = require('../../../../../old/common/helpers/validator.helper');
-const generators = require('../../../../../old/common/helpers/generator.helper');
-const codes = require('../../../../../old/common/assets/codes');
+const validators = require('northernstars-shared').validatorHelper;
+const generators = require('northernstars-shared').baseGenerator;
+const sysCodes = require('northernstars-shared').sysCodes;
 
 const registrationRequestSchema = mongoose.Schema({
     email: {
@@ -9,8 +9,8 @@ const registrationRequestSchema = mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: codes.AUTH.EMAIL.MISSING.name,
-        validate: [validators.validateEmail, codes.AUTH.EMAIL.INVALID.name]
+        required: sysCodes.AUTH.EMAIL.MISSING.name,
+        validate: [validators.validateEmail, sysCodes.AUTH.EMAIL.INVALID.name]
     },
     name: {
         type: String

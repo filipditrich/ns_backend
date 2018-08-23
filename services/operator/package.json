@@ -20,9 +20,10 @@
     "enum": "^2.5.0",
     "express": "*",
     "jsonwebtoken": "*",
-    "mongoose": "*",
+    "mongoose": "5.2.5",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",
+    "northernstars-shared": "git+https://github.com/filipditrich/northernstars-shared.git",
     "passport": "*",
     "passport-jwt": "*",
     "passport-local": "^1.0.0"
