@@ -1,24 +1,42 @@
 {
+  "_args": [
+    [
+      "git+https://github.com/filipditrich/northernstars-shared.git",
+      "/Users/visionmac01/Desktop/northernstars/ns_backend/services/operator"
+    ]
+  ],
   "_from": "git+https://github.com/filipditrich/northernstars-shared.git",
-  "_id": "northernstars-shared@1.0.0",
+  "_id": "northernstars-shared@git+https://github.com/filipditrich/northernstars-shared.git#bc902e283394097db34679281d86aa63d6f291ee",
   "_inBundle": false,
   "_integrity": "",
   "_location": "/northernstars-shared",
-  "_phantomChildren": {},
+  "_phantomChildren": {
+    "async": "2.6.1",
+    "bluebird": "3.5.1",
+    "bson": "1.0.9",
+    "kareem": "2.2.1",
+    "lodash.get": "4.4.2",
+    "mongoose-legacy-pluralize": "1.0.2",
+    "mpath": "0.4.1",
+    "ms": "2.0.0",
+    "regexp-clone": "0.0.1",
+    "require_optional": "1.0.1",
+    "saslprep": "1.0.1",
+    "sliced": "1.0.1"
+  },
   "_requested": {
     "type": "git",
-    "raw": "git+https://github.com/filipditrich/northernstars-shared",
-    "rawSpec": "git+https://github.com/filipditrich/northernstars-shared",
+    "raw": "git+https://github.com/filipditrich/northernstars-shared.git",
+    "rawSpec": "git+https://github.com/filipditrich/northernstars-shared.git",
     "saveSpec": "git+https://github.com/filipditrich/northernstars-shared.git",
     "fetchSpec": "https://github.com/filipditrich/northernstars-shared.git",
     "gitCommittish": null
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "git+https://github.com/filipditrich/northernstars-shared.git#bc902e283394097db34679281d86aa63d6f291ee",
-  "_spec": "git+https://github.com/filipditrich/northernstars-shared",
+  "_spec": "git+https://github.com/filipditrich/northernstars-shared.git",
   "_where": "/Users/visionmac01/Desktop/northernstars/ns_backend/services/operator",
   "author": {
     "name": "Visionary"
@@ -30,7 +48,6 @@
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.10",
-    "mongoose": "^5.2.9",
     "nodemailer": "^4.6.8",
     "path-to-regexp": "^2.3.0",
     "randomstring": "^1.1.5",

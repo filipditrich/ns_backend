@@ -1,0 +1,19 @@
+const Route = require('northernstars-shared').routeInterface;
+const MatchesCtrl = require('../controllers/matches.controller');
+const sysEnums = require('northernstars-shared').sysEnums;
+const adminAndMods = [ sysEnums.AUTH.ROLES.admin.key, sysEnums.AUTH.ROLES.super.key, sysEnums.AUTH.ROLES.moderator.key ];
+
+/**
+ * @description Core API - Match Routes
+ */
+module.exports = [
+
+    /** Basic CRUD **/
+    new Route('ADD_MATCH', 'POST', '/matches', { roles: adminAndMods }, MatchesCtrl.createMatch),
+    new Route('UPD_MATCH', 'PUT', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.updateMatch),
+    new Route('DEL_MATCH', 'DELETE', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.deleteMatch),
+    new Route('GET_MATCH', 'GET', '/matches/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.getMatches),
+    
+    new Route('CANCEL_MATCH', 'PUT', '/matches/cancel/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.cancelMatch),
+
+];

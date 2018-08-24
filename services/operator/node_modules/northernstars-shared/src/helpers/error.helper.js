@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const codes = require('../assets/system-codes.asset');
-const services = require('../config/services.config');
 
 /**
  * @description: Returns a new error based on the input
@@ -10,12 +9,12 @@ const services = require('../config/services.config');
  */
 exports.prepareError = function (input, optional = false) {
     let error = new Error();
-    let at;
+    let at = undefined;
 
-    if (input && input.port) {
-        const svc = _.find(services, { port: input.port });
-        at = svc ? svc.id : input.port;
-    }
+    // if (input && input.port) {
+    //     const svc = _.find(services, { port: input.port });
+    //     at = svc ? svc.id : input.port;
+    // }
 
     input = input ? input.code === 'ECONNREFUSED' ? codes.SERVICE.UNREACHABLE : input : input;
 
