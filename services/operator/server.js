@@ -1,8 +1,9 @@
 const app = require('express')();
 const morgan = require('morgan');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const serviceSettings = require('./src/v1/config/settings.config');
+const serviceSettings = require('./src/config/settings.config');
 const BaseCtrl = require('northernstars-shared').genericHelper;
 
 /** App Variables **/
@@ -11,14 +12,14 @@ app.set('serviceID', serviceSettings.id);
 app.set('port', serviceSettings.port);
 
 /** Mongoose **/
-require('northernstars-shared').mongooseHelper(serviceSettings);
+require('northernstars-shared').mongooseHelper(mongoose, serviceSettings);
 
 /** Body Parser **/
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 /** Passport **/
-require('./src/v1/config/passport.config')(passport);
+require('./src/config/passport.config')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -42,8 +43,8 @@ app.listen(app.get('port'), () => {
     console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
 });
 
-/** Expose API (v1) **/
-app.use('/api/v1/', require('./src/v1')(app));
+/** Expose API **/
+app.use('/api/', require('./src')(app));
 
 /** Invalid Endpoints **/
 app.use(BaseCtrl.invalidEndpoint);

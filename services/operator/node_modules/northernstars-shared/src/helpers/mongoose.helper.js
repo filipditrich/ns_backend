@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-module.exports = function (serviceConfig) {
+module.exports = function (mongoose, serviceConfig) {
 
     mongoose.connect(connectionURI(serviceConfig), { useNewUrlParser: true })
         .then(() => {

@@ -4,6 +4,7 @@ const jwtDecode = require('jwt-decode');
 const generatorHelper = require('../helpers/generators/base.generator');
 const errorHelper = require('../helpers/error.helper');
 const BaseCtrl = require('../helpers/generic.helper');
+const jwt = require('jsonwebtoken');
 const env = require('express')().get('env');
 
 /**
@@ -79,6 +80,13 @@ exports.apiConsumers = (req, res, next, serviceConfig) => {
     }
 };
 
+/**
+ * @description Verifies that the request is coming from inside the API gateway
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 exports.microserviceCommunication = (req, res, next) => {
     const headers = req.headers;
 
@@ -93,4 +101,36 @@ exports.microserviceCommunication = (req, res, next) => {
     }
 
     return next();
+};
+
+/**
+ * @description Verifies the incoming token and assigns its decoded value to the req.user
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+exports.verifyToken = (req, res, next) => {
+
+    const token = req.headers['authorization'];
+
+    if (!token) return next(errorHelper.prepareError(codes.HEADERS.BAD_STRUCT));
+
+    try {
+        jwt.verify(token, config[env].token.secret, (err, decoded) => {
+            if (error) {
+                if (error instanceof jwt.JsonWebTokenError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.INVALID));
+                if (error instanceof jwt.NotBeforeError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.INVALID));
+                if (error instanceof jwt.TokenExpiredError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.EXPIRED));
+            }
+            console.log(decoded);
+            req.user = decoded;
+        });
+        return next();
+    } catch (error) {
+        if (error instanceof jwt.JsonWebTokenError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.INVALID));
+        if (error instanceof jwt.NotBeforeError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.INVALID));
+        if (error instanceof jwt.TokenExpiredError) return next(errorHelper.prepareError(codes.AUTH.TOKEN.EXPIRED));
+    }
+
 };

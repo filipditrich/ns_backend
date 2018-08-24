@@ -13,6 +13,12 @@ module.exports = {
                 message: 'Token was not authenticated.',
                 status: 401,
                 success: false
+            },
+            EXPIRED: {
+                name: 'AUTH_TOKEN_EXPIRED',
+                message: 'Token has expired.',
+                status: 401,
+                success: false
             }
         },
         ROLES: {

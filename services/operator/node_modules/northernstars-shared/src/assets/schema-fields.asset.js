@@ -8,7 +8,7 @@ module.exports = {
     PASSWORD: {
         MIN_LENGTH: 6,
         MAX_LENGTH: 32,
-        REG_EXP: /^(?=.*\d)(?=.*[a-z0-9])(?=.*[A-Z]).*$/
+        REG_EXP: /^(?=.*\d)(?=.*[a-z0-9])(?=.*[A-z]).*$/
     },
 
     EMAIL: {

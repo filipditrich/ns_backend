@@ -1,16 +1,33 @@
 {
-  "name": "northernstars-shared",
-  "version": "1.0.0",
-  "description": "Shared Packages for Northern Stars API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "git+https://github.com/filipditrich/northernstars-shared.git",
+  "_id": "northernstars-shared@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/northernstars-shared",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/filipditrich/northernstars-shared",
+    "rawSpec": "git+https://github.com/filipditrich/northernstars-shared",
+    "saveSpec": "git+https://github.com/filipditrich/northernstars-shared.git",
+    "fetchSpec": "https://github.com/filipditrich/northernstars-shared.git",
+    "gitCommittish": null
   },
-  "author": "Visionary",
-  "license": "ISC",
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/filipditrich/northernstars-shared.git#bc902e283394097db34679281d86aa63d6f291ee",
+  "_spec": "git+https://github.com/filipditrich/northernstars-shared",
+  "_where": "/Users/visionmac01/Desktop/northernstars/ns_backend/services/operator",
+  "author": {
+    "name": "Visionary"
+  },
+  "bundleDependencies": false,
   "dependencies": {
     "ejs": "^2.6.1",
     "email-templates": "^4.0.4",
+    "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.9",
@@ -18,5 +35,14 @@
     "path-to-regexp": "^2.3.0",
     "randomstring": "^1.1.5",
     "smtp-connection-as-promised": "^3.3.0"
-  }
+  },
+  "deprecated": false,
+  "description": "Shared Packages for Northern Stars API",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "northernstars-shared",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
 }

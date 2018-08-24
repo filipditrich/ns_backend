@@ -16,7 +16,7 @@ exports.importRoutes = (imported) => {
  * @param next
  */
 exports.genericRouteHandler = (req, res, next) => {
-
+    
     const route = _.find(routes, _route => {
         return (new RegExp(_route.regexp)).test(req.path) && _route.method.toUpperCase() === req.method.toUpperCase();
     });
@@ -35,7 +35,11 @@ exports.genericRouteHandler = (req, res, next) => {
 
         // run all middleware functions
         const middleware = [];
-        _.each(route.middleware, _middleware => middleware.push(_middleware(req, res, next)));
+        _.each(route.middleware, _middleware => {
+            if (_middleware) {
+                middleware.push(_middleware(req, res, next));
+            }
+        });
 
         Promise.all(middleware).then(() => {
 
