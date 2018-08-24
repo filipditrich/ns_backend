@@ -1,6 +1,7 @@
+const genericRouteHelper = require('northernstars-shared').routeHelper;
+const GatewayCtrl = require('./controllers/gateway.controller');
 const router = require('express').Router();
 const _ = require('lodash');
-const genericRouteHelper = require('northernstars-shared').routeHelper;
 
 /**
  * @description Import Routes
@@ -16,6 +17,9 @@ module.exports = function (app) {
 
     /** Route Handler **/
     router.use(genericRouteHelper.genericRouteHandler);
+
+    /** API Gateway Handler **/
+    router.use(GatewayCtrl.gatewayHandler);
 
     return router;
 
