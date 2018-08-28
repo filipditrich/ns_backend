@@ -8,7 +8,7 @@ module.exports = [];
 /** Push in Routes **/
 pushRoutes([
     SysRoutes,
-    AuthRoutes
+    AuthRoutes,
 ]);
 
 /**

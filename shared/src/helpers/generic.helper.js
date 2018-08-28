@@ -2,7 +2,24 @@ const codes = require('../assets/system-codes.asset');
 const env = require('express')().get('env');
 const errorHelper = require('./error.helper');
 const _ = require('lodash');
+const request = require('request-promise');
 
+exports.updateService = function (serviceConfig) {
+
+    const headers = {};
+    headers['Application-ID'] = `${require('../config/server.config')[serviceConfig.environment].consumers[0]}`;
+    headers['X-Secret'] = `${require('../config/server.config')[serviceConfig.environment].secret.secret}x${require('../config/server.config')[serviceConfig.environment].secret.index}`;
+
+    return request({
+        method: 'POST',
+        uri: 'http://localhost:4000/api/sys/services', headers,
+        body: {
+            service: serviceConfig
+        },
+        json: true
+    });
+
+};
 
 /**
  * @description: Creates a new error when reaching invalid endpoint and passes to next express middleware

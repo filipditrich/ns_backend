@@ -1,6 +1,8 @@
 const codes = require('../assets/codes.asset');
 const sysCodes = require('northernstars-shared').sysCodes;
+const errorHelper = require('northernstars-shared').errorHelper;
 const _ = require('lodash');
+const Service = require('../models/service.schema');
 
 exports.exportCodes = (req, res, next) => {
 
@@ -23,5 +25,32 @@ exports.exportRoutes = (req, res, next) => {
     output['operator'] = _.map(routes, _.partialRight(_.pick, allowed));
 
     res.json({ response: sysCodes.RESOURCE.LOADED, output })
+
+};
+
+exports.updateServices = (req, res, next) => {
+
+    const serviceConfig = req.body['service'];
+
+    Service.findOne({ id: serviceConfig.id }).exec()
+        .then(service => {
+            return service ? service.remove() : Promise.resolve();
+        })
+        .then(() => {
+            const svc = new Service(serviceConfig);
+            svc.save().then(saved => {
+
+                res.json({
+                    response: sysCodes.REQUEST.PROCESSED,
+                    output: saved
+                });
+
+            }).catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
 
 };

@@ -24,7 +24,10 @@ module.exports = {
         token: {
             secret: '521f0d4be0aa40dc9c28257da3170426',
             ttl: 1800
-        }
+        },
+
+        consumers: [ '6e6f7274-6865-726e-7374-6172732e637a' ]
+
 
     },
 

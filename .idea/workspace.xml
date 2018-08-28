@@ -2,11 +2,485 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/services/core/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/operator/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/operator/src/models/service.schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/History.md" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/History.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/node_modules/path-to-regexp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/config/server.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/config/server.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/config/services.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/config/services.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/smtp-server/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/sasl.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/sasl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/smtp-connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/smtp-connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/smtp-server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/smtp-server/lib/smtp-server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/addressparser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/base64/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/message-parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/relaxed-body.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/sign.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/fetch/cookies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/fetch/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/json-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mail-composer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mailer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mailer/mail-message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mime-funcs/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mime-funcs/mime-types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mime-node/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/mime-node/last-newline.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/nodemailer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/qp/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/le-unix.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/le-windows.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/ses-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/shared/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/data-stream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/http-proxy-client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-pool/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-pool/pool-resource.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/stream-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/well-known/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/well-known/services.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/lib/xoauth2/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/node_modules/nodemailer/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/node_modules/smtp-server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/smtp-server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/src/config/settings.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/src/config/settings.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/.coveralls.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/.eslintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/src/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/src/debug.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/debug/src/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.coveralls.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.eslintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.evergreen/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.evergreen/install-dependencies.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.evergreen/run-atlas-tests.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/.evergreen/run-tests.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/CODE_OF_CONDUCT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/THIRD-PARTY-NOTICES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/conf.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/defaultAuthProviders.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/gssapi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/mongocr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/plain.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/scram.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/sspi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/auth/x509.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/apm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/command_result.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/commands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/logger.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/pool.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/connection/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/cursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/cursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/monitoring.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/server_description.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/server_selectors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/topology.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sdam/topology_description.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/sessions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/tools/smoke_plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/mongos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/read_preference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/replset.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/replset_state.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/topologies/shared.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/transactions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/uri_parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/wireprotocol/2_6_support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/wireprotocol/3_2_support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/wireprotocol/compression.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/lib/wireprotocol/shared.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/LICENSE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/browser_build/bson.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/browser_build/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/binary.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/bson.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/code.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/db_ref.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/decimal128.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/double.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/float_parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/int_32.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/long.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/map.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/max_key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/min_key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/objectid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/parser/calculate_size.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/parser/deserializer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/parser/serializer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/parser/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/regexp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/symbol.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/lib/bson/timestamp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/node_modules/bson/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb-core/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/.evergreen/_config.template.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/.evergreen/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/.evergreen/generate_evergreen_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/.evergreen/install-dependencies.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/.evergreen/run-tests.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/CHANGES_3.0.0.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/CODE_OF_CONDUCT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/THIRD-PARTY-NOTICES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/boot_auth.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/conf.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/insert_bench.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/admin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/aggregation_cursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/apm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/authenticate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/bulk/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/bulk/ordered.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/bulk/unordered.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/change_stream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/collection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/command_cursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/cursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/gridfs-stream/download.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/gridfs-stream/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/gridfs-stream/upload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/gridfs/chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/gridfs/grid_store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/mongo_client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/operations/admin_ops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/operations/collection_ops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/operations/cursor_ops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/operations/db_ops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/operations/mongo_client_ops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/topologies/mongos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/topologies/replset.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/topologies/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/topologies/topology_base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/url_parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/lib/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongodb/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/.github/ISSUE_TEMPLATE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/.github/PULL_REQUEST_TEMPLATE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/History.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/aggregate/aggregate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/aggregate/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/aggregate/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/doc-methods.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/connection-sharing/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/connection-sharing/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/connection-sharing/modelA.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/connection-sharing/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/express/connection-sharing/routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/geospatial/geoJSONSchema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/geospatial/geoJSONexample.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/geospatial/geospatial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/geospatial/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/geospatial/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/globalschemas/gs_example.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/globalschemas/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/lean/lean.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/lean/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/lean/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/mapreduce/mapreduce.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/mapreduce/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/mapreduce/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-across-three-collections.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-basic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-of-existing-doc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-of-multiple-existing-docs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-options.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/population/population-plain-objects.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/promises/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/promises/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/promises/promise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/querybuilder/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/querybuilder/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/querybuilder/querybuilder.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/replicasets/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/replicasets/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/replicasets/replica-sets.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/schema/schema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/schema/storing-schemas-as-json/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/schema/storing-schemas-as-json/schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/statics/person.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/examples/statics/statics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/aggregate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/browserDocument.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cast.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cast/boolean.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cast/number.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cast/string.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/collection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/connectionstate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cursor/AggregationCursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cursor/ChangeStream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/cursor/QueryCursor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/document.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/document_provider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/driver.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/SPEC.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/browser/ReadPreference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/browser/binary.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/browser/decimal128.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/browser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/browser/objectid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/ReadPreference.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/binary.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/decimal128.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/drivers/node-mongodb-native/objectid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/browserMissingSchema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/cast.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/disconnected.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/divergentArray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/messages.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/missingSchema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/mongooseError.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/notFound.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/objectExpected.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/objectParameter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/overwriteModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/parallelSave.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/strict.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/validator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/error/version.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/cursor/eachAsync.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/document/cleanModifiedSubpaths.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/document/compile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/document/getEmbeddedDiscriminatorPath.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/immediate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/model/applyHooks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/model/applyMethods.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/model/applyStatics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/model/discriminator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/populate/getSchemaTypes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/populate/getVirtual.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/projection/isDefiningProjection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/projection/isExclusive.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/projection/isInclusive.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/projection/isPathExcluded.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/projection/isPathSelectedInclusive.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/applyQueryMiddleware.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/castUpdate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/completeMany.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/getEmbeddedDiscriminatorPath.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/hasDollarKeys.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/query/selectPopulatedFields.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/schema/applyWriteConcern.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/schema/getIndexes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/setDefaultsOnInsert.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/update/modifiedPaths.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/helpers/updateValidators.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/internal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/options.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/plugins/idGetter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/plugins/removeSubdocs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/plugins/saveSubdocs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/plugins/sharding.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/plugins/validateBeforeSave.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/promise_provider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/query.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/queryhelpers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/array.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/boolean.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/date.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/decimal128.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/documentarray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/embedded.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/map.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/mixed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/number.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/objectid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/bitwise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/exists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/geospatial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/helpers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/operators/type.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schema/string.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/schematype.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/statemachine.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/array.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/decimal128.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/documentarray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/embedded.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/map.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/objectid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/types/subdocument.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/lib/virtualtype.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/migrating_to_5.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/release-items.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/static.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/tools/auth.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/tools/repl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/tools/sharded.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mongoose/website.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/History.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/collection/collection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/collection/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/collection/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/env.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/mquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/permissions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/lib/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/collection/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/collection/mongo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/collection/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/env.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/mquery/test/utils.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/History.md" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/History.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/path-to-regexp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/safe-buffer/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/safe-buffer/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/safe-buffer/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/safe-buffer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/node_modules/safe-buffer/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/services.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/services.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/generic.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/generic.helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/sasl.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/sasl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/smtp-connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/smtp-connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/smtp-server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/lib/smtp-server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/addressparser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/base64/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/message-parser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/relaxed-body.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/dkim/sign.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/fetch/cookies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/fetch/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/json-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mail-composer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mailer/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mailer/mail-message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mime-funcs/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mime-funcs/mime-types.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mime-node/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/mime-node/last-newline.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/nodemailer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/qp/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/le-unix.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/sendmail-transport/le-windows.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/ses-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/shared/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/data-stream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/http-proxy-client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-connection/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-pool/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-pool/pool-resource.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/smtp-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/stream-transport/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/well-known/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/well-known/services.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/lib/xoauth2/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/node_modules/nodemailer/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/smtp-server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/src/config/settings.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/config/settings.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/src/routes/index.route.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/routes/index.route.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/operator/src/routes/sys.route.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/routes/sys.route.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/shared/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/shared/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/assets/system-enums.asset.js" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/assets/system-enums.asset.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/config/server.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/config/server.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/config/services.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/config/services.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/controllers/strategies.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/controllers/strategies.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/helpers/generic.helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/helpers/generic.helper.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,27 +495,27 @@
     <session id="-154566533">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="3" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="8" />
-          <entry key="js" value="38017" />
+          <entry key="js" value="41714" />
           <entry key="json" value="79" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="79" />
-          <entry key="JavaScript" value="38017" />
+          <entry key="JavaScript" value="41714" />
           <entry key="PLAIN_TEXT" value="8" />
         </counts>
       </usages-collector>
@@ -49,9 +523,9 @@
         <counts>
           <entry key="LICENSE" value="1" />
           <entry key="ejs" value="3" />
-          <entry key="gitignore" value="6" />
-          <entry key="js" value="783" />
-          <entry key="json" value="27" />
+          <entry key="gitignore" value="7" />
+          <entry key="js" value="909" />
+          <entry key="json" value="28" />
           <entry key="md" value="1" />
           <entry key="ts" value="1" />
         </counts>
@@ -59,10 +533,10 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="EJS" value="3" />
-          <entry key="JSON" value="27" />
-          <entry key="JavaScript" value="783" />
+          <entry key="JSON" value="28" />
+          <entry key="JavaScript" value="909" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="PLAIN_TEXT" value="8" />
           <entry key="TypeScript" value="1" />
         </counts>
       </usages-collector>
@@ -78,29 +552,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/operator/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/operator/src/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js">
+        <entry file="file://$PROJECT_DIR$/services/core/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="493">
+              <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/system.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -118,7 +583,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hEADE</find>
       <find>req</find>
       <find>service</find>
       <find>BAD_</find>
@@ -148,6 +612,7 @@
       <find>JerseyCtrl</find>
       <find>.find</find>
       <find>Jersey.find(</find>
+      <find>apiConsumers</find>
     </findStrings>
     <replaceStrings>
       <replace>endpath</replace>
@@ -193,6 +658,8 @@
       <dir>$PROJECT_DIR$/services/operator</dir>
       <dir>$PROJECT_DIR$/services/core</dir>
       <dir>$PROJECT_DIR$/services/core/src</dir>
+      <dir>$PROJECT_DIR$/services</dir>
+      <dir>$PROJECT_DIR$/old</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -206,16 +673,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/services/operator/src/v1/models/registration-request.schema.js" />
-        <option value="$PROJECT_DIR$/microservices/authenticator/api/v1/config/passport.config.js" />
-        <option value="$PROJECT_DIR$/services/operator/src/v1/models/user.schema.js" />
-        <option value="$PROJECT_DIR$/services/operator/package.json" />
-        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/mongoose.helper.js" />
-        <option value="$PROJECT_DIR$/services/operator/src/v1/index.js" />
-        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/package.json" />
-        <option value="$PROJECT_DIR$/services/operator/src/v1/config/mongoose.config.js" />
-        <option value="$PROJECT_DIR$/services/operator/src/v1/config/passport.config.js" />
-        <option value="$PROJECT_DIR$/services/operator/src/v1/controllers/authentication.controller.js" />
         <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/interfaces/route.interface.js" />
         <option value="$PROJECT_DIR$/services/operator/src/v1/controllers/credentials.controller.js" />
         <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/route.helper.js" />
@@ -224,7 +681,6 @@
         <option value="$PROJECT_DIR$/services/operator/src/v1/routes/sys.route.conf.js" />
         <option value="$PROJECT_DIR$/services/operator/src/v1/controllers/system.controller.js" />
         <option value="$PROJECT_DIR$/services/core/package.json" />
-        <option value="$PROJECT_DIR$/services/core/src/config/settings.config.js" />
         <option value="$PROJECT_DIR$/services/core/src/assets/codes.asset.js" />
         <option value="$PROJECT_DIR$/services/core/src/assets/enums.asset.js" />
         <option value="$PROJECT_DIR$/services/core/src/assets/messages.asset.js" />
@@ -234,29 +690,40 @@
         <option value="$PROJECT_DIR$/services/core/src/controllers/places.controller.js" />
         <option value="$PROJECT_DIR$/services/core/src/controllers/matches.controller.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/index.route.conf.js" />
-        <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/team.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/place.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/match.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/mongoose.helper.js" />
-        <option value="$PROJECT_DIR$/services/core/server.js" />
         <option value="$PROJECT_DIR$/services/core/src/index.js" />
-        <option value="$PROJECT_DIR$/shared/src/assets/system-enums.asset.js" />
-        <option value="$PROJECT_DIR$/shared/src/helpers/generic.helper.js" />
         <option value="$PROJECT_DIR$/shared/src/helpers/error.helper.js" />
-        <option value="$PROJECT_DIR$/shared/src/config/services.config.js" />
         <option value="$PROJECT_DIR$/shared/index.js" />
         <option value="$PROJECT_DIR$/services/operator/src/routes/auth.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/jersey.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js" />
         <option value="$PROJECT_DIR$/shared/src/controllers/strategies.controller.js" />
-        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" />
         <option value="$PROJECT_DIR$/services/operator/.gitignore" />
         <option value="$PROJECT_DIR$/services/core/.gitignore" />
         <option value="$PROJECT_DIR$/services/core/src/controllers/jerseys.controller.js" />
         <option value="$PROJECT_DIR$/services/operator/src/index.js" />
-        <option value="$PROJECT_DIR$/services/operator/server.js" />
         <option value="$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/routes/gateway.route.conf.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/routes/index.route.conf.js" />
+        <option value="$PROJECT_DIR$/shared/src/config/services.config.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/routes/sys.route.conf.js" />
+        <option value="$PROJECT_DIR$/shared/src/helpers/generic.helper.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/config/settings.config.js" />
+        <option value="$PROJECT_DIR$/services/core/src/config/settings.config.js" />
+        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js" />
+        <option value="$PROJECT_DIR$/services/operator/server.js" />
+        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" />
+        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/generic.helper.js" />
+        <option value="$PROJECT_DIR$/shared/src/assets/system-enums.asset.js" />
+        <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js" />
+        <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js" />
+        <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" />
+        <option value="$PROJECT_DIR$/services/operator/src/models/service.schema.js" />
+        <option value="$PROJECT_DIR$/services/core/server.js" />
       </list>
     </option>
   </component>
@@ -346,7 +813,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/microservices/authenticator/api/v1/routes/index.route.conf.js&#10;route.help&#9;FILE&#9;file:///Users/phill/Desktop/NorthernStars/backend/common/helpers/route.helper.js&#10;enumHe&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/common/helpers/enum.helper.js&#10;route.he&#9;FILE&#9;file:///Users/phill/Desktop/NorthernStars/backend/common/helpers/route.helper.js&#10;codes&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/common/assets/codes.js&#10;secr&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/node_modules/lodash/_baseCreate.js" />
+    <property name="SearchEverywhereHistoryKey" value="self.c&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/old/microservices/portal/api/v1/config/self.config.js&#10;route.help&#9;FILE&#9;file:///Users/phill/Desktop/NorthernStars/backend/common/helpers/route.helper.js&#10;enumHe&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/common/helpers/enum.helper.js&#10;route.he&#9;FILE&#9;file:///Users/phill/Desktop/NorthernStars/backend/common/helpers/route.helper.js&#10;codes&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/common/assets/codes.js&#10;secr&#9;FILE&#9;file:///Users/visionmac01/Desktop/northernstars/ns_backend/node_modules/lodash/_baseCreate.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.9.3" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -357,19 +824,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/old" />
-      <recent name="$PROJECT_DIR$/services/operator/src" />
-      <recent name="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user" />
-      <recent name="$PROJECT_DIR$/microservices/backdrop/api/v1" />
-      <recent name="$PROJECT_DIR$/_repo/helpers" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/shared" />
       <recent name="$PROJECT_DIR$/services/core/src/models" />
       <recent name="$PROJECT_DIR$/services/core/src/controllers" />
       <recent name="$PROJECT_DIR$/services/operator/src/controllers" />
       <recent name="$PROJECT_DIR$/services/operator/src/v1/controllers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/old" />
+      <recent name="$PROJECT_DIR$/services/operator/src" />
+      <recent name="$PROJECT_DIR$/microservices/authenticator/api/v1/controllers/user" />
+      <recent name="$PROJECT_DIR$/microservices/backdrop/api/v1" />
+      <recent name="$PROJECT_DIR$/_repo/helpers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -384,7 +851,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.Core">
+  <component name="RunManager" selected="Node.js.Operator">
     <configuration name="Core" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/services/core">
       <envs>
         <env name="NODE_ENV" value="development" />
@@ -407,8 +874,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.Operator" />
         <item itemvalue="Node.js.Core" />
+        <item itemvalue="Node.js.Operator" />
       </list>
     </recent_temporary>
   </component>
@@ -461,12 +928,13 @@
       <workItem from="1534929829027" duration="5929000" />
       <workItem from="1535008352259" duration="7215000" />
       <workItem from="1535018052103" duration="2972000" />
-      <workItem from="1535091525406" duration="17162000" />
+      <workItem from="1535091525406" duration="17364000" />
+      <workItem from="1535455258399" duration="4934000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="376180000" />
+    <option name="totallyTimeSpent" value="381316000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -488,7 +956,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32730925" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.29016066" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.32228917" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.34738955" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
@@ -508,17 +976,17 @@
       <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3281046" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19076306" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.26506025" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32730925" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29016066" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.34738955" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="9" weight="0.3263052" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3270548" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" x="0" y="22" width="432" height="679" id="Terminal" order="9" sideWeight="0.49841937" weight="0.26807228" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3263052" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5015806" side_tool="true" weight="0.21485944" />
       <window_info anchor="bottom" id="Thumbnails" order="12" weight="0.32876712" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -579,267 +1047,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/jerseys.controller.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/models/match.model.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/models/jersey.model.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/src/assets/messages.asset.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/microservices/core/api/v1/controllers/jerseys.controller.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/microservices/core/api/v1/assets/codes.asset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-376">
-          <caret selection-end-line="81" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/models/team.model.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/models/place.model.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/controllers/sys.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" selection-start-column="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/controllers/places.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="58" selection-start-line="1" selection-start-column="58" selection-end-line="1" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/moment/moment.d.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/index.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="14" lean-forward="true" selection-end-line="23" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/microservices/core/api/v1/routes/index.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="130" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/controllers/matches.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/routes/match.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/routes/index.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/routes/team.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/routes/place.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/config/settings.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/node_modules/co/LICENSE">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/mongoose.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="2" lean-forward="true" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/assets/system-enums.asset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/assets/system-codes.asset.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/assets/schema-fields.asset.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/helpers/error.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/config/services.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/helpers/generic.helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/config/server.config.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/auth.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/interfaces/route.interface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/src/routes/jersey.route.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="47" selection-start-column="47" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/src/controllers/strategies.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="130" column="2" selection-start-line="130" selection-start-column="2" selection-end-line="130" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="53" column="9" lean-forward="true" selection-end-line="130" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="130" column="2" selection-start-line="130" selection-start-column="2" selection-end-line="130" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shared/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" lean-forward="true" selection-end-line="72" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="72" column="11" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="656">
           <caret line="72" column="11" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
@@ -853,10 +1061,168 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="72" column="11" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/core/src/controllers/jerseys.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="495">
           <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/models/jersey.model.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/models/match.model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/routes/index.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/routes/jersey.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="47" selection-start-column="47" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/routes/match.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/routes/place.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/routes/team.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/auth.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="2" lean-forward="true" selection-end-line="20" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/gateway.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/index.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/config/services.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/models/user.schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="77" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/node_modules/request-promise/lib/rp.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/helpers/route.helper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/controllers/strategies.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="65" column="40" selection-start-line="65" selection-start-column="40" selection-end-line="65" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/config/server.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="53" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/route.helper.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/interfaces/route.interface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/microservices/portal/api/v1/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="86" selection-start-line="11" selection-start-column="86" selection-end-line="11" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="66" column="32" lean-forward="true" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/microservices/portal/api/v1/config/self.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/config/settings.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
@@ -867,24 +1233,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/server.js">
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+        <state relative-caret-position="315">
+          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/src/index.js">
+    <entry file="file://$PROJECT_DIR$/shared/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="33" lean-forward="true" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+        <state relative-caret-position="480">
+          <caret line="32" column="3" lean-forward="true" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/helpers/generic.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/generic.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/helpers/error.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="2" lean-forward="true" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/routes/sys.route.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="80" lean-forward="true" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/assets/system-codes.asset.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared/src/assets/system-enums.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/assets/system-enums.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="43" column="50" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/src/config/settings.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/mongoose.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/models/service.schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/system.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
         </state>
       </provider>
     </entry>

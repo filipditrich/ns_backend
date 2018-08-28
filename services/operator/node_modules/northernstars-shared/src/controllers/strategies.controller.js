@@ -63,10 +63,11 @@ exports.roleAuthorization = (req, res, next, roles) => {
  * @param serviceConfig
  * @return {*}
  */
-exports.apiConsumers = (req, res, next, serviceConfig) => {
+exports.apiConsumers = (req, res, next, environment) => {
     const headers = req.headers;
-
-    if (!headers['application-id'] || serviceConfig.consumers.indexOf(headers['application-id']) < 0) {
+    const consumers = require('../config/server.config')[environment].consumers;
+    
+    if (!headers['application-id'] || consumers.indexOf(headers['application-id']) < 0) {
 
         // development purposes
         if (env === 'development'){ return next(); }

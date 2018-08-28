@@ -13,6 +13,14 @@ module.exports = {
             ns: { key: 'ns', value: 'Northern Stars' },
             other: { key: 'other', value: 'Other' }
         }
+    },
+
+    SYSTEM: {
+        ENVIRONMENT: {
+            development: { key: 'development', value: 'Development' },
+            test: { key: 'test', value: 'Testing' },
+            production: { key: 'production', value: 'Production' }
+        }
     }
 
 };

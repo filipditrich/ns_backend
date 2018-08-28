@@ -37,6 +37,17 @@ app.listen(app.get('port'), () => {
     console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
 });
 
+/** Service Configuration **/
+BaseCtrl.updateService(serviceSettings).then(response => {
+    if (response.response.success) {
+        console.log('✅ Service configuration updated successfully.' );
+    } else {
+        console.log('❌ Something went wrong. The request has been processed but with no success output', response.response);
+    }
+}).catch(error => {
+    console.log('❌ Error while updating service configuration. ', error);
+});
+
 /** Expose API **/
 app.use('/api/', require('./src')(app));
 

@@ -43,6 +43,11 @@ app.listen(app.get('port'), () => {
     console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
 });
 
+/** API Consumers **/
+app.use((req, res, next) => {
+    require('northernstars-shared').strategiesCtrl.apiConsumers(req, res, next, serviceSettings.environment);
+});
+
 /** Expose API **/
 app.use('/api/', require('./src')(app));
 
