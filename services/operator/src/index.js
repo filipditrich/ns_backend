@@ -19,7 +19,7 @@ module.exports = function (app) {
     router.use(genericRouteHelper.genericRouteHandler);
 
     /** API Gateway Handler **/
-    router.use(GatewayCtrl.gatewayHandler);
+    router.use('/:msvc', GatewayCtrl.gatewayHandler);
 
     return router;
 

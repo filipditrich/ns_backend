@@ -12,7 +12,8 @@ const serviceSchema = mongoose.Schema({
         url: { type: String, default: 'mongodb://localhost:27017' },
         name: { type: String, unique: true, required: true }
     },
-    isOnline: { type: Boolean, default: true }
+    isOnline: { type: Boolean, default: true },
+    registeredRoutes: []
 
 }, { timestamps: true });
 

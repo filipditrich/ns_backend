@@ -98,7 +98,7 @@ exports.serviceChecker = () => {
     Service.find({}).exec()
         .then(services => {
             if (services.length !== 0) {
-                console.log("------------ SERVICE CHECK STARTED ------------");
+                console.log(`\n\n------------ SERVICE CHECK STARTED ------------\n`);
                 const promises = [];
                 services.forEach(service => {
                     promises.push(request.get({
@@ -124,7 +124,7 @@ exports.serviceChecker = () => {
 
                 Promise.all(promises).then(() => {
                     if (services.length !== 0) {
-                        console.log("------------- SERVICE CHECK ENDED -------------");
+                        console.log(`\n------------ SERVICE CHECK ENDED ------------\n\n`);
                     }
                 }).catch(error => {
                     console.log("An error occurred while checking for services: ", error);

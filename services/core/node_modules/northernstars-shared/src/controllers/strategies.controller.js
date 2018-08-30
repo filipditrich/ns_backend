@@ -66,7 +66,7 @@ exports.roleAuthorization = (req, res, next, roles) => {
 exports.apiConsumers = (req, res, next, environment) => {
     const headers = req.headers;
     const consumers = require('../config/server.config')[environment].consumers;
-    
+
     if (!headers['application-id'] || consumers.indexOf(headers['application-id']) < 0) {
 
         // development purposes
@@ -115,7 +115,7 @@ exports.verifyToken = (req, res, next) => {
     return new Promise((resolve, reject) => {
         const token = req.headers['authorization'];
 
-        if (!token) reject(errorHelper.prepareError(codes.HEADERS.BAD_STRUCT));
+        if (!token) reject(errorHelper.prepareError(codes.AUTH.ROLES.UNAUTHORIZED_ACCESS));
 
         jwt.verify(token, config[env].token.secret, (error, decoded) => {
             if (error) {
