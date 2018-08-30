@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/services/core/src/routes/sys.route.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/core/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/core/src/controllers/sys.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/src/controllers/sys.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/core/src/routes/index.route.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/src/routes/index.route.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/core/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -38,14 +31,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="8" />
-          <entry key="js" value="44906" />
+          <entry key="js" value="45116" />
           <entry key="json" value="79" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="79" />
-          <entry key="JavaScript" value="44906" />
+          <entry key="JavaScript" value="45116" />
           <entry key="PLAIN_TEXT" value="8" />
         </counts>
       </usages-collector>
@@ -54,7 +47,7 @@
           <entry key="LICENSE" value="1" />
           <entry key="ejs" value="3" />
           <entry key="gitignore" value="7" />
-          <entry key="js" value="940" />
+          <entry key="js" value="952" />
           <entry key="json" value="28" />
           <entry key="md" value="1" />
           <entry key="ts" value="1" />
@@ -64,7 +57,7 @@
         <counts>
           <entry key="EJS" value="3" />
           <entry key="JSON" value="28" />
-          <entry key="JavaScript" value="940" />
+          <entry key="JavaScript" value="952" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="TypeScript" value="1" />
@@ -83,10 +76,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/operator/server.js">
+        <entry file="file://$PROJECT_DIR$/services/core/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="60" column="94" selection-start-line="60" selection-start-column="94" selection-end-line="60" selection-end-column="94" />
+            <state relative-caret-position="456">
+              <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="90" selection-start-line="90" selection-end-line="90" />
             </state>
           </provider>
         </entry>
@@ -94,8 +96,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/system.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="76" column="41" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
+            <state relative-caret-position="315">
+              <caret line="109" column="64" selection-start-line="109" selection-start-column="64" selection-end-line="109" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -248,11 +250,11 @@
         <option value="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/assets/system-enums.asset.js" />
         <option value="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js" />
         <option value="$PROJECT_DIR$/services/operator/src/models/service.schema.js" />
-        <option value="$PROJECT_DIR$/services/core/server.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/index.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/src/routes/sys.route.conf.js" />
         <option value="$PROJECT_DIR$/services/core/src/controllers/sys.controller.js" />
         <option value="$PROJECT_DIR$/services/operator/server.js" />
+        <option value="$PROJECT_DIR$/services/core/server.js" />
         <option value="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" />
       </list>
     </option>
@@ -312,22 +314,13 @@
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="operator" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
               <item name="operator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="operator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -454,12 +447,12 @@
       <workItem from="1535018052103" duration="2972000" />
       <workItem from="1535091525406" duration="17364000" />
       <workItem from="1535455258399" duration="5010000" />
-      <workItem from="1535611887833" duration="5025000" />
+      <workItem from="1535611887833" duration="5328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="386417000" />
+    <option name="totallyTimeSpent" value="386720000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -474,14 +467,14 @@
     <frame x="0" y="22" width="1920" height="1105" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49069768" visible="true" weight="0.1938883" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49069768" visible="true" weight="0.1938883" />
       <window_info id="Structure" order="1" sideWeight="0.5093023" side_tool="true" weight="0.17695168" />
       <window_info id="npm" order="2" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info id="Favorites" order="3" sideWeight="0.5017123" side_tool="true" weight="0.24981412" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32730925" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.29016066" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.27108434" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.27108434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32820514" />
@@ -644,13 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="66" column="32" lean-forward="true" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/old/microservices/portal/api/v1/config/self.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -679,13 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-127">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -773,24 +752,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/helpers/generic.helper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/core/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -835,13 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/src/routes/sys.route.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -863,17 +821,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="30" column="59" lean-forward="true" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/config/server.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="33" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="35" column="54" lean-forward="true" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="569">
-          <caret line="60" column="94" selection-start-line="60" selection-start-column="94" selection-end-line="60" selection-end-column="94" />
+          <caret line="60" column="76" lean-forward="true" selection-start-line="60" selection-start-column="76" selection-end-line="60" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="90" selection-start-line="90" selection-end-line="90" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/system.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="41" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
+        <state relative-caret-position="315">
+          <caret line="109" column="64" selection-start-line="109" selection-start-column="64" selection-end-line="109" selection-end-column="64" />
         </state>
       </provider>
     </entry>

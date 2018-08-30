@@ -103,6 +103,12 @@ exports.serviceChecker = () => {
                 services.forEach(service => {
                     promises.push(request.get({
                         uri: `http://localhost:${service.port}/api/sys/up-check`,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Application-ID': `${serverConf[service.environment].consumers[0]}`,
+                            'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`,
+                            'X-Microservice-Communication-Secret': serverConf[service.environment].secret.microSvcCommunication
+                        },
                         json: true
                     }).then(response => {
                         console.log(`✅ ${service.name} is up and running for ${response.output['runtime']} seconds.`);

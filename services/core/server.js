@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const serviceSettings = require('./src/config/settings.config');
 const BaseCtrl = require('northernstars-shared').genericHelper;
+const StrategiesCtrl = require('northernstars-shared').strategiesCtrl;
 
 /** App Variables **/
 app.set('env', serviceSettings.environment);
@@ -47,6 +48,9 @@ BaseCtrl.updateService(serviceSettings).then(response => {
 }).catch(error => {
     console.log('❌ Error while updating service configuration. ', error);
 });
+
+/** Micro Service Communication **/
+app.use(StrategiesCtrl.microserviceCommunication);
 
 /** Expose API **/
 app.use('/api/', require('./src')(app));
