@@ -8,17 +8,14 @@ exports.exportCodes = (req, res, next) => {
 
 exports.exportRoutes = (req, res, next) => {
     const routes = require('../routes/index.route.conf');
-    const output = [];
-
-    routes.forEach(route => {
-        let formatted = {};
-        formatted['id'] = route.id;
-        formatted['method'] = route.method;
-        formatted['url'] = route.url;
-        formatted['params'] = route.params;
-        formatted['userRoles'] = route.authRoles;
-        output.push(formatted);
-    });
+    const allowed = ['id', 'method', 'url', 'params', 'roles'];
+    const output = _.map(routes, _.partialRight(_.pick, allowed));
 
     res.json({ response: sysCodes.RESOURCE.LOADED, output: output });
+};
+
+exports.upCheck = (req, res, next) => {
+
+    res.json({ response: sysCodes.REQUEST.PROCESSED, output: { runtime: process.uptime() }});
+
 };

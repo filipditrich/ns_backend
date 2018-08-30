@@ -56,3 +56,6 @@ app.use(BaseCtrl.invalidEndpoint);
 
 /** Response Error Handler **/
 app.use(BaseCtrl.handleError);
+
+/** Service Availability Checker **/
+setInterval(() => { require('./src/controllers/system.controller').serviceChecker() }, 1800000);

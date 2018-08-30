@@ -21,6 +21,7 @@
     "express": "*",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
     "mongoose": "*",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",
