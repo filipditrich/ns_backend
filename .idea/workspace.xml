@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit">
-      <change beforePath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/core/node_modules/northernstars-shared/src/controllers/strategies.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/node_modules/northernstars-shared/src/controllers/strategies.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/controllers/system.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/operator/src/models/service.schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/operator/src/models/service.schema.js" afterDir="false" />
-    </list>
+    <list default="true" id="627dc8ba-6175-46a3-b2fa-8641f13888c7" name="Default" comment="Initial Commit" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -79,20 +72,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/operator/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
               <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -308,21 +292,7 @@
             <path>
               <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="operator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ns_backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ns_backend" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="operator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="shared" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -449,12 +419,12 @@
       <workItem from="1535018052103" duration="2972000" />
       <workItem from="1535091525406" duration="17364000" />
       <workItem from="1535455258399" duration="5010000" />
-      <workItem from="1535611887833" duration="8666000" />
+      <workItem from="1535611887833" duration="9120000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="390058000" />
+    <option name="totallyTimeSpent" value="390512000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -467,7 +437,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1105" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49069768" visible="true" weight="0.1938883" />
       <window_info id="Structure" order="1" sideWeight="0.5093023" side_tool="true" weight="0.17695168" />
@@ -476,7 +445,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32730925" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.29016066" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" visible="true" weight="0.27108434" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49947312" weight="0.27108434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32730925" />
@@ -846,17 +815,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/operator/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/operator/src/controllers/gateway.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
         </state>
       </provider>
     </entry>
