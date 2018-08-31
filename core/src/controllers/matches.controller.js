@@ -2,8 +2,10 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Match = require('../models/match.model');
+const Place = require('../models/place.model');
 const codes = require('../assets/codes.asset');
 const moment = require('moment');
+const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 
 exports.createMatch = (req, res, next) => {
 
@@ -12,6 +14,8 @@ exports.createMatch = (req, res, next) => {
     if (!input) return next(errorHelper.prepareError(codes.MATCH.MISSING));
     if (!input.date) return next(errorHelper.prepareError(codes.MATCH.DATE.MISSING));
     if (!input.title) return next(errorHelper.prepareError(codes.MATCH.TITLE.MISSING));
+    if (!input.place) return next(errorHelper.prepareError(codes.PLACE.MISSING));
+    if (!input.enrollment.enrollmentCloses) return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.MISSING));
 
     const d = new Date(input.date);
     const gte = new Date(d.getTime() - 3600000);
@@ -45,12 +49,20 @@ exports.createMatch = (req, res, next) => {
                     });
                 }
             } else {
-                const newMatch = new Match(input);
-                newMatch.save().then(() => {
-                    res.json({ response: codes.MATCH.CREATED });
-                }).catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                Place.findOne({ _id: input.place }).exec()
+                    .then(place => {
+                       if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
+                        input['createdBy'] = req.user._id;
+                        const newMatch = new Match(input);
+                        newMatch.save().then(() => {
+                            res.json({ response: codes.MATCH.CREATED });
+                        }).catch(error => {
+                            return next(errorHelper.prepareError(error));
+                        });
+                    })
+                    .catch(error => {
+                        return next(errorHelper.prepareError(error));
+                    });
             }
         })
         .catch(error => {
@@ -78,6 +90,7 @@ exports.getMatches = (req, res, next) => {
 
 };
 
+// TODO: send mail to attendants
 exports.cancelMatch = (req, res, next) => {
 
     const id = req.params['id'];
@@ -105,6 +118,7 @@ exports.cancelMatch = (req, res, next) => {
 
 };
 
+// TODO: mail attendants
 exports.updateMatch = (req, res, next) => {
 
     const id = req.params['id'];

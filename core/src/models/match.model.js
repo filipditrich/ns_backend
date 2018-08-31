@@ -4,42 +4,29 @@ const codes = require('../assets/codes.asset');
 const enumHelper = require('northernstars-shared').enumHelper;
 const enums = require('../assets/enums.asset');
 
-// TODO: make this more complex (e.g. 'required' on some fields etc.)
-
 const matchEnrollmentPlayersSchema = mongoose.Schema({
-    player: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    enrolledOn: { type: Date },
-    status: { type: String, enum: enumHelper.toArray(enums.MATCH.ENROLL_STATUS) }
-});
-
-const matchTeamSchema = mongoose.Schema({
-    team: { type: mongoose.Schema.ObjectId, ref: 'Team' },
-    players: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-    goals: {
-        scorers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-        total: { type: Number }
-    },
-    result: { type: String, enum: enumHelper.toArray(enums.MATCH.RESULT) }
+    player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.MATCH.ENROLLMENT.PLAYERS.PLAYER.REQUIRED.message },
+    enrolledOn: { type: Date, default: Date.now },
+    status: { type: String, enum: enumHelper.toArray(enums.MATCH.ENROLL_STATUS), required: codes.MATCH.ENROLLMENT.PLAYERS.STATUS.REQUIRED.message }
 });
 
 const matchSchema = mongoose.Schema({
     title: { type: String, required: codes.MATCH.TITLE.REQUIRED.message },
-    date: { type: Date, required: msgs.MATCH.DATE.REQUIRED },
-    place: { type: mongoose.Schema.ObjectId, ref: 'Place' },
+    date: { type: Date, required: codes.MATCH.DATE.REQUIRED.message },
+    place: { type: mongoose.Schema.ObjectId, ref: 'Place', required: codes.PLACE.REQUIRED.message },
     note: { type: String },
+
     enrollment: {
         players: [ matchEnrollmentPlayersSchema ],
         enrollmentOpens: { type: Date, default: Date.now },
-        enrollmentCloses: { type: Date, required: msgs.MATCH },
+        enrollmentCloses: { type: Date, required: codes.MATCH.ENROLLMENT.CLOSES.REQUIRED.message },
     },
-    afterMatch: {
-        teams: [ matchTeamSchema ],
-        winner: { type: mongoose.Schema.ObjectId, ref: 'Team' },
-    },
+
     cancelled: { type: Boolean, default: false },
     cancelledBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    cancelledByUser: { type: String },
+
     createdBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
+    updatedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 /**

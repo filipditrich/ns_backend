@@ -7,9 +7,10 @@ const serverConfig = require('northernstars-shared').serverConfig;
 const passport = require('passport');
 const RegistrationRequest = require('../models/registration-request.schema');
 const User = require('../models/user.schema');
-const codeHelper = require('northernstars-shared').mailHelper;
+const codeHelper = require('northernstars-shared').codeHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
+const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
 
 /**
  * @description: generates and signs new JWT token
