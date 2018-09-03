@@ -10,8 +10,42 @@ exports.exportCodes = (req, res, next) => {
 
     // TODO: export codes from other service as well
     let output = {};
-    output['operator'] = codes;
-    output['shared'] = sysCodes;
+
+    Service.find({}).exec()
+        .then(services => {
+            let promises = [];
+
+            if (services.length !== 0) {
+                promises.push(new Promise((resolve, reject) => {
+                    services.forEach(service => {
+                        request.get({
+                            uri: `http://localhost:${service.port}/api/sys/export/codes`,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Application-ID': `${serverConf[service.environment].consumers[0]}`,
+                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`
+                            },
+                            json: true
+                        }).then(response => {
+                            output[service.id] = response.output;
+                            resolve();
+                        }).catch(error => {
+                            reject(error);
+                        })
+                    })
+                }));
+            }
+
+            Promise.all(promises).then(() => {
+                output['operator'] = _.map(routes, _.partialRight(_.pick, allowed));
+                res.json({ response: sysCodes.RESOURCE.LOADED, output });
+            }).catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
 
     res.json({ response: sysCodes.RESOURCE.LOADED, output });
 
@@ -19,7 +53,6 @@ exports.exportCodes = (req, res, next) => {
 
 exports.exportRoutes = (req, res, next) => {
 
-    // TODO: export routes from other services as well
     let output = {},
         routes = require('../routes/index.route.conf'),
         allowed = ['id', 'method', 'url', 'params', 'roles'];

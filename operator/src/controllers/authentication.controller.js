@@ -148,7 +148,9 @@ exports.requestRegistration = (req, res, next) => {
                         }).then(() => {
                             res.json({
                                 response: codes.REGISTRATION.REQUEST.SUCCESS,
-                                email: saved.email
+                                output: {
+                                    email: saved.email
+                                }
                             });
                         }).catch(error => {
                             return next(errorHelper.prepareError(error));
