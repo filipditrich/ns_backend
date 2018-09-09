@@ -36,7 +36,8 @@ exports.exportRoutes = (req, res, next) => {
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Application-ID': `${serverConf[service.environment].consumers[0]}`,
-                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`
+                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`,
+                                'X-Microservice-Communication-Secret': serverConf[service.environment].secret.microSvcCommunication
                             },
                             json: true
                         }).then(response => {

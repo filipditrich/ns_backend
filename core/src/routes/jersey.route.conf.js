@@ -13,5 +13,6 @@ module.exports = [
     new Route('UPD_JERSEY', 'PUT', '/jerseys/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, JerseysCtrl.updateJersey),
     new Route('DEL_JERSEY', 'DELETE', '/jerseys/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, JerseysCtrl.deleteJersey),
     new Route('GET_JERSEY', 'GET', '/jerseys/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, JerseysCtrl.getJerseys),
+    new Route('GET_ALL_JERSEY', 'GET', '/jerseys/get-all', { roles: sysEnums.AUTH.ROLES.anyone.key }, JerseysCtrl.getAllJersey),
 
 ];

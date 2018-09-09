@@ -138,3 +138,13 @@ exports.deleteJersey = (req, res, next) => {
         });
 
 };
+
+exports.getAllJersey = (req, res, next) => {
+    Jersey.find({}).exec()
+        .then(jerseys => {
+            res.json({ status: sysCodes.RESOURCE.LOADED, response: jerseys })
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+}

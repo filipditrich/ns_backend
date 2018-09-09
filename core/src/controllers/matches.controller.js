@@ -5,17 +5,18 @@ const Match = require('../models/match.model');
 const Place = require('../models/place.model');
 const codes = require('../assets/codes.asset');
 const moment = require('moment');
+const ObjectId = require('mongodb').ObjectId;
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 
 exports.createMatch = (req, res, next) => {
 
-    const input = req.body['match'];
+    const input = req.body;
 
     if (!input) return next(errorHelper.prepareError(codes.MATCH.MISSING));
     if (!input.date) return next(errorHelper.prepareError(codes.MATCH.DATE.MISSING));
     if (!input.title) return next(errorHelper.prepareError(codes.MATCH.TITLE.MISSING));
     if (!input.place) return next(errorHelper.prepareError(codes.PLACE.MISSING));
-    if (!input.enrollment.enrollmentCloses) return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.MISSING));
+    // if (!input.enrollment.enrollmentCloses) return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.MISSING));
 
     const d = new Date(input.date);
     const gte = new Date(d.getTime() - 3600000);
@@ -49,7 +50,7 @@ exports.createMatch = (req, res, next) => {
                     });
                 }
             } else {
-                Place.findOne({ _id: input.place }).exec()
+                Place.findOne({ name: "Liberec" }).exec()
                     .then(place => {
                        if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
                         input['createdBy'] = req.user._id;
@@ -90,6 +91,39 @@ exports.getMatches = (req, res, next) => {
 
 };
 
+exports.getAllMatches = (req, res, next) => {
+    Match.find({}).exec()
+        .then(matches => {
+            res.json({ status: sysCodes.RESOURCE.LOADED, response: matches })
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+}
+
+exports.matchParticipation = (req, res, next) => {
+    Match.findOne({_id:  req.body["matchID"]}).exec()
+        .then(match => {
+            if(!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
+
+            const matchPlayers = match.enrollment.players;
+            if(matchPlayers.includes(req.body.userID)) {
+                const newvalues = {$push: {"enrollment.players": new ObjectId(req.body.userID)}};
+                match.update(newvalues).then(() => {
+                    res.json({response: codes.MATCH.UPDATED});
+                }).catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            } else {
+                return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING));
+            }
+
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        })
+}
+
 // TODO: send mail to attendants
 exports.cancelMatch = (req, res, next) => {
 
@@ -117,6 +151,10 @@ exports.cancelMatch = (req, res, next) => {
         });
 
 };
+
+exports.writeResults = (req, res, next) => {
+    const id = req.params["id"];
+}
 
 // TODO: mail attendants
 exports.updateMatch = (req, res, next) => {
