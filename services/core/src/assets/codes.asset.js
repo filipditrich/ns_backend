@@ -86,7 +86,13 @@ module.exports = {
                 },
                 STATUS: {
                     MISSING: codeGenerator.missing('match_enrollment_players_status'),
-                    REQUIRED: codeGenerator.required('match_enrollment_players_status')
+                    REQUIRED: codeGenerator.required('match_enrollment_players_status'),
+                    ALREADY_PARTICIPATING: {
+                        name: 'MATCH_ENROLLMENT_ALREADY_PARTICIPATING',
+                        message: "",
+                        success: false,
+                        status: 400
+                    }
                 }
             }
         },

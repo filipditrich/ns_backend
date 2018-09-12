@@ -13,14 +13,16 @@ const matchEnrollmentPlayersSchema = mongoose.Schema({
 const matchSchema = mongoose.Schema({
     title: { type: String, required: codes.MATCH.TITLE.REQUIRED.message },
     date: { type: Date, required: codes.MATCH.DATE.REQUIRED.message },
-    place: { type: mongoose.Schema.ObjectId, ref: 'Place', required: codes.PLACE.REQUIRED.message },
+    place: { type: String, required: codes.PLACE.REQUIRED.message },
     note: { type: String },
+    //do place: , ref: 'Place',
 
     enrollment: {
         players: [ matchEnrollmentPlayersSchema ],
         enrollmentOpens: { type: Date, default: Date.now },
-        enrollmentCloses: { type: Date, required: codes.MATCH.ENROLLMENT.CLOSES.REQUIRED.message },
     },
+
+    //do enrollment: enrollmentCloses: { type: Date, required: codes.MATCH.ENROLLMENT.CLOSES.REQUIRED.message },
 
     cancelled: { type: Boolean, default: false },
     cancelledBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
