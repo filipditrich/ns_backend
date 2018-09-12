@@ -11,6 +11,8 @@ const codeHelper = require('northernstars-shared').codeHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
+const schemaFields = require('northernstars-shared').schemaFields;
+const Joi = require('joi');
 
 /**
  * @description: generates and signs new JWT token
@@ -113,9 +115,14 @@ exports.requestRegistration = (req, res, next) => {
 
     let email = req.body.email;
     let name = req.body.name;
+    const schema = Joi.object().keys({
+        email: Joi.string().email().required(),
+        name: Joi.string().required()
+    });
 
-    if (!email) return next(errorHelper.prepareError(codes.EMAIL.MISSING));
-    if (!name) return next(errorHelper.prepareError(codes.NAME.MISSING));
+    // validate body
+    if (Joi.validate(req.body, schema).error)
+        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
 
     RegistrationRequest.findOne({ email: email }).exec()
         .then(alreadyRequested => {
@@ -183,9 +190,15 @@ exports.finishRegistration = (req, res, next) => {
     let password = req.body.password;
     let name = req.body.name;
     // TODO - more credentials
+    const schema = Joi.object().keys({
+        username: Joi.string().required(),
+        password: Joi.string().regex(schemaFields.PASSWORD.REG_EXP).required(),
+        name: Joi.string()
+    });
 
-    if (!username) return next(errorHelper.prepareError(codes.USERNAME.MISSING));
-    if (!password) return next(errorHelper.prepareError(codes.PASSWORD.MISSING));
+    // validate body
+    if (Joi.validate(req.body, schema).error)
+        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
 
     RegistrationRequest.findOne({ 'registration.registrationHash': hash }).exec()
         .then(request => {
@@ -249,7 +262,7 @@ exports.finishRegistration = (req, res, next) => {
 
 exports.tokenCheck = (req, res, next) => {
 
-    StrategyCtrl.authenticateToken(req, res, next).then(() => {
+    StrategyCtrl.verifyToken(req, res, next).then(() => {
 
         res.json({ response: sysCodes.AUTH.TOKEN.VALID });
 

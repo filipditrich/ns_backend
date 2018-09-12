@@ -3,6 +3,28 @@ const schemaFields = require('northernstars-shared').schemaFields;
 
 module.exports = {
 
+    USER: {
+        DUPLICATE: codeGenerator.duplicate('user'),
+        REQUIRED: codeGenerator.required('user'),
+        MISSING: codeGenerator.missing('user'),
+        INVALID: codeGenerator.invalid('user'),
+        NOT_FOUND: codeGenerator.notFound('user'),
+        NULL_FOUND: codeGenerator.multipleNotFound('user'),
+
+        DELETED: codeGenerator.delete('user'),
+        UPDATED: codeGenerator.update('user'),
+        CREATED: codeGenerator.create('user')
+    },
+
+    NUMBER: {
+        DUPLICATE: codeGenerator.delete('jersey_number'),
+        REQUIRED: codeGenerator.required('jersey_number'),
+        MISSING: codeGenerator.missing('jersey_number'),
+        INVALID: codeGenerator.invalid('jersey_number'),
+        NOT_FOUND: codeGenerator.notFound('jersey_number'),
+        NULL_FOUND: codeGenerator.multipleNotFound('jersey_number'),
+    },
+
     NAME: {
         DUPLICATE: codeGenerator.duplicate('name'),
         REQUIRED: codeGenerator.required('name'),

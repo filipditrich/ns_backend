@@ -38,6 +38,10 @@ const userSchema = mongoose.Schema({
     },
     team: {
         type: String, enum: enumHelper.toArray(sysEnums.AUTH.TEAM), default: sysEnums.AUTH.TEAM.ns.key
+    },
+    number: {
+        type: Number,
+        unique: codes.NUMBER.DUPLICATE
     }
 }, { timestamps: true });
 

@@ -66,3 +66,5 @@ require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings
     console.log(error);
     process.exit(1);
 });
+
+module.exports = app;

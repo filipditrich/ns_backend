@@ -3,12 +3,12 @@ const sysCodes = require('northernstars-shared').sysCodes;
 const errorHelper = require('northernstars-shared').errorHelper;
 const _ = require('lodash');
 const Service = require('../models/service.schema');
+const serviceSettings = require('../config/settings.config');
 const serverConf = require('northernstars-shared').serverConfig;
 const request = require('request-promise');
 
 exports.exportCodes = (req, res, next) => {
 
-    // TODO: export codes from other service as well
     let output = {};
 
     Service.find({}).exec()
@@ -23,7 +23,8 @@ exports.exportCodes = (req, res, next) => {
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Application-ID': `${serverConf[service.environment].consumers[0]}`,
-                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`
+                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`,
+                                'X-Microservice-Communication-Secret': serverConf[service.environment].secret.microSvcCommunication
                             },
                             json: true
                         }).then(response => {
@@ -37,7 +38,8 @@ exports.exportCodes = (req, res, next) => {
             }
 
             Promise.all(promises).then(() => {
-                output['operator'] = _.map(routes, _.partialRight(_.pick, allowed));
+                output[serviceSettings.id] = codes;
+                output['shared'] = sysCodes;
                 res.json({ response: sysCodes.RESOURCE.LOADED, output });
             }).catch(error => {
                 return next(errorHelper.prepareError(error));
@@ -46,8 +48,6 @@ exports.exportCodes = (req, res, next) => {
         .catch(error => {
             return next(errorHelper.prepareError(error));
         });
-
-    res.json({ response: sysCodes.RESOURCE.LOADED, output });
 
 };
 
@@ -69,7 +69,8 @@ exports.exportRoutes = (req, res, next) => {
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Application-ID': `${serverConf[service.environment].consumers[0]}`,
-                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`
+                                'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`,
+                                'X-Microservice-Communication-Secret': serverConf[service.environment].secret.microSvcCommunication
                             },
                             json: true
                         }).then(response => {
@@ -83,7 +84,7 @@ exports.exportRoutes = (req, res, next) => {
             }
 
             Promise.all(promises).then(() => {
-                output['operator'] = _.map(routes, _.partialRight(_.pick, allowed));
+                output[serviceSettings.id] = _.map(routes, _.partialRight(_.pick, allowed));
                 res.json({ response: sysCodes.RESOURCE.LOADED, output });
             }).catch(error => {
                 return next(errorHelper.prepareError(error));
@@ -144,7 +145,8 @@ exports.serviceChecker = () => {
                         },
                         json: true
                     }).then(response => {
-                        console.log(`✅ ${service.name} is up and running for ${response.output['runtime']} seconds.`);
+                        const runtime = (new Date(response.output['runtime'] * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0];
+                        console.log(`✅ ${service.name} is up and running for ${runtime}`);
                     }).catch(error => {
                         if (error.message && error.message.search(new RegExp('ECONNREFUSED', 'i')) >= 0) {
                             console.log(`❌ ${service.name} is unreachable. Removing from the list`);
