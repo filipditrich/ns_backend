@@ -10,6 +10,12 @@ const matchEnrollmentPlayersSchema = mongoose.Schema({
     status: { type: String, enum: enumHelper.toArray(enums.MATCH.ENROLL_STATUS), required: codes.MATCH.ENROLLMENT.PLAYERS.STATUS.REQUIRED.message }
 });
 
+const writeResultPlayerSchema = mongoose.Schema({
+    player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.MATCH.ENROLLMENT.PLAYERS.PLAYER.REQUIRED.message },
+    jersey: { type: String, required:codes.JERSEY.REQUIRED },
+    status: { type: String, enum: enumHelper.toArray(enums.MATCH.RESULT), required: codes.MATCH.ENROLLMENT.PLAYERS.STATUS.REQUIRED.message }
+})
+
 const matchSchema = mongoose.Schema({
     title: { type: String, required: codes.MATCH.TITLE.REQUIRED.message },
     date: { type: Date, required: codes.MATCH.DATE.REQUIRED.message },
@@ -23,12 +29,12 @@ const matchSchema = mongoose.Schema({
     },
 
     //do enrollment: enrollmentCloses: { type: Date, required: codes.MATCH.ENROLLMENT.CLOSES.REQUIRED.message },
-
+    afterMatch: [writeResultPlayerSchema],
     cancelled: { type: Boolean, default: false },
     cancelledBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
 
     createdBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    updatedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
+    updatedBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
 }, { timestamps: true });
 
 /**

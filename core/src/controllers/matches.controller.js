@@ -2,11 +2,13 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Match = require('../models/match.model');
+
 const Place = require('../models/place.model');
 const codes = require('../assets/codes.asset');
 const moment = require('moment');
 const ObjectId = require('mongodb').ObjectId;
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
+const enums = require('../assets/enums.asset');
 
 exports.createMatch = (req, res, next) => {
 
@@ -54,6 +56,7 @@ exports.createMatch = (req, res, next) => {
                     .then(place => {
                        if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
                         input['createdBy'] = req.user._id;
+                        input['afterMatch'] = [];
                         const newMatch = new Match(input);
                         newMatch.save().then(() => {
                             res.json({ response: codes.MATCH.CREATED });
@@ -107,7 +110,7 @@ exports.matchParticipation = (req, res, next) => {
             if(!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
 
             const matchPlayers = match.enrollment.players;
-            if(matchPlayers.includes(req.body.userID)) {
+            if(!matchPlayers.includes(req.body.userID)) {
                 const newvalues = {$push: {"enrollment.players": new ObjectId(req.body.userID)}};
                 match.update(newvalues).then(() => {
                     res.json({response: codes.MATCH.UPDATED});
@@ -153,7 +156,55 @@ exports.cancelMatch = (req, res, next) => {
 };
 
 exports.writeResults = (req, res, next) => {
-    const id = req.params["id"];
+    const id = req.body['matchID'];
+    const reqBody = req.body['value'];
+    let reqUser;
+    userHelper.getUser(req.headers)
+        .then(user => reqUser = user)
+        .catch(error => { return next(errorHelper.prepareError(error)) });
+
+    if (!reqBody) return next(errorHelper.prepareError(codes.MATCH.MISSING));
+
+    Match.findOne({ _id: id }).exec()
+        .then(match => {
+
+            if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
+
+            // const matchInArray = match.filter(objects => objects.length > 6);
+            let i = 0;
+            let canParticipate;
+            while (i < match.afterMatch.length) {
+                if(match.afterMatch[i].player == reqUser._id) {
+                    canParticipate = false
+                } else {
+                    canParticipate = true
+                }
+                i++;
+            }
+            if(match.afterMatch.length === 0) canParticipate = true;
+            if(canParticipate) {
+                const afterMatch = {
+                    player: new ObjectId(reqUser._id),
+                    jersey: reqBody.jersey,
+                    status: reqBody.result
+                };
+                match.update(
+                    {$push: {"afterMatch": afterMatch}}
+                ).then(() => {
+                    res.json({response: codes.MATCH.UPDATED})
+                }).catch(error => {
+                    return next(errorHelper.prepareError(error))
+                })
+            } else {
+                res.json({
+                    failed: true
+                })
+            }
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+
 }
 
 // TODO: mail attendants

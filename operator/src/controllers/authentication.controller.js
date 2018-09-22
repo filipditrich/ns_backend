@@ -12,6 +12,7 @@ const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
 
+
 /**
  * @description: generates and signs new JWT token
  * @param user
@@ -166,6 +167,73 @@ exports.requestRegistration = (req, res, next) => {
             return next(errorHelper.prepareError(error));
         });
 };
+
+/**
+ * @description: Get all registration requests
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+exports.getAllRegistrationRequests = (req, res, next) => {
+    RegistrationRequest.find({}).exec()
+        .then(registrationRequest => {
+            res.json({ status: sysCodes.RESOURCE.LOADED, response: registrationRequest })
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+};
+
+/**
+ * @description: Registration request approval
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+exports.requestAprroval = (req, res, next) =>{
+    const id = req.body['id'];
+
+    if (!req.body) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+
+    RegistrationRequest.findOne({ _id: id }).exec()
+        .then(match => {
+
+            if (!match) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+            match.update({"approval.approved": req.body["state"]}).then(() => {
+
+                    mailHelper.mail('registration-approved', {
+                        name: match.name,
+                        email: match.email,
+                        hash: match.registration["registrationHash"],
+                        subject: 'Registration Request Approved!'
+                    }).then(() => {
+                        res.json({
+                            response: sysCodes.REQUEST.VALID,
+                            email: match.email
+                        });
+                }).catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            }).catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+}
+
+exports.existCheck = (req, res, next) => {
+    RegistrationRequest.findOne({"registration.registrationHash": req.body.hash}).exec()
+        .then(registrationRequest => {
+            res.json({ success:  true})
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+}
 
 /**
  * @description: Registers a new user after his registration request approval
