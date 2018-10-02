@@ -348,6 +348,7 @@ exports.finishRegistration = (req, res, next) => {
     let password = req.body.password;
     let name = req.body.name.name;
     let number = req.body.number;
+    let email = req.body.name.email;
     // let email = req.body.email;
     // TODO - more credentials
 
@@ -369,7 +370,8 @@ exports.finishRegistration = (req, res, next) => {
                         username: username,
                         password: password,
                         name: request.name,
-                        number: number
+                        number: number,
+                        email: email
                     });
 
                     newUser.save((error, saved) => {
