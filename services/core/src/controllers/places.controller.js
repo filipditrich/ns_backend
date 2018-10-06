@@ -139,3 +139,13 @@ exports.deletePlace = (req, res, next) => {
         });
 
 };
+
+exports.getAllPlaces = (req, res, next) => {
+    Place.find({}).exec()
+        .then(place => {
+            res.json({ status: sysCodes.RESOURCE.LOADED, response: place })
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+}

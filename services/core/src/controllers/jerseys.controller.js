@@ -5,7 +5,7 @@ const codes = require('../assets/codes.asset');
 
 exports.newJersey = (req, res, next) => {
 
-    const input = req.body['jersey'];
+    const input = req.body;
 
     if (!input) return next(errorHelper.prepareError(codes.JERSEY.MISSING));
     if (!input.name) return next(errorHelper.prepareError(codes.JERSEY.NAME.MISSING));
