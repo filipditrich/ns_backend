@@ -1,6 +1,9 @@
 const Route = require('northernstars-shared').routeInterface;
 const AuthCtrl = require('../controllers/authentication.controller');
 const CredCtrl = require('../controllers/credentials.controller');
+const sysEnums = require('northernstars-shared').sysEnums;
+const adminAndMods = [ sysEnums.AUTH.ROLES.admin.key, sysEnums.AUTH.ROLES.super.key, sysEnums.AUTH.ROLES.moderator.key ];
+
 
 /**
  * @description API Unsecured Authentication Routes
@@ -21,5 +24,8 @@ module.exports = [
     new Route('PWD_RES', 'POST', '/auth/credentials/password-reset/:hash', {}, CredCtrl.resetPassword),
     new Route('PWD_FGT', 'POST', '/auth/credentials/forgotten-password', {}, CredCtrl.requestPasswordReset),
     new Route('USN_FGT', 'POST', '/auth/credentials/forgotten-username', {}, CredCtrl.forgotUsername),
+
+    /** Invitation Routes **/
+    new Route('INV_REQ', 'POST', '/auth/invitations-request', {}, AuthCtrl.requestRegistration)
 
 ];

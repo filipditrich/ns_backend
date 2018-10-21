@@ -117,64 +117,102 @@ exports.requestRegistration = (req, res, next) => {
 
     let email = req.body.email;
     let name = req.body.name;
-    const schema = Joi.object().keys({
-        email: Joi.string().email().required(),
-        name: Joi.string().required()
-    });
+    let invited = false;
+    if (req.body.invited) {
+        invited = true;
+    }
 
-    // validate body
-    if (Joi.validate(req.body, schema).error)
-        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
+    function finishIt(email, name, invited) {
 
-    RegistrationRequest.findOne({ email: email }).exec()
-        .then(alreadyRequested => {
+        const schema = Joi.object().keys({
+            email: Joi.string().email().required(),
+            name: Joi.string().required(),
+            invited: Joi.boolean(),
+        });
 
-            if (alreadyRequested) return next(errorHelper.prepareError(codes.EMAIL.ALREADY_REQUESTED));
+        // validate body
+        if (Joi.validate(req.body, schema).error)
+            return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
 
-            User.findOne({ email: email }).exec()
-                .then(alreadyRegistered => {
+        RegistrationRequest.findOne({email: email}).exec()
+            .then(alreadyRequested => {
 
-                    if (alreadyRegistered) return next(errorHelper.prepareError(codes.EMAIL.IN_USE));
+                if (alreadyRequested) return next(errorHelper.prepareError(codes.EMAIL.ALREADY_REQUESTED));
 
-                    let request = new RegistrationRequest({
-                        email: email,
-                        name: name
-                    });
+                User.findOne({email: email}).exec()
+                    .then(alreadyRegistered => {
 
-                    request.save((error, saved) => {
-                        if (error) {
-                            if (!error.errors) return next(errorHelper.prepareError(error));
-                            let stack = {};
-                            _.forEach(error.errors, (value, key) => { stack[key] = value.message });
+                        if (alreadyRegistered) return next(errorHelper.prepareError(codes.EMAIL.IN_USE));
 
-                            return next(errorHelper.prepareError(codeHelper.generateValidationError(stack)));
-                        }
+                        let request;
 
-                        mailHelper.mail('registration-requested', {
-                            email: saved.email,
-                            name: saved.name,
-                            subject: 'Registration Request Processed!'
-                        }).then(() => {
-                            res.json({
-                                response: codes.REGISTRATION.REQUEST.SUCCESS,
-                                output: {
-                                    email: saved.email
+                        if (invited) {
+                            request = new RegistrationRequest({
+                                email: email,
+                                name: name,
+                                approval: {
+                                    approved: true
                                 }
                             });
-                        }).catch(error => {
-                            return next(errorHelper.prepareError(error));
+                        } else {
+                            request = new RegistrationRequest({
+                                email: email,
+                                name: name,
+                            });
+                        }
+
+                        request.save((error, saved) => {
+                            if (error) {
+                                if (!error.errors) return next(errorHelper.prepareError(error));
+                                let stack = {};
+                                _.forEach(error.errors, (value, key) => {
+                                    stack[key] = value.message
+                                });
+
+                                return next(errorHelper.prepareError(codeHelper.generateValidationError(stack)));
+                            }
+                            if (invited) {
+                                mailHelper.mail('registration-invitation', {
+                                    invitedBy: saved.name,
+                                    email: saved.email,
+                                    hash: saved.registration["registrationHash"],
+                                }).then(() => {
+                                    res.json({
+                                        response: sysCodes.REQUEST.VALID,
+                                        email: saved.email
+                                    });
+                                }).catch(error => {
+                                    return next(errorHelper.prepareError(error));
+                                });
+                            } else {
+
+                                mailHelper.mail('registration-requested', {
+                                    email: saved.email,
+                                    name: saved.name,
+                                    subject: 'Registration Request Processed!'
+                                }).then(() => {
+                                    res.json({
+                                        response: codes.REGISTRATION.REQUEST.SUCCESS,
+                                        output: {
+                                            email: saved.email
+                                        }
+                                    });
+                                }).catch(error => {
+                                    return next(errorHelper.prepareError(error));
+                                });
+                            }
+
                         });
 
+                    })
+                    .catch(error => {
+                        return next(errorHelper.prepareError(error));
                     });
-
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+            })
+            .catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
+    }
 };
 
 /**
@@ -415,6 +453,21 @@ exports.finishRegistration = (req, res, next) => {
         });
 
 };
+
+exports.invitationRequest = (req, res, next) => {
+    let email = req.body["email"];
+
+    if(!email) return next(errorHelper.prepareError(codes.EMAIL.MISSING));
+
+    RegistrationRequest.findOne({"email": email}).exec()
+        .then(request => {
+            if(request) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.ALREADY_APPROVED))
+
+
+        }, err => {
+            return next(errorHelper.prepareError(err))
+        })
+}
 
 exports.tokenCheck = (req, res, next) => {
 

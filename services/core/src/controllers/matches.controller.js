@@ -2,6 +2,7 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Match = require('../models/match.model');
+const User = require('../../../operator/src/models/user.schema');
 
 const Place = require('../models/place.model');
 const codes = require('../assets/codes.asset');
@@ -104,6 +105,19 @@ exports.getAllMatches = (req, res, next) => {
         });
 }
 
+// exports.getCompPlayers = (req, res, next) => {
+//     Match.find().exec()
+//         .then(matches => {
+//             const usersArray = [];
+//             res.json({
+//                 response: matches
+//             })
+//         })
+//         .catch(error => {
+//             return next(errorHelper.prepareError(error));
+//         });
+// }
+
 exports.matchParticipation = (req, res, next) => {
     Match.findOne({_id:  req.body["matchID"]}).exec()
         .then(match => {
@@ -111,12 +125,29 @@ exports.matchParticipation = (req, res, next) => {
 
             const matchPlayers = match.enrollment.players;
             if(!matchPlayers.includes(req.body.userID)) {
-                const newvalues = {$push: {"enrollment.players": new ObjectId(req.body.userID)}};
-                match.update(newvalues).then(() => {
-                    res.json({response: codes.MATCH.UPDATED});
-                }).catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+
+
+                Match.findOne({"enrollment.players._id": req.body["userID"]}).exec()
+                    .then(response => {
+                        if(response) {
+                            return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING))
+                        } else {
+                            const values = {
+                                _id: new ObjectId(req.body.userID),
+                                name: req.body["userName"]
+
+                            };
+                            const newvalues = {$push: {"enrollment.players": values}};
+                            match.update(newvalues).then(() => {
+                                res.json({response: codes.MATCH.UPDATED});
+                            }).catch(error => {
+                                return next(errorHelper.prepareError(error));
+                            });
+                        }
+                    }, err => {
+                        return next(errorHelper.prepareError(err));
+                    })
+
             } else {
                 return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING));
             }
