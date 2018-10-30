@@ -122,8 +122,6 @@ exports.requestRegistration = (req, res, next) => {
         invited = true;
     }
 
-    function finishIt(email, name, invited) {
-
         const schema = Joi.object().keys({
             email: Joi.string().email().required(),
             name: Joi.string().required(),
@@ -176,6 +174,7 @@ exports.requestRegistration = (req, res, next) => {
                                     invitedBy: saved.name,
                                     email: saved.email,
                                     hash: saved.registration["registrationHash"],
+                                    //invitedByUsername not added : Redundant
                                 }).then(() => {
                                     res.json({
                                         response: sysCodes.REQUEST.VALID,
@@ -212,7 +211,6 @@ exports.requestRegistration = (req, res, next) => {
             .catch(error => {
                 return next(errorHelper.prepareError(error));
             });
-    }
 };
 
 /**
