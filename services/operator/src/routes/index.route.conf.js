@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const SysRoutes = require('./sys.route.conf');
 const AuthRoutes = require('./auth.route.conf');
+const UserRoutes = require('./users.route.conf');
 
 /** All Routes **/
 module.exports = [];
@@ -9,6 +10,7 @@ module.exports = [];
 pushRoutes([
     SysRoutes,
     AuthRoutes,
+    UserRoutes,
 ]);
 
 /**

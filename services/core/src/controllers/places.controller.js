@@ -5,7 +5,7 @@ const codes = require('../assets/codes.asset');
 
 exports.addPlace = (req, res, next) => {
 
-  const input = req.body['place'];
+  const input = req.body['input'];
 
   if (!input) return next(errorHelper.prepareError(codes.PLACE.MISSING));
   if (!input.name) return next(errorHelper.prepareError(codes.PLACE.NAME.MISSING));

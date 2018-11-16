@@ -2,7 +2,6 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Match = require('../models/match.model');
-const User = require('../../../operator/src/models/user.schema');
 
 const Place = require('../models/place.model');
 const codes = require('../assets/codes.asset');
@@ -98,6 +97,9 @@ exports.getMatches = (req, res, next) => {
 exports.getAllMatches = (req, res, next) => {
     Match.find({}).exec()
         .then(matches => {
+
+            if(!matches && id) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
+            if(!matches && !id) return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND));
             res.json({ status: sysCodes.RESOURCE.LOADED, response: matches })
         })
         .catch(error => {
@@ -105,57 +107,44 @@ exports.getAllMatches = (req, res, next) => {
         });
 }
 
-// exports.getCompPlayers = (req, res, next) => {
-//     Match.find().exec()
-//         .then(matches => {
-//             const usersArray = [];
-//             res.json({
-//                 response: matches
-//             })
-//         })
-//         .catch(error => {
-//             return next(errorHelper.prepareError(error));
-//         });
-// }
-
 exports.matchParticipation = (req, res, next) => {
-    Match.findOne({_id:  req.body["matchID"]}).exec()
-        .then(match => {
-            if(!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
+    const id = req.params["id"];
 
-            const matchPlayers = match.enrollment.players;
-            if(!matchPlayers.includes(req.body.userID)) {
+    if (!id) {
+        return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND))
+    } else {
+        Match.findOne({_id: req.params['id']}).exec()
+            .then(match => {
+                if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
+
+                const matchPlayers = match.enrollment.players;
+
+                let isInArray = matchPlayers.some(function (friend) {
+                    return friend.equals(req.body["userID"]);
+                });
+
+                if(!isInArray) {
+                    const values = {
+                        _id: new ObjectId(req.body.userID),
+                        name: req.body["userName"]
+                    };
+                    const newvalues = {$push: {"enrollment.players": values}};
+                    match.update(newvalues).then(() => {
+                        res.json({response: codes.MATCH.UPDATED});
+                    }).catch(error => {
+                        return next(errorHelper.prepareError(error));
+                    });
+                } else {
+                    return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING))
+                }
 
 
-                Match.findOne({"enrollment.players._id": req.body["userID"]}).exec()
-                    .then(response => {
-                        if(response) {
-                            return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING))
-                        } else {
-                            const values = {
-                                _id: new ObjectId(req.body.userID),
-                                name: req.body["userName"]
 
-                            };
-                            const newvalues = {$push: {"enrollment.players": values}};
-                            match.update(newvalues).then(() => {
-                                res.json({response: codes.MATCH.UPDATED});
-                            }).catch(error => {
-                                return next(errorHelper.prepareError(error));
-                            });
-                        }
-                    }, err => {
-                        return next(errorHelper.prepareError(err));
-                    })
-
-            } else {
-                return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.PLAYERS.STATUS.ALREADY_PARTICIPATING));
-            }
-
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        })
+            })
+            .catch(error => {
+                return next(errorHelper.prepareError(error));
+            })
+    }
 }
 
 // TODO: send mail to attendants
@@ -280,3 +269,23 @@ exports.deleteMatch = (req, res, next) => {
         });
 
 };
+
+exports.getCompetingPlayers = (req, res, next) => {
+    const user = req.body;
+    console.log(user);
+}
+
+exports.getUserPlayedMatches = (req, res, next) => {
+    const userID = req.params['id'];
+    const matches = []
+
+    Match.find({}).exec()
+        .then(response => {
+            console.log(response);
+            res.json(response);
+        }, err => {
+            return next(errorHelper.prepareError(err))
+        });
+
+
+}

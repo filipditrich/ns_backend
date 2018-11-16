@@ -7,11 +7,10 @@ const adminAndMods = [ sysEnums.AUTH.ROLES.admin.key, sysEnums.AUTH.ROLES.super.
 
 /**
  * @description API Unsecured Authentication Routes
- */
+ **/
 module.exports = [
 
     /** Basic Auth Routes **/
-    new Route('LOGIN', 'POST', '/auth/login', {}, AuthCtrl.login ),
     new Route('LOGIN', 'POST', '/auth/login', {}, AuthCtrl.login ),
     new Route('REG', 'POST', '/auth/registration/:hash', {}, AuthCtrl.finishRegistration),
     new Route('REG_REQ', 'POST', '/auth/registration-request', {}, AuthCtrl.requestRegistration),
@@ -26,6 +25,5 @@ module.exports = [
     new Route('USN_FGT', 'POST', '/auth/credentials/forgotten-username', {}, CredCtrl.forgotUsername),
 
     /** Invitation Routes **/
-    new Route('INV_REQ', 'POST', '/auth/invitations-request', {}, AuthCtrl.requestRegistration)
-
+    new Route('INV_REQ', 'POST', '/auth/invitations-request/', {}, AuthCtrl.requestRegistration)
 ];

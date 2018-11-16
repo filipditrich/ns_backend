@@ -37,7 +37,8 @@ function setUserInfo(request) {
         username: request.username,
         email: request.email,
         name: request.name,
-        roles: request.roles
+        roles: request.roles,
+        jerseyNumber: request.number,
     }
 }
 
