@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const nodemailerHelper = require('northernstars-shared').nodemailerHelper;
 const serviceSettings = require('./src/config/settings.config');
 const BaseCtrl = require('northernstars-shared').genericHelper;
 
@@ -26,6 +27,15 @@ require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings
 
     /** Logger **/
     app.use(morgan('dev'));
+
+    /** Email connection **/
+    nodemailerHelper.checkAuth()
+        .then(() => {
+            console.log(`✅ ${serviceSettings.name} Server established a connection with email SMTP server successfully.`);
+        })
+        .catch(error => {
+            console.log(`❌ ${serviceSettings.name} Server couldn't establish a successful connection to email SMTP servers.`, error);
+        });
 
     /** Cross-Origin Requests **/
     app.use((req, res, next) => {

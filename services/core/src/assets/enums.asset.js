@@ -9,7 +9,7 @@ module.exports = {
         ENROLL_STATUS: {
             going: { key: 'going', value: 'Going' },
             skipping: { key: 'skipping', value: 'Skipping' },
-            unsure: { key: 'unsure', value: 'Unsure' }
+            // unsure: { key: 'unsure', value: 'Unsure' }
         }
     }
 

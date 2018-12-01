@@ -9,7 +9,7 @@ const codes = require('../assets/codes.asset');
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        // required: codes.NAME.REQUIRED.message
+        required: codes.NAME.REQUIRED.message
     },
     username: {
         type: String,
@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema({
         default: sysEnums.AUTH.ROLES.player.key
     },
     team: {
-        type: String, enum: enumHelper.toArray(sysEnums.AUTH.TEAM), default: sysEnums.AUTH.TEAM.ns.key
+        type: mongoose.Schema.ObjectId, required: codes.TEAM.REQUIRED
     },
     number: {
         type: Number,

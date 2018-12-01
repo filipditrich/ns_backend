@@ -13,8 +13,7 @@ module.exports = [
     new Route('UPD_MATCH', 'PUT', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.updateMatch),
     new Route('DEL_MATCH', 'DELETE', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.deleteMatch),
     new Route('GET_MATCH', 'GET', '/matches/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.getMatches),
-    new Route('GET_ALL_MATCHES', 'POST', '/matches/get-all', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.getAllMatches),
-    new Route('MATCH_PARTICIPATION', 'POST', '/matches/participation', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.matchParticipation),
+    new Route('MATCH_ENROLLMENT', 'POST', '/matches/enrollment', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.matchParticipation),
     new Route('WRITE_MATCH_RESULTS', 'POST', '/matches/write-results', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.writeResults),
 
     new Route('CANCEL_MATCH', 'PUT', '/matches/cancel/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.cancelMatch),

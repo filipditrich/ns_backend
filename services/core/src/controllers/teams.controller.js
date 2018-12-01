@@ -2,14 +2,15 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const codes = require('../assets/codes.asset');
 const Team = require('../models/team.model');
+const rp = require('request-promise');
 
 exports.addTeam = (req, res, next) => {
 
-    const input = req.body['team'];
+    const input = req.body['input'];
 
     if (!input) return next(errorHelper.prepareError(codes.TEAM.MISSING));
     if (!input.name) return next(errorHelper.prepareError(codes.TEAM.NAME.MISSING));
-    if (!input.jersey) return next(errorHelper.prepareError(codes.TEAM.JERSEY.MISSING));
+    // if (!input.jersey) return next(errorHelper.prepareError(codes.TEAM.JERSEY.MISSING));
 
     Team.findOne({ name: input.name }).exec()
         .then(team => {
@@ -18,7 +19,9 @@ exports.addTeam = (req, res, next) => {
 
             const newTeam = new Team({
                 name: input.name,
-                jersey: input.jersey
+                jersey: input.jersey,
+                createdBy: req.user._id,
+                updatedBy: req.user._id
             });
             newTeam.save().then(() => {
                 res.json({ response: codes.TEAM.CREATED });
@@ -41,9 +44,51 @@ exports.getTeams = (req, res, next) => {
     Team.find(query).exec()
         .then(teams => {
 
-            if (teams.length === 0 && id) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
-            if (teams.length === 0 && !id) return next(errorHelper.prepareError(codes.PLACE.NULL_FOUND));
-            res.json({ response: sysCodes.RESOURCE.LOADED, output: teams });
+            teams = Boolean(req.query['show-all']) ? teams : teams.filter(team => team.name !== '(unavailable team)');
+
+            if (teams.length === 0 && id) return next(errorHelper.prepareError(codes.TEAM.NOT_FOUND));
+            if (teams.length === 0 && !id) return next(errorHelper.prepareError(codes.TEAM.NULL_FOUND));
+
+            // options
+            delete req.headers['content-type'];
+            delete req.headers['content-length'];
+            const options = {
+                uri: `http://localhost:4000/api/users?show-all=true`,
+                json: true,
+                resolveWithFullResponse: true,
+                method: 'GET',
+                headers: req.headers
+            };
+
+            rp(options).then(response => {
+                const users = response.body.output;
+                if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+
+                const fin = [];
+
+                // define deletedUserIndex (should always be in database)
+                const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
+                if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
+
+                teams.forEach(team => {
+                    team = team.toObject();
+
+                    // extend 'createdBy' field
+                    const createdByIndex = users.findIndex(obj => obj._id.toString() === team.createdBy.toString());
+                    team.createdBy = createdByIndex >= 0 ? users[createdByIndex] : users[deletedUserIndex];
+
+                    // extend 'updatedBy' field
+                    const updatedByIndex = users.findIndex(obj => obj._id.toString() === team.updatedBy.toString());
+                    team.updatedBy = updatedByIndex >= 0 ? users[updatedByIndex] : users[deletedUserIndex];
+
+                    fin.push(team);
+                });
+
+                res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
+
+            }).catch(error => {
+                return next(errorHelper.prepareError(error));
+            });
 
         })
         .catch(error => {
@@ -55,7 +100,7 @@ exports.getTeams = (req, res, next) => {
 exports.updateTeam = (req, res, next) => {
 
     const id = req.params['id'];
-    const update = req.body['team'];
+    const update = req.body['input'];
 
     if (!update) return next(errorHelper.prepareError(codes.TEAM.MISSING));
     if (!update.name) return next(errorHelper.prepareError(codes.TEAM.NAME.MISSING));
@@ -68,7 +113,7 @@ exports.updateTeam = (req, res, next) => {
                 .then(duplicate => {
                    if (duplicate) return next(errorHelper.prepareError(codes.TEAM.DUPLICATE));
 
-                    team.update(update).then(() => {
+                    team.update(update, { runValidators: true }).then(() => {
                         res.json({ response: codes.TEAM.UPDATED });
                     }).catch(error => {
                         return next(errorHelper.prepareError(error));
@@ -100,7 +145,7 @@ exports.deleteTeam = (req, res, next) => {
                 .then(matches => {
 
                     // Replace all affected Matches with default 'Unavailable Team' team
-                    Team.findOne({ name: 'Unavailable Team' }).exec()
+                    Team.findOne({ name: '(unavailable team)' }).exec()
                         .then(defaultTeam => {
 
                             return new Promise((resolve, reject) => {
@@ -109,13 +154,13 @@ exports.deleteTeam = (req, res, next) => {
 
                                     // Assign default 'Unavailable Jersey' jersey to it
                                     const Jersey = require('../models/jersey.model');
-                                    Jersey.findOne({name: 'Unavailable Jersey'}).exec()
+                                    Jersey.findOne({name: '(unavailable jersey)'}).exec()
                                         .then(defaultJersey => {
                                             return new Promise((success, fail) => {
 
                                                 // If it doesn't exist yet, create it
                                                 if (!defaultJersey) {
-                                                    new Jersey({name: 'Unavailable Jersey'}).save().then(saved => success(saved))
+                                                    new Jersey({ name: '(unavailable jersey)' }).save().then(saved => success(saved))
                                                         .catch(error => fail(error));
                                                 } else {
                                                     success(defaultJersey)
@@ -123,7 +168,7 @@ exports.deleteTeam = (req, res, next) => {
                                             });
                                         })
                                         .then(DefaultJersey => {
-                                            new Team({ name: 'Unavailable Team', jersey: DefaultJersey._id }).save().then(defTeam => {
+                                            new Team({ name: '(unavailable team)', jersey: DefaultJersey._id }).save().then(defTeam => {
                                                 resolve(defTeam);
                                             }).catch(error => reject(error));
                                         })

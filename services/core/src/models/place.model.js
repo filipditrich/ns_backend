@@ -3,8 +3,11 @@ const msgs = require('../assets/messages.asset');
 
 const placeSchema = mongoose.Schema({
 
-    name: { type: String, required: msgs.PLACE.REQUIRED }
+    name: { type: String, required: msgs.PLACE.REQUIRED },
     // TODO: address schema
+
+    createdBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
+    updatedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
 
 }, { timestamps: true });
 

@@ -13,6 +13,5 @@ module.exports = [
     new Route('UPD_PLACE', 'PUT', '/places/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, PlacesCtrl.updatePlace),
     new Route('DEL_PLACE', 'DELETE', '/places/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, PlacesCtrl.deletePlace),
     new Route('GET_PLACE', 'GET', '/places/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, PlacesCtrl.getPlaces),
-    new Route('GET_ALL_PLACE', 'GET', '/places-all', { roles: sysEnums.AUTH.ROLES.anyone.key }, PlacesCtrl.getAllPlaces),
 
 ];

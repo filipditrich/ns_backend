@@ -6,13 +6,16 @@ const settings = require('../config/settings.config');
 const serverConfig = require('northernstars-shared').serverConfig;
 const passport = require('passport');
 const RegistrationRequest = require('../models/registration-request.schema');
+const PwdResetRequest = require('../models/pwd-reset-request.schema');
 const User = require('../models/user.schema');
 const codeHelper = require('northernstars-shared').codeHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
 const schemaFields = require('northernstars-shared').schemaFields;
+const userHelper = require('northernstars-shared').userHelper;
 const Joi = require('joi');
+const rp = require('request-promise');
 
 
 /**
@@ -31,15 +34,17 @@ function generateToken(user) {
  * @param request
  * @returns {{_id: *, username: *, roles: (string[]|roles|{type, default})}}
  */
-function setUserInfo(request) {
+exports.setUserInfo = (request) => {
     return {
         _id: request._id,
         username: request.username,
         email: request.email,
         name: request.name,
-        roles: request.roles
+        roles: request.roles,
+        number: request.number,
+        team: request.team
     }
-}
+};
 
 /**
  * @description: Outputs basic user info after successful login
@@ -50,7 +55,7 @@ function setUserInfo(request) {
 exports.login = (req, res, next) => {
 
     exports.requireLogin(req, res, next).then(user => {
-        let userInfo = setUserInfo(user);
+        let userInfo = exports.setUserInfo(user);
         res.json({
             response: codes.LOGIN.SUCCESS,
             user: userInfo,
@@ -115,16 +120,19 @@ exports.preFinishRegistration = (req, res, next) => {
  */
 exports.requestRegistration = (req, res, next) => {
 
-    let email = req.body.email;
-    let name = req.body.name;
+    let input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    let email = input.email;
+    let name = input.name;
+
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         name: Joi.string().required()
     });
 
     // validate body
-    if (Joi.validate(req.body, schema).error)
-        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
+    if (Joi.validate(input, schema).error)
+        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(input, schema).error)));
 
     RegistrationRequest.findOne({ email: email }).exec()
         .then(alreadyRequested => {
@@ -178,62 +186,55 @@ exports.requestRegistration = (req, res, next) => {
 };
 
 /**
- * @description: Get all registration requests
+ * @description: Get registration request
  * @param req
  * @param res
  * @param next
  * @returns {*}
  */
-exports.getAllRegistrationRequests = (req, res, next) => {
-    RegistrationRequest.find({}).exec()
-        .then(registrationRequest => {
-            if (!registrationRequest) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
-            res.json({ status: sysCodes.RESOURCE.LOADED, response: registrationRequest })
+exports.getRegistrationRequest = (req, res, next) => {
+
+    const id = req.params['id'];
+    const query = !!id ? { _id: id } : {};
+
+    RegistrationRequest.find(query).exec()
+        .then(registrationRequests => {
+            if (registrationRequests.length === 0) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.NULL_FOUND));
+
+            User.find({}).exec()
+                .then(users => {
+                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+                    const fin = [];
+
+                    // define deletedUserIndex (should always be in database)
+                    const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
+                    if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
+
+                    registrationRequests.forEach(request => {
+                        request = request.toObject();
+                        // extend 'approval.approvedBy' field
+                        if (!!request.approval.approvedBy) {
+                            const approvedByIndex = users.findIndex(obj => obj._id.toString() === request.approval.approvedBy.toString());
+                            request.approval.approvedBy = approvedByIndex >= 0 ? exports.setUserInfo(users[approvedByIndex]) : exports.setUserInfo(users[deletedUserIndex]);
+                        }
+                        // extend 'registration.user' field
+                        if (!!request.registration.user) {
+                            const userIndex = users.findIndex(obj => obj._id.toString() === request.registration.user.toString());
+                            request.registration.user = userIndex >= 0 ? exports.setUserInfo(users[userIndex]) : exports.setUserInfo(users[deletedUserIndex]);
+                        }
+                        fin.push(request);
+                    });
+
+                    res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                })
         })
         .catch(error => {
             return next(errorHelper.prepareError(error));
         });
 };
-
-/**
- * @description: Registration request approval
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
-exports.requestAprroval = (req, res, next) =>{
-    const id = req.body['id'];
-
-    if (!req.body) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
-
-    RegistrationRequest.findOne({ _id: id }).exec()
-        .then(match => {
-
-            if (!match) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
-            match.update({"approval.approved": req.body["state"]}).then(() => {
-
-                    mailHelper.mail('registration-approved', {
-                        name: match.name,
-                        email: match.email,
-                        hash: match.registration["registrationHash"],
-                        subject: 'Registration Request Approved!'
-                    }).then(() => {
-                        res.json({
-                            response: sysCodes.REQUEST.VALID,
-                            email: match.email
-                        });
-                }).catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
-}
 
 /**
  * @description: Check if registration hash exists
@@ -244,15 +245,38 @@ exports.requestAprroval = (req, res, next) =>{
  */
 
 exports.existCheck = (req, res, next) => {
-    RegistrationRequest.findOne({"registration.registrationHash": req.body.hash}).exec()
-        .then(request => {
-            if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
-            res.json({ success:  true})
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
-}
+    const type = req.params['type'];
+    const input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+
+    switch (type) {
+        case 'registration-request': {
+            RegistrationRequest.findOne({"registration.registrationHash": input.hash}).exec()
+                .then(request => {
+                    if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+                    res.json({ response: sysCodes.REQUEST.VALID })
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            break;
+        }
+        case 'password-reset': {
+            PwdResetRequest.findOne({"resetHash": input.hash}).exec()
+                .then(request => {
+                    if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+                    res.json({ response: sysCodes.REQUEST.VALID })
+                })
+                .catch(error => {
+                    return next(errorHelper.prepareError(error));
+                });
+            break;
+        }
+        default: {
+            return next(errorHelper.prepareError(sysCodes.UNDEFINED));
+        }
+    }
+};
 
 /**
  * @description: Registers a new user after his registration request approval
@@ -343,13 +367,16 @@ exports.existCheck = (req, res, next) => {
 exports.finishRegistration = (req, res, next) => {
 
     let hash = req.params['hash'];
+    let input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
 
-    let username = req.body.username;
-    let password = req.body.password;
-    let name = req.body.name.name;
-    let number = req.body.number;
-    let email = req.body.name.email;
-    // let email = req.body.email;
+    let username = input.username;
+    let password = input.password;
+    let number = input.number;
+    let email = input.name.email;
+    let team = input.team;
+    let name = input.name;
+    // let email = input.email;
     // TODO - more credentials
 
     if (!username) return next(errorHelper.prepareError(codes.USERNAME.MISSING));
@@ -369,9 +396,10 @@ exports.finishRegistration = (req, res, next) => {
                     let newUser = new User({
                         username: username,
                         password: password,
-                        name: request.name,
+                        name: request.name || name,
                         number: number,
-                        email: email
+                        email: request.email,
+                        team: team
                     });
 
                     newUser.save((error, saved) => {
@@ -384,6 +412,7 @@ exports.finishRegistration = (req, res, next) => {
                         }
 
                         request.registration.userRegistered = true;
+                        request.registration.user = saved._id;
                         request.save(err => {
                             if (err) return next(errorHelper.prepareError(err));
 
@@ -395,7 +424,9 @@ exports.finishRegistration = (req, res, next) => {
                             }).then(() => {
                                 res.json({
                                     response: codes.REGISTRATION.SUCCESS,
-                                    user: setUserInfo(saved)
+                                    output: {
+                                        user: exports.setUserInfo(saved)
+                                    }
                                 });
                             }).catch(error => {
                                 return next(errorHelper.prepareError(error));

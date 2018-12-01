@@ -4,7 +4,9 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const _ = require('lodash');
 const Service = require('../models/service.schema');
 const serviceSettings = require('../config/settings.config');
+const User = require('../models/user.schema');
 const serverConf = require('northernstars-shared').serverConfig;
+const mailHelper = require('northernstars-shared').mailHelper;
 const request = require('request-promise');
 
 exports.exportCodes = (req, res, next) => {
@@ -169,4 +171,63 @@ exports.serviceChecker = () => {
         .catch(error => {
             console.log("An error occurred while checking for services: ", error);
         })
+};
+
+/**
+ * @description Send reminders for upcoming match
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
+exports.reminders = (req, res, next) => {
+    const input = req.body['input'];
+    let mailList = input['mailList'];
+    if (!mailList) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+
+    User.find({}).exec()
+        .then(users => {
+            if (users.length === 0) return next(errorHelper.prepareError(codes.USER.NULL_FOUND)); // shouldn't happen
+            const mailing = users.filter(user => mailList.indexOf(user._id.toString()) >= 0); // upcoming reminder
+            const reminder = users.filter(user => mailList.indexOf(user._id.toString()) < 0); // enroll reminder
+            const promises = [];
+            const sent = {
+                upcoming: mailing,
+                reminder: reminder,
+                upcomingSent: [],
+                reminderSent: [],
+                usersTotal: users.length,
+            };
+            mailing.forEach(recipient => {
+                promises.push(
+                    mailHelper.mail('forgotten-username', {
+                        email: recipient.email,
+                        name: recipient.name,
+                        username: recipient.username,
+                        subject: 'TODO: Template --- You should enroll'
+                    }).then(() => sent.upcomingSent.push(recipient.email))
+                        .catch(error => next(errorHelper.prepareError(error)))
+                );
+            });
+            reminder.forEach(recipient => {
+                promises.push(
+                    mailHelper.mail('forgotten-username', {
+                        email: recipient.email,
+                        name: recipient.name,
+                        username: recipient.username,
+                        subject: 'TODO: Template --- You have an upcoming match'
+                    }).then(() => sent.reminderSent.push(recipient.email))
+                        .catch(error => next(errorHelper.prepareError(error)))
+                );
+            });
+            Promise.all(promises).then(() => {
+                res.json({ response: sysCodes.REQUEST.VALID, output: { sent } });
+            })
+            .catch(error => {
+                errorHelper.prepareError(error);
+            });
+        })
+        .catch(error => {
+           errorHelper.prepareError(error);
+        });
 };

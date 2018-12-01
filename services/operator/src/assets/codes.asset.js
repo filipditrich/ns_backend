@@ -55,6 +55,11 @@ module.exports = {
         }
     },
 
+    TEAM: {
+        MISSING: codeGenerator.missing('team'),
+        REQUIRED: codeGenerator.missing('team'),
+    },
+
     EMAIL: {
         DUPLICATE: codeGenerator.duplicate('email'),
         REQUIRED: codeGenerator.required('email'),
@@ -156,6 +161,7 @@ module.exports = {
     REGISTRATION: {
         SUCCESS: codeGenerator.success('registration'),
         REQUEST: {
+            NULL_FOUND: codeGenerator.multipleNotFound('request'),
             NON_EXISTENCE: {
                 name: 'REQUEST_NOT_FOUND',
                 status: 404,
@@ -181,7 +187,15 @@ module.exports = {
                 status: 200,
                 success: true
             },
-            SUCCESS: codeGenerator.success('registration_request')
+            SUCCESS: codeGenerator.success('registration_request'),
+        },
+        INVITATION: {
+            SENT: {
+                name: 'REGISTRATION_INVITATION_SENT',
+                status: 200,
+                success: true,
+            },
+            MISSING_EMAILS: codeGenerator.missing('invitation_emails')
         }
     }
 

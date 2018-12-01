@@ -16,8 +16,9 @@ const errorHelper = require('northernstars-shared').errorHelper;
  */
 exports.requestPasswordReset = (req, res, next) => {
 
-    let email = req.body.email,
-        username = req.body.username;
+    const input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    const email = input.email, username = input.username;
 
     if (!email && !username) return next(errorHelper.prepareError(codes.RESET.CREDENTIALS.MISSING));
     if (email && username) return next(errorHelper.prepareError(codes.RESET.CREDENTIALS.TOO_MANY));
@@ -76,8 +77,10 @@ exports.requestPasswordReset = (req, res, next) => {
  */
 exports.resetPassword = (req, res, next) => {
 
-    let hash = req.params['hash'];
-    let password = req.body.password;
+    const hash = req.params['hash'];
+    const input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    let password = input.password;
     if (!password) return next(errorHelper.prepareError(codes.PASSWORD.MISSING));
 
     // This needs to be done manually now, since mongoose will not
@@ -136,7 +139,9 @@ exports.resetPassword = (req, res, next) => {
  */
 exports.forgotUsername = (req, res, next) => {
 
-    let email = req.body.email;
+    const input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    let email = input.email;
     if (!email) return next(errorHelper.prepareError(codes.EMAIL.MISSING));
 
     User.findOne({ email: email }).exec()

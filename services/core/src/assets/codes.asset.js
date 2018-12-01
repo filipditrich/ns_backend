@@ -73,7 +73,13 @@ module.exports = {
         ENROLLMENT: {
             CLOSES: {
                 MISSING: codeGenerator.missing('match_enrollment_close'),
-                REQUIRED: codeGenerator.required('match_enrollment_close')
+                REQUIRED: codeGenerator.required('match_enrollment_close'),
+                CLOSED: {
+                    name: 'MATCH_ENROLLMENT_CLOSED',
+                    message: 'Match enrollment is already closed.',
+                    success: false,
+                    status: 400
+                }
             },
             OPENS: {
                 MISSING: codeGenerator.missing('match_enrollment_opens'),
@@ -93,10 +99,20 @@ module.exports = {
                         success: false,
                         status: 400
                     }
+                },
+            },
+            MAX_CAP: {
+                MISSING: codeGenerator.missing('match_enrollment_players_max_capacity'),
+                REQUIRED: codeGenerator.required('match_enrollment_players_max_capacity'),
+                EXCEEDED: {
+                    name: 'MATCH_MAXIMUM_CAPACITY_EXCEEDED',
+                    message: "Enrollment capacity of this match has been exceeded",
+                    success: false,
+                    status: 400
                 }
-            }
+            },
+            MISSING: codeGenerator.missing('match_enrollment')
         },
-
         UPDATED: codeGenerator.update('match'),
         DELETED: codeGenerator.delete('match'),
         CREATED: codeGenerator.create('match'),
@@ -109,24 +125,56 @@ module.exports = {
         }
     },
 
-    MATCH_RESULT: {
+    RESULTS: {
         MATCH: {
-            DUPLICATE: codeGenerator.duplicate('match_result_match'),
-            NOT_FOUND: codeGenerator.notFound('match_result_match'),
-            MISSING: codeGenerator.missing('match_result_match'),
-            REQUIRED: codeGenerator.required('match_result_match')
+            REQUIRED: codeGenerator.required('results_match'),
+            MISSING: codeGenerator.missing('results_match'),
+            NOT_PLAYED: {
+                name: 'RESULTS_MATCH_NOT_PLAYED',
+                message: "",
+                status: 400,
+                success: false
+            },
+            NOT_ENROLLED: {
+                name: 'RESULTS_MATCH_NOT_ENROLLED',
+                message: "",
+                status: 400,
+                success: false
+            }
         },
-        TEAM: {
-            DUPLICATE: codeGenerator.duplicate('match_result_team'),
-            NOT_FOUND: codeGenerator.notFound('match_result_team'),
-            MISSING: codeGenerator.missing('match_result_team'),
-            REQUIRED: codeGenerator.required('match_result_team')
+        PLAYERS: {
+            PLAYER: {
+                REQUIRED: codeGenerator.required('results_players_player'),
+                MISSING: codeGenerator.missing('results_players_player'),
+                DUPLICATE: codeGenerator.duplicate('results_player_player'),
+            },
+            JERSEY: {
+                REQUIRED: codeGenerator.required('results_players_jersey'),
+                MISSING: codeGenerator.missing('results_players_jersey'),
+                NOT_FOUND: codeGenerator.notFound('results_players_jersey'),
+                OUT_OF_SET: {
+                    name: 'RESULTS_PLAYERS_JERSEY_OUT_OF_SET',
+                    message: "",
+                    status: 400,
+                    success: false
+                }
+            },
+            STATUS: {
+                REQUIRED: codeGenerator.required('results_players_status'),
+                MISSING: codeGenerator.missing('results_player_status'),
+                INVALID: codeGenerator.invalid('results_player_status'),
+                IMPROPER: {
+                    name: 'RESULTS_PLAYER_STATUS_IMPROPER',
+                    message: "",
+                    status: 400,
+                    success: false
+                }
+            },
+            GOALS: {},
+            MISSING: codeGenerator.missing('results_players')
         },
-        RESULT: {
-            DUPLICATE: codeGenerator.duplicate('match_result_result'),
-            MISSING: codeGenerator.missing('match_result_result'),
-            REQUIRED: codeGenerator.required('match_result_result')
-        }
-    }
+
+    },
+
 
 };

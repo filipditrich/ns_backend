@@ -4,16 +4,16 @@ const codes = require('../assets/codes.asset');
 const enumHelper = require('northernstars-shared').enumHelper;
 const enums = require('../assets/enums.asset');
 
-const matchResultSchema = mongoose.Schema({
-    match: { type: mongoose.Schema.ObjectId, ref: 'Match', required: codes.MATCH_RESULT.MATCH.REQUIRED.message },
-    team: { type: mongoose.Schema.ObjectId, ref: 'Team', required: codes.MATCH_RESULT.TEAM.REQUIRED.message },
-    players: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-    goals: {
-        scorers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-        total: { type: Number, default: 0 }
-    },
-    result: { type: String, enum: enumHelper.toArray(enums.MATCH.RESULT), required: codes.MATCH_RESULT.RESULT.REQUIRED.message  }
+const playerResultSchema = mongoose.Schema({
+    player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.RESULTS.PLAYERS.PLAYER.REQUIRED },
+    jersey: { type: mongoose.Schema.ObjectId, ref: 'Jersey', required: codes.RESULTS.PLAYERS.JERSEY.REQUIRED },
+    status: { type: String, enum: enumHelper.toArray(enums.MATCH.RESULT), required: codes.RESULTS.PLAYERS.STATUS.REQUIRED },
+    goals: { type: Number, default: 0 }
+});
 
+const matchResultSchema = mongoose.Schema({
+    match: { type: mongoose.Schema.ObjectId, ref: 'Match', required: codes.RESULTS.MATCH.REQUIRED },
+    players: [ playerResultSchema ]
 }, { timestamps: true });
 
 /**

@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Operator" type="NodeJSConfigurationType" factoryName="Node.js" singleton="false" path-to-node="/usr/local/bin/node" path-to-js-file="server.js" working-dir="$PROJECT_DIR$/services/operator">
+    <envs>
+      <env name="NODE_ENV" value="production" />
+      <env name="SVC_ID" value="operator" />
+    </envs>
+    <method />
+  </configuration>
+</component>

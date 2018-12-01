@@ -24,14 +24,14 @@
     "mongoose": "*",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",
-    "northernstars-shared": "git+https://github.com/filipditrich/northernstars-shared.git",
+    "northernstars-shared": "git+http://github.com/filipditrich/northernstars-shared.git",
     "passport": "*",
     "passport-jwt": "*",
     "passport-local": "^1.0.0",
     "request-promise": "^4.2.2"
   },
-  "author": "Visionary",
-  "license": "ISC",
+  "author": "WhiteDot",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
