@@ -9,8 +9,8 @@ module.exports = {
     environment: process.env.NODE_ENV || 'development',
 
     db: {
-        url: 'mongodb://localhost:27017',
-        name: 'NSCore'
+        url: 'mongodb://localhost:27017' || process.env.MONGO_URL,
+        name: 'NSCore' || process.env.MONGO_ID
     },
 
 };

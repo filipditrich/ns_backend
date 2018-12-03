@@ -10,7 +10,7 @@ const UserInfo = require('./authentication.controller').setUserInfo;
 const errorHelper = require('northernstars-shared').errorHelper;
 
 /**
- * @description: Requests a new password reset request if there is none already
+ * @description: Lists users
  * @param req
  * @param res
  * @param next

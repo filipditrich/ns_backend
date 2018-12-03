@@ -6,7 +6,7 @@ const enums = require('../assets/enums.asset');
 const moment = require('moment');
 
 const matchEnrollmentPlayersSchema = mongoose.Schema({
-    player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.MATCH.ENROLLMENT.PLAYERS.PLAYER.REQUIRED.message, unique: true },
+    player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.MATCH.ENROLLMENT.PLAYERS.PLAYER.REQUIRED.message },
     enrolledOn: { type: Date, default: Date.now },
     status: { type: String, enum: enumHelper.toArray(enums.MATCH.ENROLL_STATUS), required: codes.MATCH.ENROLLMENT.PLAYERS.STATUS.REQUIRED.message }
 });
