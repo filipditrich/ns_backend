@@ -1,0 +1,31 @@
+version: "1"
+services:
+        operator:
+                container_name: operator
+                restart: always
+                build: ./services/operator
+                ports:
+                        - "4000:4000"
+                environment:
+                        - MONGO_URL=mongodb://mongo:27017
+                        - MONGO_ID=NSOperator
+                links:
+                        - mongo
+        core:
+                container_name: core
+                restart: always
+                build: ./services/core
+                ports:
+                        - "4001:4001"
+                environment:
+                        - MONGO_URL=mongodb://mongo:27017
+                        - MONGO_ID=NSCore
+                links:
+                        - mongo
+        mongo:
+                container_name: mongo
+                image: mongo
+                volumes:
+                        - ./data:/data/db
+                ports:
+                        - "27017:27017"
