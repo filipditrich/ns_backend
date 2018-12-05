@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha",
-    "start": "node server.js",
-    "start:prod": "NODE_ENV=production SVC_ID=operator node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcryptjs": "*",

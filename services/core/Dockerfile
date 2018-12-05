@@ -5,4 +5,4 @@ COPY package.json /usr/src/ns-backend/operator
 RUN npm install
 COPY . /usr/src/ns-backend/operator
 EXPOSE 4000
-CMD [ "npm", "run-script", "start:prod" ]
+CMD [ "npm", "start" ]

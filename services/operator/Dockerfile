@@ -5,4 +5,4 @@ COPY package.json /usr/src/ns-backend/core
 RUN npm install
 COPY . /usr/src/ns-backend/core
 EXPOSE 4001
-CMD [ "npm", "run-script", "start:prod" ]
+CMD [ "npm", "start" ]
