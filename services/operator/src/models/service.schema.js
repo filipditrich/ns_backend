@@ -6,6 +6,7 @@ const serviceSchema = mongoose.Schema({
 
     id: { type: String, unique: true, required: true, lowercase: true },
     name: { type: String, unique: true, required: true },
+    host: { type: String, unique: true, required: true },
     port: { type: Number, unique: true, required: true },
     environment: { type: String, enum: enumHelper.toArray(sysEnums.SYSTEM.ENVIRONMENT), default: sysEnums.SYSTEM.ENVIRONMENT.development.key },
     db: {

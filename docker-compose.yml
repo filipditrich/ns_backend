@@ -10,16 +10,14 @@ services:
       - NODE_ENV=production
       - SVC_ID=operator
       - HOST_URL=operator
-      - NSOP_HOST=core
-      - NSOP_PORT=4001
+      - NSC_URL=core
+      - NSC_PORT=4001
       - MONGO_URL=mongodb://mongo:27017
       - MONGO_ID=NSOperator
     links:
       - mongo
-      - core
   core:
     container_name: core
-    restart: always
     build: ./services/core
     ports:
       - "4001:4001"
@@ -27,12 +25,13 @@ services:
       - NODE_ENV=production
       - SVC_ID=core
       - HOST_URL=core
-      - NSOP_HOST=operator
+      - NSOP_URL=operator
       - NSOP_PORT=4000
       - MONGO_URL=mongodb://mongo:27017
       - MONGO_ID=NSCore
     links:
       - mongo
+    depends_on:
       - operator
   mongo:
     container_name: mongo
