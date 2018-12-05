@@ -1,31 +1,43 @@
 version: "2"
 services:
-        operator:
-                container_name: operator
-                restart: always
-                build: ./services/operator
-                ports:
-                        - "4000:4000"
-                environment:
-                        - MONGO_URL=mongodb://mongo:27017
-                        - MONGO_ID=NSOperator
-                links:
-                        - mongo
-        core:
-                container_name: core
-                restart: always
-                build: ./services/core
-                ports:
-                        - "4001:4001"
-                environment:
-                        - MONGO_URL=mongodb://mongo:27017
-                        - MONGO_ID=NSCore
-                links:
-                        - mongo
-        mongo:
-                container_name: mongo
-                image: mongo
-                volumes:
-                        - ./data:/data/db
-                ports:
-                        - "27017:27017"
+  operator:
+    container_name: operator
+    restart: always
+    build: ./services/operator
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - SVC_ID=operator
+      - HOST_URL=operator
+      - NSOP_HOST=core
+      - NSOP_PORT=4001
+      - MONGO_URL=mongodb://mongo:27017
+      - MONGO_ID=NSOperator
+    links:
+      - mongo
+      - core
+  core:
+    container_name: core
+    restart: always
+    build: ./services/core
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=production
+      - SVC_ID=core
+      - HOST_URL=core
+      - NSOP_HOST=operator
+      - NSOP_PORT=4000
+      - MONGO_URL=mongodb://mongo:27017
+      - MONGO_ID=NSCore
+    links:
+      - mongo
+      - operator
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"

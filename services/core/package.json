@@ -28,7 +28,7 @@
     "mongoose": "^5.2.16",
     "morgan": "^1.9.1",
     "nodemailer": "^4.6.7",
-    "northernstars-shared": "git+http://github.com/filipditrich/northernstars-shared.git",
+    "northernstars-shared": "git+https://github.com/filipditrich/northernstars-shared.git",
     "passport": "*",
     "passport-jwt": "*",
     "passport-local": "^1.0.0",

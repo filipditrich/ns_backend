@@ -27,7 +27,7 @@ exports.gatewayHandler = (req, res, next) => {
                 .filter(x => x !== 'api' && x !== '' && x !== service.id)
                 .join("/");
 
-            const redirect = `http://localhost:${service.port}/api/${path}`;
+            const redirect = `http://${service.host}:${service.port}/api/${path}`;
 
             request({
                 method: req.method,

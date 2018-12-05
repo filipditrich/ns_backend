@@ -1,6 +1,7 @@
 const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Jersey = require('../models/jersey.model');
+const service = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
 const rp = require('request-promise');
 
@@ -47,7 +48,7 @@ exports.getJerseys = (req, res, next) => {
             delete req.headers['content-type'];
             delete req.headers['content-length'];
             const options = {
-                uri: `http://localhost:4000/api/users?show-all=true`,
+                uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
                 json: true,
                 resolveWithFullResponse: true,
                 method: 'GET',

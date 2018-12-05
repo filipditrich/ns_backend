@@ -11,6 +11,7 @@ const BaseCtrl = require('northernstars-shared').genericHelper;
 app.set('env', serviceSettings.environment);
 app.set('serviceID', serviceSettings.id);
 app.set('port', serviceSettings.port);
+app.set('HOST_URL', serviceSettings.host);
 
 /** Mongoose **/
 require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings)

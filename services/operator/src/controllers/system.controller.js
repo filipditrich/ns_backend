@@ -21,7 +21,7 @@ exports.exportCodes = (req, res, next) => {
                 promises.push(new Promise((resolve, reject) => {
                     services.forEach(service => {
                         request.get({
-                            uri: `http://localhost:${service.port}/api/sys/export/codes`,
+                            uri: `http://${service.host}:${service.port}/api/sys/export/codes`,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Application-ID': `${serverConf[service.environment].consumers[0]}`,
@@ -67,7 +67,7 @@ exports.exportRoutes = (req, res, next) => {
                 promises.push(new Promise((resolve, reject) => {
                     services.forEach(service => {
                         request.get({
-                            uri: `http://localhost:${service.port}/api/sys/export/routes`,
+                            uri: `http://${service.host}:${service.port}/api/sys/export/routes`,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Application-ID': `${serverConf[service.environment].consumers[0]}`,
@@ -138,7 +138,7 @@ exports.serviceChecker = () => {
                 const promises = [];
                 services.forEach(service => {
                     promises.push(request.get({
-                        uri: `http://localhost:${service.port}/api/sys/up-check`,
+                        uri: `http://${service.host}:${service.port}/api/sys/up-check`,
                         headers: {
                             'Content-Type': 'application/json',
                             'Application-ID': `${serverConf[service.environment].consumers[0]}`,

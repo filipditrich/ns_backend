@@ -4,7 +4,7 @@ const sysCodes = require('northernstars-shared').sysCodes;
 const enumHelper = require('northernstars-shared').enumHelper;
 const Match = require('../models/match.model');
 const MatchResult = require('../models/match-result.model');
-
+const service = require('../config/settings.config');
 const rp = require('request-promise');
 const Place = require('../models/place.model');
 const Jersey = require('../models/jersey.model');
@@ -145,7 +145,7 @@ exports.getMatches = (req, res, next) => {
                                     delete req.headers['content-type'];
                                     delete req.headers['content-length'];
                                     const options = {
-                                        uri: `http://localhost:4000/api/users?show-all=true`,
+                                        uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
                                         json: true,
                                         resolveWithFullResponse: true,
                                         method: 'GET',
