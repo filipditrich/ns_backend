@@ -3,6 +3,13 @@ const sysCodes = require('northernstars-shared').sysCodes;
 const MatchGroup = require('../models/match-group.model');
 const codes = require('../assets/codes.asset');
 
+/**
+ * @description Creates a Match Group
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
 exports.create = (req, res, next) => {
 
     const input = req.body['input'];
@@ -29,6 +36,12 @@ exports.create = (req, res, next) => {
 
 };
 
+/**
+ * @description Lists Match Group(s)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.get = (req, res, next) => {
 
     const id = req.params['id'];
@@ -49,6 +62,13 @@ exports.get = (req, res, next) => {
 
 };
 
+/**
+ * @description Updates a Match Group
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
 exports.update = (req, res, next) => {
 
     const id = req.params['id'];
@@ -81,6 +101,12 @@ exports.update = (req, res, next) => {
 
 };
 
+/**
+ * @description Deletes a Match Group
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.delete = (req, res, next) => {
 
     const id = req.params['id'];

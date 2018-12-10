@@ -1,3 +1,4 @@
+const MatchGroupRoutes = require('./match-group.route.conf');
 const JerseyRoutes = require('./jersey.route.conf');
 const MatchRoutes = require('./match.route.conf');
 const PlaceRoutes = require('./place.route.conf');
@@ -12,6 +13,7 @@ module.exports = [];
 pushRoutes([
     JerseyRoutes,
     MatchRoutes,
+    MatchGroupRoutes,
     TeamRoutes,
     PlaceRoutes,
     SysRoutes

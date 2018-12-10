@@ -5,6 +5,13 @@ const service = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
 const rp = require('request-promise');
 
+/**
+ * @description Creates a Jersey
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
 exports.create = (req, res, next) => {
 
     const input = req.body['input'];
@@ -31,6 +38,12 @@ exports.create = (req, res, next) => {
 
 };
 
+/**
+ * @description Lists Jersey(s)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.get = (req, res, next) => {
 
     const id = req.params['id'];
@@ -92,6 +105,13 @@ exports.get = (req, res, next) => {
 
 };
 
+/**
+ * @description Updates a Jersey
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
 exports.update = (req, res, next) => {
 
     const id = req.params['id'];
@@ -124,6 +144,12 @@ exports.update = (req, res, next) => {
 
 };
 
+/**
+ * @description Deletes a Jersey
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.delete = (req, res, next) => {
 
     const id = req.params['id'];
@@ -184,13 +210,3 @@ exports.delete = (req, res, next) => {
         });
 
 };
-
-exports.getAllJersey = (req, res, next) => {
-    Jersey.find({}).exec()
-        .then(jerseys => {
-            res.json({ status: sysCodes.RESOURCE.LOADED, response: jerseys })
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
-}

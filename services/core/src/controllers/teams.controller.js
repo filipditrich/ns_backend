@@ -5,7 +5,14 @@ const service = require('../config/settings.config');
 const Team = require('../models/team.model');
 const rp = require('request-promise');
 
-exports.addTeam = (req, res, next) => {
+/**
+ * @description Creates a Team
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
+exports.create = (req, res, next) => {
 
     const input = req.body['input'];
 
@@ -37,7 +44,13 @@ exports.addTeam = (req, res, next) => {
 
 };
 
-exports.getTeams = (req, res, next) => {
+/**
+ * @description Lists Team(s)
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.get = (req, res, next) => {
 
     const id = req.params['id'];
     const query = !!id ? { _id: id } : {};
@@ -98,7 +111,14 @@ exports.getTeams = (req, res, next) => {
 
 };
 
-exports.updateTeam = (req, res, next) => {
+/**
+ * @description Updates a Team
+ * @param req
+ * @param res
+ * @param next
+ * @return {*}
+ */
+exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
@@ -131,7 +151,13 @@ exports.updateTeam = (req, res, next) => {
 
 };
 
-exports.deleteTeam = (req, res, next) => {
+/**
+ * @description Deletes a Team
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.delete = (req, res, next) => {
 
     const id = req.params['id'];
 
