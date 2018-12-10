@@ -2,6 +2,7 @@ const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const enumHelper = require('northernstars-shared').enumHelper;
+const mailHelper = require('northernstars-shared').mailHelper;
 const Match = require('../models/match.model');
 const MatchResult = require('../models/match-result.model');
 const service = require('../config/settings.config');
@@ -21,7 +22,7 @@ const enums = require('../assets/enums.asset');
  * @return {*}
  */
 // TODO: more validation
-exports.createMatch = (req, res, next) => {
+exports.create = (req, res, next) => {
 
     const input = req.body['input'];
 
@@ -95,7 +96,7 @@ exports.createMatch = (req, res, next) => {
  * @param res
  * @param next
  */
-exports.getMatches = (req, res, next) => {
+exports.get = (req, res, next) => {
 
     const id = req.params['id'];
     const query = !!id ? { _id: id } : {};
@@ -274,7 +275,7 @@ exports.cancelMatch = (req, res, next) => {
     let reqUser;
     userHelper.getUser(req.headers)
         .then(user => reqUser = user)
-        .catch(error => { return next(errorHelper.prepareError(error)) });
+        .catch(error =>  next(errorHelper.prepareError(error)));
 
     Match.findOne({ _id: id }).exec()
         .then(match => {
@@ -286,7 +287,7 @@ exports.cancelMatch = (req, res, next) => {
            };
            match.update(cancellation).then(() => {
                res.json({ response: codes.MATCH })
-           }).catch(error => { return next(errorHelper.prepareError(error)) })
+           }).catch(error =>  next(errorHelper.prepareError(error)))
 
         })
         .catch(error => {
@@ -320,7 +321,7 @@ exports.writeResults = (req, res, next) => {
     let reqUser = !!req.user ? req.user : false;
     if (!reqUser) userHelper.getUser(req.headers)
         .then(user => reqUser = user)
-        .catch(error => { return next(errorHelper.prepareError(error)) });
+        .catch(error =>  next(errorHelper.prepareError(error)));
 
     Match.findOne({ _id: input.match }).exec()
         .then(match => {
@@ -411,8 +412,7 @@ exports.writeResults = (req, res, next) => {
         });
 };
 
-// TODO: mail attendants
-exports.updateMatch = (req, res, next) => {
+exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
@@ -424,18 +424,69 @@ exports.updateMatch = (req, res, next) => {
 
             if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
             match.update(update, { runValidators: true }).then(() => {
-                res.json({ response: codes.MATCH.UPDATED });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+
+                // get differences (update)
+                match = match.toObject();
+                let diff = Object.keys(update).reduce((diff, key) => {
+                    if (match[key] === update[key]) return diff;
+                    return { ...diff, [key]: update[key] }
+                }, {});
+
+                // determine whether to notify enrolled users or not
+                const notify = Boolean(req.query['notify']) && moment(match.date).isAfter(new Date()) && Object.keys(diff).length;
+
+                new Promise(resolve => {
+                    if (notify) {
+                        const notifications = [];
+
+                        // options
+                        delete req.headers['content-type'];
+                        delete req.headers['content-length'];
+                        const options = {
+                            uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                            json: true,
+                            resolveWithFullResponse: true,
+                            method: 'GET',
+                            headers: req.headers
+                        };
+
+                        rp(options).then(response => {
+                            const users = response.body.output;
+                            if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+
+                            match.enrollment.players.filter(x => x.status === enums.MATCH.ENROLL_STATUS.going.key).forEach(player => {
+                                const user = users.find(x => x._id.toString() === player.player.toString());
+                                notifications.push({
+                                    match, diff,
+                                    email: user.email,
+                                    username: user.username,
+                                    name: user.name,
+                                    updatedBy: req.user.username,
+                                    updatedByName: req.user.name,
+                                    subject: 'Match Update',
+                                });
+                            });
+
+                            mailHelper.mail('match-update', notifications)
+                                .then(output => {
+                                    resolve(output);
+                                }).catch(error => next(errorHelper.prepareError(error)));
+                        }).catch(error => next(errorHelper.prepareError(error)));
+                    } else resolve();
+                }).then(status => {
+                    res.json({
+                        response: notify ? sysCodes.MAILING.SENT : codes.MATCH.UPDATED,
+                        output: {
+                            mailing: !!status ? status : notify, diff
+                        }
+                    });
+                }).catch(error => next(errorHelper.prepareError(error)));
+            }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };
 
-exports.deleteMatch = (req, res, next) => {
+exports.delete = (req, res, next) => {
 
     const id = req.params['id'];
 
@@ -444,12 +495,7 @@ exports.deleteMatch = (req, res, next) => {
             if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
             match.remove().then(() => {
                 res.json({ response: codes.MATCH.DELETED });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+            }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };

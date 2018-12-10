@@ -5,7 +5,7 @@ const service = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
 const rp = require('request-promise');
 
-exports.newJersey = (req, res, next) => {
+exports.create = (req, res, next) => {
 
     const input = req.body['input'];
 
@@ -31,7 +31,7 @@ exports.newJersey = (req, res, next) => {
 
 };
 
-exports.getJerseys = (req, res, next) => {
+exports.get = (req, res, next) => {
 
     const id = req.params['id'];
     const query = !!id ? { _id: id } : {};
@@ -92,7 +92,7 @@ exports.getJerseys = (req, res, next) => {
 
 };
 
-exports.updateJersey = (req, res, next) => {
+exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
@@ -124,7 +124,7 @@ exports.updateJersey = (req, res, next) => {
 
 };
 
-exports.deleteJersey = (req, res, next) => {
+exports.delete = (req, res, next) => {
 
     const id = req.params['id'];
 

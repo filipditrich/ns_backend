@@ -26,6 +26,8 @@ const matchSchema = mongoose.Schema({
         maxCapacity: { type: Number, required: codes.MATCH.ENROLLMENT.MAX_CAP.REQUIRED },
     },
 
+    group: { type: mongoose.Schema.ObjectId, ref: 'Group', required: codes.MATCH.GROUP.REQUIRED },
+
     results: { type: Object }, // unnecessary
     cancelled: { type: Boolean, default: false },
     cancelledBy: { type: mongoose.Schema.ObjectId, ref: 'User' },

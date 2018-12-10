@@ -70,6 +70,21 @@ module.exports = {
             MISSING: codeGenerator.missing('match_title'),
             REQUIRED: codeGenerator.required('match_title')
         },
+        GROUP: {
+            DUPLICATE: codeGenerator.duplicate('match_group'),
+            NOT_FOUND: codeGenerator.notFound('match_group'),
+            NULL_FOUND: codeGenerator.multipleNotFound('match_group'),
+            MISSING: codeGenerator.missing('match_group'),
+            REQUIRED: codeGenerator.required('match_group'),
+            NAME: {
+                REQUIRED: codeGenerator.required('match_group_name'),
+                MISSING: codeGenerator.missing('match_group_name'),
+            },
+
+            UPDATED: codeGenerator.update('place'),
+            DELETED: codeGenerator.delete('place'),
+            CREATED: codeGenerator.create('place'),
+        },
         ENROLLMENT: {
             CLOSES: {
                 MISSING: codeGenerator.missing('match_enrollment_close'),
