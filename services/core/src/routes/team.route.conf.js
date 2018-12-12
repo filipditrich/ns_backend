@@ -9,9 +9,9 @@ const adminAndMods = [ sysEnums.AUTH.ROLES.admin.key, sysEnums.AUTH.ROLES.super.
 module.exports = [
 
     /** Basic CRUD **/
-    new Route('ADD_TEAM', 'POST', '/teams', { roles: adminAndMods }, TeamsCtrl.addTeam),
-    new Route('UPD_TEAM', 'PUT', '/teams/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, TeamsCtrl.updateTeam),
-    new Route('DEL_TEAM', 'DELETE', '/teams/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, TeamsCtrl.deleteTeam),
-    new Route('GET_TEAM', 'GET', '/teams/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, TeamsCtrl.getTeams),
+    new Route('ADD_TEAM', 'POST', '/teams', { roles: adminAndMods }, TeamsCtrl.create),
+    new Route('UPD_TEAM', 'PUT', '/teams/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, TeamsCtrl.update),
+    new Route('DEL_TEAM', 'DELETE', '/teams/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, TeamsCtrl.delete),
+    new Route('GET_TEAM', 'GET', '/teams/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, TeamsCtrl.get),
 
 ];

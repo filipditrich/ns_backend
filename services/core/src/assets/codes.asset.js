@@ -1,5 +1,6 @@
 const codeGenerator = require('northernstars-shared').baseCodeGenerator;
 
+// TODO - method of generating base codes for each field + base CRUD
 module.exports = {
 
     PLACE: {
@@ -63,6 +64,7 @@ module.exports = {
                 status: 200,
                 success: false
             },
+            INVALID: codeGenerator.invalid('match_date'),
             MISSING: codeGenerator.missing('match_date'),
             REQUIRED: codeGenerator.required('match_date')
         },
@@ -81,9 +83,9 @@ module.exports = {
                 MISSING: codeGenerator.missing('match_group_name'),
             },
 
-            UPDATED: codeGenerator.update('place'),
-            DELETED: codeGenerator.delete('place'),
-            CREATED: codeGenerator.create('place'),
+            UPDATED: codeGenerator.update('match_group'),
+            DELETED: codeGenerator.delete('match_group'),
+            CREATED: codeGenerator.create('match_group'),
         },
         ENROLLMENT: {
             CLOSES: {
@@ -119,6 +121,7 @@ module.exports = {
             MAX_CAP: {
                 MISSING: codeGenerator.missing('match_enrollment_players_max_capacity'),
                 REQUIRED: codeGenerator.required('match_enrollment_players_max_capacity'),
+                INVALID: codeGenerator.invalid('match_enrollment_players_max_capacity'),
                 EXCEEDED: {
                     name: 'MATCH_MAXIMUM_CAPACITY_EXCEEDED',
                     message: "Enrollment capacity of this match has been exceeded",

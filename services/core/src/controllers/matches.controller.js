@@ -10,9 +10,11 @@ const rp = require('request-promise');
 const Place = require('../models/place.model');
 const Jersey = require('../models/jersey.model');
 const codes = require('../assets/codes.asset');
+const MatchGroup = require('../models/match-group.model');
 const moment = require('moment');
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 const enums = require('../assets/enums.asset');
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 /**
  * @description Creates a match
@@ -21,19 +23,24 @@ const enums = require('../assets/enums.asset');
  * @param next
  * @return {*}
  */
-// TODO: more validation
 exports.create = (req, res, next) => {
 
     const input = req.body['input'];
-
     if (!input) return next(errorHelper.prepareError(codes.MATCH.MISSING));
-    if (!input.date) return next(errorHelper.prepareError(codes.MATCH.DATE.MISSING));
-    if (!input.title) return next(errorHelper.prepareError(codes.MATCH.TITLE.MISSING));
-    if (!input.place) return next(errorHelper.prepareError(codes.PLACE.MISSING));
-    if (!input.enrollment.maxCapacity) return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.MAX_CAP.MISSING));
+
+    // validation
+    const validators = [
+        { field: 'title', rules: { required: true, min: 1, max: 99 } },
+        { field: 'group', rules: { required: true, objectId: true } },
+        { field: 'place', rules: { required: true, objectId: true } },
+        { field: 'date', rules: { required: true, date: true } },
+        { field: 'group', rules: { required: true, objectId: true } },
+        { field: 'enrollment.maxCapacity', rules: { required: true, number: true, min: 1 } },
+    ];
+    const validation = iV.validate(input, validators);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     const force = Boolean(req.query['force-create']);
-
     const d = new Date(input.date);
     const gte = new Date(d.getTime() - 3600000);
     const lte = new Date(d.getTime() + 3600000);
@@ -75,18 +82,10 @@ exports.create = (req, res, next) => {
                         const newMatch = new Match(input);
                         newMatch.save().then(() => {
                             res.json({ response: codes.MATCH.CREATED });
-                        }).catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        });
-                    })
-                    .catch(error => {
-                        return next(errorHelper.prepareError(error));
-                    });
+                        }).catch(error => next(errorHelper.prepareError(error)));
+                    }).catch(error => next(errorHelper.prepareError(error)));
             }
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -107,109 +106,105 @@ exports.get = (req, res, next) => {
 
             if (matches.length === 0 && id) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
             if (matches.length === 0 && !id) return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND));
+            const formatted = [];
 
-            MatchResult.find(matchResQuery).exec()
+            return MatchResult.find(matchResQuery).exec()
                 .then(results => {
-                    Jersey.find({}).exec()
-                        .then(jerseys => {
-                            Place.find({}).exec()
-                                .then(places => {
-                                    const formatted = [];
-
-                                    // define unavailablePlaceIndex (should always be in database)
-                                    const unavailablePlaceIndex = places.findIndex(obj => obj.name === '(unavailable place)');
-                                    if (unavailablePlaceIndex === -1) console.error(`NO '(unavailable place)' place defined!`);
-
-                                    // define unavailableJerseyIndex (should always be in database)
-                                    const unavailableJerseyIndex = jerseys.findIndex(obj => obj.name === '(unavailable jersey)');
-                                    if (unavailableJerseyIndex === -1) console.error(`NO '(unavailable jersey)' jersey defined!`);
-
-                                    matches.forEach(match => {
-                                        let formattedMatch = match.toObject();
-                                        // create 'results' field
-                                        const matchResults = results.filter(x => x.match.toString() === match._id.toString());
-                                        formattedMatch['results'] = matchResults.length ? matchResults[0] : false;
-                                        // extend 'results.players[i].jersey' fields
-                                        if (formattedMatch['results']) {
-                                            formattedMatch['results'].players.forEach((result, i) => {
-                                                const jerseyIndex = jerseys.findIndex(x => x._id.toString() === result.jersey.toString());
-                                                formattedMatch['results'].players[i].jersey = jerseyIndex >= 0 ? jerseys[jerseyIndex] : jerseys[unavailableJerseyIndex];
-                                            });
-                                        }
-                                        // extend 'place' field
-                                        const placeIndex = places.findIndex(obj => obj._id.toString() === match.place.toString());
-                                        formattedMatch.place = placeIndex >= 0 ? places[placeIndex] : places[unavailablePlaceIndex];
-                                        formatted.push(formattedMatch);
-                                    });
-
-                                    // options
-                                    delete req.headers['content-type'];
-                                    delete req.headers['content-length'];
-                                    const options = {
-                                        uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
-                                        json: true,
-                                        resolveWithFullResponse: true,
-                                        method: 'GET',
-                                        headers: req.headers
-                                    };
-
-                                    rp(options).then(response => {
-                                        const users = response.body.output;
-                                        if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
-
-                                        const fin = [];
-
-                                        // define deletedUserIndex (should always be in database)
-                                        const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
-                                        if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
-
-                                        formatted.forEach(match => {
-                                            // extend 'createdBy' field
-                                            const createdByIndex = users.findIndex(obj => obj._id.toString() === match.createdBy.toString());
-                                            match.createdBy = createdByIndex >= 0 ? users[createdByIndex] : users[deletedUserIndex];
-
-                                            // extend 'updatedBy' field
-                                            const updatedByIndex = users.findIndex(obj => obj._id.toString() === match.updatedBy.toString());
-                                            match.updatedBy = updatedByIndex >= 0 ? users[updatedByIndex] : users[deletedUserIndex];
-
-                                            // extend enrollment players fields
-                                            match.enrollment.players.forEach((player, i) => {
-                                                const playerIndex = users.findIndex(obj => obj._id.toString() === player.player.toString());
-                                                match.enrollment.players[i].info = playerIndex >= 0 ? users[playerIndex] : users[deletedUserIndex];
-                                            });
-
-                                            // extend result players fields if results are present
-                                            if (match.results) {
-                                                match.results.players.forEach((player, i) => {
-                                                    const playerIndex = users.findIndex(obj => obj._id.toString() === player.player.toString());
-                                                    match.results.players[i].player = playerIndex >= 0 ? users[playerIndex] : users[deletedUserIndex];
-                                                });
-                                            }
-
-                                            fin.push(match);
-                                        });
-
-                                        res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
-
-                                    }).catch(error => {
-                                        return next(errorHelper.prepareError(error));
-                                    });
-                                })
-                                .catch(error => {
-                                    return next(errorHelper.prepareError(error));
-                                });
-                        })
-                        .catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        });
+                    matches.forEach(match => {
+                        let formattedMatch = match.toObject();
+                        // create 'results' field
+                        const matchResults = results.filter(x => x.match.toString() === match._id.toString());
+                        formattedMatch['results'] = matchResults.length ? matchResults[0] : false;
+                        formatted.push(formattedMatch);
+                    });
+                    return Jersey.find({}).exec();
                 })
-                .catch(error => {
-                    return errorHelper.prepareError(error);
+                .then(jerseys => {
+                    // define unavailableJersey (should always be in database)
+                    const unavailableJersey = jerseys.find(obj => obj.name === '(unavailable jersey)');
+                    if (!unavailableJersey) console.error(`NO '(unavailable jersey)' jersey defined!`);
+
+                    formatted.forEach(match => {
+                        // extend 'results.players[i].jersey' fields
+                        if (match['results']) {
+                            match['results'].players.forEach((result, i) => {
+                                const jersey = jerseys.find(x => x._id.toString() === result.jersey.toString());
+                                match['results'].players[i].jersey = jersey || unavailableJersey;
+                            });
+                        }
+                    });
+                    return Place.find({}).exec();
+                })
+                .then(places => {
+                    // define unavailablePlace (should always be in database)
+                    const unavailablePlace = places.find(obj => obj.name === '(unavailable place)');
+                    if (!unavailablePlace) console.error(`NO '(unavailable place)' place defined!`);
+
+                    formatted.forEach(match => {
+                        // extend 'place' field
+                        const place = places.find(obj => obj._id.toString() === match.place.toString());
+                        match.place = place || unavailablePlace;
+                    });
+                    return MatchGroup.find({}).exec();
+                })
+                .then(groups => {
+                    // define unavailableGroup (should always be in database)
+                    const unavailableGroup = groups.find(obj => obj.name === '(unavailable group)');
+                    if (!unavailableGroup) console.error(`NO '(unavailable group)' group defined!`);
+
+                    formatted.forEach(match => {
+                        // extend 'group' field
+                        const group = groups.find(obj => obj._id.toString() === match.group.toString());
+                        match.group = group || unavailableGroup;
+                    });
+                    // options
+                    delete req.headers['content-type'];
+                    delete req.headers['content-length'];
+                    const options = {
+                        uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                        json: true,
+                        resolveWithFullResponse: true,
+                        method: 'GET',
+                        headers: req.headers
+                    };
+                    return rp(options);
+                })
+                .then(response => {
+                    const users = response.body.output;
+                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+
+                    // define deletedUser (should always be in database)
+                    const deletedUser = users.findIndex(obj => obj.username === 'deletedUser');
+                    if (!deletedUser) console.error(`NO '(deleted user)' user defined!`);
+
+                    formatted.forEach(match => {
+                        // extend 'createdBy' field
+                        const createdBy = users.find(obj => obj._id.toString() === match.createdBy.toString());
+                        match.createdBy = createdBy || deletedUser;
+
+                        // extend 'updatedBy' field
+                        const updatedBy = users.find(obj => obj._id.toString() === match.updatedBy.toString());
+                        match.updatedBy = updatedBy || deletedUser;
+
+                        // extend enrollment players fields
+                        match.enrollment.players.forEach((player, i) => {
+                            const ePlayer = users.find(obj => obj._id.toString() === player.player.toString());
+                            match.enrollment.players[i].info = ePlayer || deletedUser;
+                        });
+
+                        // extend result players fields if results are present
+                        if (match.results) {
+                            match.results.players.forEach((player, i) => {
+                                const rPlayer = users.find(obj => obj._id.toString() === player.player.toString());
+                                match.results.players[i].player = rPlayer || deletedUser;
+                            });
+                        }
+
+                    });
+
+                    res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
                 });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -223,73 +218,114 @@ exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
-
     if (!update) return next(errorHelper.prepareError(codes.MATCH.MISSING));
+
+    // validation
+    const validators = [
+        { field: 'title', rules: { min: 1, max: 99 } },
+        { field: 'group', rules: { objectId: true } },
+        { field: 'place', rules: { objectId: true } },
+        { field: 'date', rules: { date: true } },
+        { field: 'group', rules: { objectId: true } },
+        { field: 'enrollment.maxCapacity', rules: { number: true, min: 1 } },
+    ];
+    const validation = iV.validate(update, validators);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     Match.findOne({ _id: id }).exec()
         .then(match => {
 
             if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
-            match.update(update, { runValidators: true }).then(() => {
 
-                // get differences (update)
-                match = match.toObject();
-                let diff = Object.keys(update).reduce((diff, key) => {
-                    if (match[key] === update[key]) return diff;
-                    return { ...diff, [key]: update[key] }
-                }, {});
+            // check if place is valid
+            new Promise(resolve => {
+                if (update.place) {
+                    Place.findOne({ _id: update.place }).exec()
+                        .then(place => {
+                            if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
+                            update.place = place._id;
+                            resolve();
+                        })
+                        .catch(error => next(errorHelper.prepareError(error)));
+                } else { resolve(); }
+            }).then(() => {
+                // check if group is valid
+                return new Promise(resolve => {
+                    if (update.group) {
+                        MatchGroup.findOne({ _id: update.group }).exec()
+                            .then(group => {
+                                if (!group) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
+                                update.group = group._id;
+                                resolve();
+                            })
+                    } else { resolve(); }
+                });
+            }).then(() => {
+                match.update(update, { runValidators: true })
+                    .then(() => {
 
-                // determine whether to notify enrolled users or not
-                const notify = Boolean(req.query['notify']) && moment(match.date).isAfter(new Date()) && Object.keys(diff).length;
+                        // get differences (update)
+                        match = match.toObject();
+                        let diff = Object.keys(update).reduce((diff, key) => {
+                            if (match[key] === update[key]) return diff;
+                            return { ...diff, [key]: update[key] }
+                        }, {});
 
-                new Promise(resolve => {
-                    if (notify) {
-                        const notifications = [];
+                        // determine whether to notify enrolled users or not
+                        const notify = Boolean(req.query['notify']) && moment(match.date).isAfter(new Date()) && Object.keys(diff).length;
 
-                        // options
-                        delete req.headers['content-type'];
-                        delete req.headers['content-length'];
-                        const options = {
-                            uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
-                            json: true,
-                            resolveWithFullResponse: true,
-                            method: 'GET',
-                            headers: req.headers
-                        };
+                        new Promise(resolve => {
+                            if (notify) {
+                                const notifications = [];
 
-                        rp(options).then(response => {
-                            const users = response.body.output;
-                            if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+                                // options
+                                delete req.headers['content-type'];
+                                delete req.headers['content-length'];
+                                const options = {
+                                    uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                                    json: true,
+                                    resolveWithFullResponse: true,
+                                    method: 'GET',
+                                    headers: req.headers
+                                };
 
-                            match.enrollment.players.filter(x => x.status === enums.MATCH.ENROLL_STATUS.going.key).forEach(player => {
-                                const user = users.find(x => x._id.toString() === player.player.toString());
-                                notifications.push({
-                                    match, diff,
-                                    email: user.email,
-                                    username: user.username,
-                                    name: user.name,
-                                    updatedBy: req.user.username,
-                                    updatedByName: req.user.name,
-                                    subject: 'Match Update',
-                                });
-                            });
+                                // get data for each user to whom is going to be the notification sent
+                                rp(options).then(response => {
+                                    const users = response.body.output;
+                                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
 
-                            mailHelper.mail('match-update', notifications)
-                                .then(output => {
-                                    resolve(output);
+                                    // create the notification
+                                    match.enrollment.players.filter(x => x.status === enums.MATCH.ENROLL_STATUS.going.key).forEach(player => {
+                                        const user = users.find(x => x._id.toString() === player.player.toString());
+                                        notifications.push({
+                                            match, diff,
+                                            email: user.email,
+                                            username: user.username,
+                                            name: user.name,
+                                            updatedBy: req.user.username,
+                                            updatedByName: req.user.name,
+                                            subject: 'Match Update',
+                                        });
+                                    });
+
+                                    // send emails with the notification
+                                    mailHelper.mail('match-update', notifications).then(output => {
+                                        resolve(output);
+                                    }).catch(error => next(errorHelper.prepareError(error)));
                                 }).catch(error => next(errorHelper.prepareError(error)));
+                            } else resolve();
+                        }).then(status => {
+                            res.json({
+                                response: notify ? sysCodes.MAILING.SENT : codes.MATCH.UPDATED,
+                                output: { mailing: !!status ? status : notify, diff }
+                            });
                         }).catch(error => next(errorHelper.prepareError(error)));
-                    } else resolve();
-                }).then(status => {
-                    res.json({
-                        response: notify ? sysCodes.MAILING.SENT : codes.MATCH.UPDATED,
-                        output: {
-                            mailing: !!status ? status : notify, diff
-                        }
-                    });
-                }).catch(error => next(errorHelper.prepareError(error)));
-            }).catch(error => next(errorHelper.prepareError(error)));
-        }).catch(error => next(errorHelper.prepareError(error)));
+                    })
+                    .catch(error => next(errorHelper.prepareError(error)));
+                })
+                .catch(error => next(errorHelper.prepareError(error)));
+        })
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -360,13 +396,8 @@ exports.matchParticipation = (req, res, next) => {
 
             match.update(update, { runValidators: true }).then(() => {
                 res.json({ response: codes.MATCH.UPDATED });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+            }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -395,11 +426,7 @@ exports.cancelMatch = (req, res, next) => {
             match.update(cancellation).then(() => {
                 res.json({ response: codes.MATCH })
             }).catch(error =>  next(errorHelper.prepareError(error)))
-
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -410,6 +437,7 @@ exports.cancelMatch = (req, res, next) => {
  * @param next
  * @return {*}
  */
+// TODO - delete 'draft' sitation :--) fuckheads...
 exports.writeResults = (req, res, next) => {
     const input = req.body['input'];
     const resEnums = enums.MATCH.RESULT;
@@ -417,9 +445,9 @@ exports.writeResults = (req, res, next) => {
     // input validation
     if (!input) return next(errorHelper.prepareError(codes.RESULTS.PLAYERS.MISSING));
     if (!input.match) return next(errorHelper.prepareError(codes.RESULTS.MATCH.MISSING));
-    if (!input.match.match(objectIdRegExp)) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // TODO ObjectID error
+    if (!input.match.match(objectIdRegExp)) return next(errorHelper.prepareError(sysCodes.REQUEST.INPUT.OBJECT_ID_ERR));
     if (!input.jersey) return next(errorHelper.prepareError(codes.RESULTS.PLAYERS.JERSEY.MISSING));
-    if (!input.jersey.match(objectIdRegExp)) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // TODO same todo as 2 lines above
+    if (!input.jersey.match(objectIdRegExp)) return next(errorHelper.prepareError(sysCodes.REQUEST.INPUT.OBJECT_ID_ERR));
     if (!input.status) return next(errorHelper.prepareError(codes.RESULTS.PLAYERS.STATUS.MISSING));
     if (enumHelper.toArray(resEnums).indexOf(input.status) < 0)
         return next(errorHelper.prepareError(codes.RESULTS.PLAYERS.STATUS.INVALID));

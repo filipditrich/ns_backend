@@ -1,5 +1,7 @@
 const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
+const rp = require('request-promise');
+const service = require('../config/settings.config');
 const MatchGroup = require('../models/match-group.model');
 const codes = require('../assets/codes.asset');
 
@@ -24,15 +26,13 @@ exports.create = (req, res, next) => {
             input['createdBy'] = req.user._id;
             input['updatedBy'] = req.user._id;
             const newMatchGroup = new MatchGroup(input);
-            newMatchGroup.save().then(saved => {
-                res.json({ response: codes.MATCH.GROUP.CREATED });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
+            newMatchGroup.save()
+                .then(() => {
+                    res.json({ response: codes.MATCH.GROUP.CREATED });
+                })
+                .catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -45,21 +45,58 @@ exports.create = (req, res, next) => {
 exports.get = (req, res, next) => {
 
     const id = req.params['id'];
-    const query = !!id ? { _id: id } : {};
+    const query = !!id ? {_id: id} : {};
 
     MatchGroup.find(query).exec()
         .then(groups => {
 
+            groups = Boolean(req.query['show-all']) ? groups : groups.filter(team => team.name !== '(unavailable group)');
+
             if (groups.length === 0 && id) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
             if (groups.length === 0 && !id) return next(errorHelper.prepareError(codes.MATCH.GROUP.NULL_FOUND));
 
-            res.json({ response: sysCodes.RESOURCE.LOADED, output: groups });
+            // options
+            delete req.headers['content-type'];
+            delete req.headers['content-length'];
+            const options = {
+                uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                json: true,
+                resolveWithFullResponse: true,
+                method: 'GET',
+                headers: req.headers
+            };
 
+            rp(options)
+                .then(response => {
+                    const users = response.body.output;
+                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+
+                    const fin = [];
+
+                    // define deletedUserIndex (should always be in database)
+                    const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
+                    if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
+
+                    groups.forEach(group => {
+                        group = group.toObject();
+
+                        // extend 'createdBy' field
+                        const createdByIndex = users.findIndex(obj => obj._id.toString() === group.createdBy.toString());
+                        group.createdBy = createdByIndex >= 0 ? users[createdByIndex] : users[deletedUserIndex];
+
+                        // extend 'updatedBy' field
+                        const updatedByIndex = users.findIndex(obj => obj._id.toString() === group.updatedBy.toString());
+                        group.updatedBy = updatedByIndex >= 0 ? users[updatedByIndex] : users[deletedUserIndex];
+
+                        fin.push(group);
+                    });
+
+                res.json({response: sysCodes.RESOURCE.LOADED, output: fin});
+
+                })
+                .catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
-
+        .catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -85,19 +122,15 @@ exports.update = (req, res, next) => {
                 .then(duplicate => {
                     if (duplicate) return next(errorHelper.prepareError(codes.MATCH.GROUP.DUPLICATE));
 
-                    group.update(update, { runValidators: true }).then(() => {
-                        res.json({ response: codes.MATCH.GROUP.UPDATED });
-                    }).catch(error => {
-                        return next(errorHelper.prepareError(error));
-                    });
+                    group.update(update, { runValidators: true })
+                        .then(() => {
+                            res.json({ response: codes.MATCH.GROUP.UPDATED });
+                        })
+                        .catch(error => next(errorHelper.prepareError(error)));
                 })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                .catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -145,25 +178,17 @@ exports.delete = (req, res, next) => {
                                 promises.push(promise);
                             });
                             Promise.all(promises).then(() => {
-                                group.remove().then(() => {
-                                    res.json({ response: codes.MATCH.GROUP.DELETED });
-                                }).catch(error => {
-                                    return next(errorHelper.prepareError(error));
-                                });
-                            }).catch(error => {
-                                return next(errorHelper.prepareError(error));
-                            });
+                                group.remove()
+                                    .then(() => {
+                                        res.json({ response: codes.MATCH.GROUP.DELETED });
+                                    })
+                                    .catch(error => next(errorHelper.prepareError(error)));
+                            }).catch(error => next(errorHelper.prepareError(error)));
                         })
-                        .catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        })
+                        .catch(error => next(errorHelper.prepareError(error)))
                 })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                .catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
