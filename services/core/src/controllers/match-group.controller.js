@@ -55,48 +55,39 @@ exports.get = (req, res, next) => {
             if (groups.length === 0 && id) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
             if (groups.length === 0 && !id) return next(errorHelper.prepareError(codes.MATCH.GROUP.NULL_FOUND));
 
-            // options
-            delete req.headers['content-type'];
-            delete req.headers['content-length'];
-            const options = {
-                uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
-                json: true,
-                resolveWithFullResponse: true,
-                method: 'GET',
-                headers: req.headers
-            };
+            formatGroups(req, groups).then(formatted => {
+                res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
+            }).catch(error => next(errorHelper.prepareError(error)));
 
-            rp(options)
-                .then(response => {
-                    const users = response.body.output;
-                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
-
-                    const fin = [];
-
-                    // define deletedUserIndex (should always be in database)
-                    const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
-                    if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
-
-                    groups.forEach(group => {
-                        group = group.toObject();
-
-                        // extend 'createdBy' field
-                        const createdByIndex = users.findIndex(obj => obj._id.toString() === group.createdBy.toString());
-                        group.createdBy = createdByIndex >= 0 ? users[createdByIndex] : users[deletedUserIndex];
-
-                        // extend 'updatedBy' field
-                        const updatedByIndex = users.findIndex(obj => obj._id.toString() === group.updatedBy.toString());
-                        group.updatedBy = updatedByIndex >= 0 ? users[updatedByIndex] : users[deletedUserIndex];
-
-                        fin.push(group);
-                    });
-
-                res.json({response: sysCodes.RESOURCE.LOADED, output: fin});
-
-                })
-                .catch(error => next(errorHelper.prepareError(error)));
         })
         .catch(error => next(errorHelper.prepareError(error)));
+};
+
+
+/**
+ * @description Gets Match Group by its name property
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.getByName = (req, res, next) => {
+
+    const name = decodeURI(req.params['name']);
+    MatchGroup.find({}).exec()
+        .then(groups => {
+            if (!groups.length) return next(errorHelper.prepareError(codes.MATCH.GROUP.NULL_FOUND));
+            const group = groups.filter(g => g.name.toLowerCase() === name.toLowerCase());
+            if (!group.length) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
+
+            formatGroups(req, group).then(formatted => {
+                res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted[0] });
+            }).catch(error => next(errorHelper.prepareError(error)));
+
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+
 };
 
 /**
@@ -192,3 +183,47 @@ exports.delete = (req, res, next) => {
         .catch(error => next(errorHelper.prepareError(error)));
 
 };
+
+function formatGroups(req, groups) {
+    return new Promise((resolve, reject) => {
+
+        // options
+        delete req.headers['content-type'];
+        delete req.headers['content-length'];
+        const options = {
+            uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+            json: true,
+            resolveWithFullResponse: true,
+            method: 'GET',
+            headers: req.headers
+        };
+
+        rp(options)
+            .then(response => {
+                const users = response.body.output;
+                if (users.length === 0) reject(sysCodes.REQUEST.INVALID); // this shouldn't happen
+
+                const fin = [];
+
+                // define deletedUserIndex (should always be in database)
+                const deletedUserIndex = users.findIndex(obj => obj.username === 'deletedUser');
+                if (deletedUserIndex === -1) console.error(`NO '(deleted user)' user defined!`);
+
+                groups.forEach(group => {
+                    group = group.toObject();
+
+                    // extend 'createdBy' field
+                    const createdByIndex = users.findIndex(obj => obj._id.toString() === group.createdBy.toString());
+                    group.createdBy = createdByIndex >= 0 ? users[createdByIndex] : users[deletedUserIndex];
+
+                    // extend 'updatedBy' field
+                    const updatedByIndex = users.findIndex(obj => obj._id.toString() === group.updatedBy.toString());
+                    group.updatedBy = updatedByIndex >= 0 ? users[updatedByIndex] : users[deletedUserIndex];
+
+                    fin.push(group);
+                });
+                resolve(fin);
+            })
+            .catch(error => { reject(error) });
+    });
+}

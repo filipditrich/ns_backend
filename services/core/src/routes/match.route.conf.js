@@ -13,6 +13,8 @@ module.exports = [
     new Route('UPD_MATCH', 'PUT', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.update),
     new Route('DEL_MATCH', 'DELETE', '/matches/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.delete),
     new Route('GET_MATCH', 'GET', '/matches/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.get),
+    new Route('GET_MATCH_BY_GROUP', 'GET', '/matches/g/:id([a-fA-F0-9]{24})', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.getByGroup),
+    new Route('GET_MATCH_BY_GROUP_NAME', 'GET', '/matches/gn/:name', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.getByGroupName),
 
     /** Additional Routes **/
     new Route('MATCH_ENROLLMENT', 'POST', '/matches/enrollment', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.matchParticipation),

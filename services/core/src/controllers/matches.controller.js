@@ -99,112 +99,71 @@ exports.get = (req, res, next) => {
 
     const id = req.params['id'];
     const query = !!id ? { _id: id } : {};
-    const matchResQuery = !!id ? { match: id }: {};
+    const matchResQuery = !!id ? { match: id } : {};
 
     Match.find(query).exec()
         .then(matches => {
 
             if (matches.length === 0 && id) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
             if (matches.length === 0 && !id) return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND));
-            const formatted = [];
 
-            return MatchResult.find(matchResQuery).exec()
-                .then(results => {
-                    matches.forEach(match => {
-                        let formattedMatch = match.toObject();
-                        // create 'results' field
-                        const matchResults = results.filter(x => x.match.toString() === match._id.toString());
-                        formattedMatch['results'] = matchResults.length ? matchResults[0] : false;
-                        formatted.push(formattedMatch);
-                    });
-                    return Jersey.find({}).exec();
-                })
-                .then(jerseys => {
-                    // define unavailableJersey (should always be in database)
-                    const unavailableJersey = jerseys.find(obj => obj.name === '(unavailable jersey)');
-                    if (!unavailableJersey) console.error(`NO '(unavailable jersey)' jersey defined!`);
+            formatMatches(req, matches, matchResQuery).then(formatted => {
+                res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
+            }).catch(error => next(errorHelper.prepareError(error)));
 
-                    formatted.forEach(match => {
-                        // extend 'results.players[i].jersey' fields
-                        if (match['results']) {
-                            match['results'].players.forEach((result, i) => {
-                                const jersey = jerseys.find(x => x._id.toString() === result.jersey.toString());
-                                match['results'].players[i].jersey = jersey || unavailableJersey;
-                            });
-                        }
-                    });
-                    return Place.find({}).exec();
-                })
-                .then(places => {
-                    // define unavailablePlace (should always be in database)
-                    const unavailablePlace = places.find(obj => obj.name === '(unavailable place)');
-                    if (!unavailablePlace) console.error(`NO '(unavailable place)' place defined!`);
-
-                    formatted.forEach(match => {
-                        // extend 'place' field
-                        const place = places.find(obj => obj._id.toString() === match.place.toString());
-                        match.place = place || unavailablePlace;
-                    });
-                    return MatchGroup.find({}).exec();
-                })
-                .then(groups => {
-                    // define unavailableGroup (should always be in database)
-                    const unavailableGroup = groups.find(obj => obj.name === '(unavailable group)');
-                    if (!unavailableGroup) console.error(`NO '(unavailable group)' group defined!`);
-
-                    formatted.forEach(match => {
-                        // extend 'group' field
-                        const group = groups.find(obj => obj._id.toString() === match.group.toString());
-                        match.group = group || unavailableGroup;
-                    });
-                    // options
-                    delete req.headers['content-type'];
-                    delete req.headers['content-length'];
-                    const options = {
-                        uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
-                        json: true,
-                        resolveWithFullResponse: true,
-                        method: 'GET',
-                        headers: req.headers
-                    };
-                    return rp(options);
-                })
-                .then(response => {
-                    const users = response.body.output;
-                    if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
-
-                    // define deletedUser (should always be in database)
-                    const deletedUser = users.findIndex(obj => obj.username === 'deletedUser');
-                    if (!deletedUser) console.error(`NO '(deleted user)' user defined!`);
-
-                    formatted.forEach(match => {
-                        // extend 'createdBy' field
-                        const createdBy = users.find(obj => obj._id.toString() === match.createdBy.toString());
-                        match.createdBy = createdBy || deletedUser;
-
-                        // extend 'updatedBy' field
-                        const updatedBy = users.find(obj => obj._id.toString() === match.updatedBy.toString());
-                        match.updatedBy = updatedBy || deletedUser;
-
-                        // extend enrollment players fields
-                        match.enrollment.players.forEach((player, i) => {
-                            const ePlayer = users.find(obj => obj._id.toString() === player.player.toString());
-                            match.enrollment.players[i].info = ePlayer || deletedUser;
-                        });
-
-                        // extend result players fields if results are present
-                        if (match.results) {
-                            match.results.players.forEach((player, i) => {
-                                const rPlayer = users.find(obj => obj._id.toString() === player.player.toString());
-                                match.results.players[i].player = rPlayer || deletedUser;
-                            });
-                        }
-
-                    });
-
-                    res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
-                });
         }).catch(error => next(errorHelper.prepareError(error)));
+};
+
+/**
+ * @description Returns Matches with specified Group Name
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.getByGroupName = (req, res, next) => {
+
+    const gName = decodeURI(req.params['name']);
+    MatchGroup.find({}).exec()
+        .then(groups => {
+           if (!groups.length) return next(errorHelper.prepareError(codes.MATCH.GROUP.NULL_FOUND));
+           const group = groups.filter(g => g.name.toLowerCase() === gName.toLowerCase())[0];
+           if (!group) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
+           Match.find({ group: group._id }).exec()
+               .then(matches => {
+                   if (!matches.length) return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND));
+                   formatMatches(req, matches).then(formatted => {
+                       res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
+                   }).catch(error => next(errorHelper.prepareError(error)));
+               })
+               .catch(error => {
+                   return next(errorHelper.prepareError(error));
+               });
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
+
+};
+
+/**
+ * @description Returns Matches with specified Group ID
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.getByGroup = (req, res, next) => {
+
+    const gId = req.params['id'];
+    Match.find({ group: gId }).exec()
+        .then(matches => {
+           if (!matches.length) return next(errorHelper.prepareError(codes.MATCH.NULL_FOUND));
+           formatMatches(req, matches).then(formatted => {
+               res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted });
+           }).catch(error => next(errorHelper.prepareError(error)));
+        })
+        .catch(error => {
+            return next(errorHelper.prepareError(error));
+        });
 };
 
 /**
@@ -437,7 +396,7 @@ exports.cancelMatch = (req, res, next) => {
  * @param next
  * @return {*}
  */
-// TODO - delete 'draft' sitation :--) fuckheads...
+// TODO - delete 'draft' situation :--) fuckheads...
 exports.writeResults = (req, res, next) => {
     const input = req.body['input'];
     const resEnums = enums.MATCH.RESULT;
@@ -535,3 +494,112 @@ exports.writeResults = (req, res, next) => {
                 }).catch(error => next(errorHelper.prepareError(error)));
         }).catch(error => next(errorHelper.prepareError(error)));
 };
+
+/**
+ * @description Formats inputted Matches (extends fields etc.)
+ * @param req
+ * @param matches
+ * @param matchResQuery
+ * @return {Promise<any>}
+ */
+function formatMatches(req, matches, matchResQuery = {}) {
+    return new Promise((fmRes, fmRej) => {
+        const formatted = [];
+
+        MatchResult.find(matchResQuery).exec()
+            .then(results => {
+                matches.forEach(match => {
+                    let formattedMatch = match.toObject();
+                    // create 'results' field
+                    const matchResults = results.filter(x => x.match.toString() === match._id.toString());
+                    formattedMatch['results'] = matchResults.length ? matchResults[0] : false;
+                    formatted.push(formattedMatch);
+                });
+                return Jersey.find({}).exec();
+            })
+            .then(jerseys => {
+                // define unavailableJersey (should always be in database)
+                const unavailableJersey = jerseys.find(obj => obj.name === '(unavailable jersey)');
+                if (!unavailableJersey) console.error(`NO '(unavailable jersey)' jersey defined!`);
+
+                formatted.forEach(match => {
+                    // extend 'results.players[i].jersey' fields
+                    if (match['results']) {
+                        match['results'].players.forEach((result, i) => {
+                            const jersey = jerseys.find(x => x._id.toString() === result.jersey.toString());
+                            match['results'].players[i].jersey = jersey || unavailableJersey;
+                        });
+                    }
+                });
+                return Place.find({}).exec();
+            })
+            .then(places => {
+                // define unavailablePlace (should always be in database)
+                const unavailablePlace = places.find(obj => obj.name === '(unavailable place)');
+                if (!unavailablePlace) console.error(`NO '(unavailable place)' place defined!`);
+
+                formatted.forEach(match => {
+                    // extend 'place' field
+                    const place = places.find(obj => obj._id.toString() === match.place.toString());
+                    match.place = place || unavailablePlace;
+                });
+                return MatchGroup.find({}).exec();
+            })
+            .then(groups => {
+                // define unavailableGroup (should always be in database)
+                const unavailableGroup = groups.find(obj => obj.name === '(unavailable group)');
+                if (!unavailableGroup) console.error(`NO '(unavailable group)' group defined!`);
+
+                formatted.forEach(match => {
+                    // extend 'group' field
+                    const group = groups.find(obj => obj._id.toString() === match.group.toString());
+                    match.group = group || unavailableGroup;
+                });
+                // options
+                delete req.headers['content-type'];
+                delete req.headers['content-length'];
+                const options = {
+                    uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                    json: true,
+                    resolveWithFullResponse: true,
+                    method: 'GET',
+                    headers: req.headers
+                };
+                return rp(options);
+            })
+            .then(response => {
+                const users = response.body.output;
+                if (users.length === 0) fmRej(sysCodes.REQUEST.INVALID); // this shouldn't happen
+
+                // define deletedUser (should always be in database)
+                const deletedUser = users.findIndex(obj => obj.username === 'deletedUser');
+                if (!deletedUser) console.error(`NO '(deleted user)' user defined!`);
+
+                formatted.forEach(match => {
+                    // extend 'createdBy' field
+                    const createdBy = users.find(obj => obj._id.toString() === match.createdBy.toString());
+                    match.createdBy = createdBy || deletedUser;
+
+                    // extend 'updatedBy' field
+                    const updatedBy = users.find(obj => obj._id.toString() === match.updatedBy.toString());
+                    match.updatedBy = updatedBy || deletedUser;
+
+                    // extend enrollment players fields
+                    match.enrollment.players.forEach((player, i) => {
+                        const ePlayer = users.find(obj => obj._id.toString() === player.player.toString());
+                        match.enrollment.players[i].info = ePlayer || deletedUser;
+                    });
+
+                    // extend result players fields if results are present
+                    if (match.results) {
+                        match.results.players.forEach((player, i) => {
+                            const rPlayer = users.find(obj => obj._id.toString() === player.player.toString());
+                            match.results.players[i].player = rPlayer || deletedUser;
+                        });
+                    }
+
+                });
+                fmRes(formatted);
+            });
+    });
+}

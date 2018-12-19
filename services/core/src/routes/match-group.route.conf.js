@@ -13,5 +13,6 @@ module.exports = [
     new Route('UPD_GROUP', 'PUT', '/groups/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchGroupCtrl.update),
     new Route('DEL_GROUP', 'DELETE', '/groups/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchGroupCtrl.delete),
     new Route('GET_GROUP', 'GET', '/groups/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchGroupCtrl.get),
+    new Route('GET_GROUP_BY_NAME', 'GET', '/groups/n/:name', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchGroupCtrl.getByName)
 
 ];

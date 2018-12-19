@@ -231,3 +231,11 @@ exports.reminders = (req, res, next) => {
            errorHelper.prepareError(error);
         });
 };
+
+exports.exportTranslateList = (req, res, next) => {
+    res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/translate-list.asset') });
+};
+
+exports.exportAppInfo = (req, res, next) => {
+    res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/app-info.asset') });
+};
