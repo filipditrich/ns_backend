@@ -389,9 +389,12 @@ exports.finishRegistration = (req, res, next) => {
             if (!request.approval.approved) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.NOT_APPROVED));
             if (request.registration.userRegistered) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.USER_REGISTERED));
 
-            User.findOne({ username: username }).exec()
-                .then(userWithUsername => {
-                    if (userWithUsername) return next(errorHelper.prepareError(codes.USERNAME.IN_USE));
+            User.find({}).exec()
+                .then(users => {
+                    const usernameDup = users.filter(x => x.username === username);
+                    if (usernameDup.length) return next(errorHelper.prepareError(codes.USERNAME.IN_USE));
+
+                    // TODO: check for Team validity
 
                     let newUser = new User({
                         username: username,
@@ -454,5 +457,40 @@ exports.tokenCheck = (req, res, next) => {
         res.json({ response: sysCodes.AUTH.TOKEN.VALID });
 
     }).catch(error => { return next(errorHelper.prepareError(error)) });
+
+};
+
+/**
+ * @description Exports Teams for registration purposes (unsecured)
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.getRegTeams = (req, res, next) => {
+
+    // options
+    delete req.headers['content-type'];
+    delete req.headers['content-length'];
+    req.headers['x-microservice-communication-secret'] = serverConfig[settings.services['core'].environment].secret.microSvcCommunication;
+    req.headers['x-secret'] = `${serverConfig[settings.services['core'].environment].secret.secret}x${serverConfig[settings.services['core'].environment].secret.index}`;
+    req.headers['x-bypass'] = settings.services['core'].secret;
+
+    const options = {
+        uri: `http://${settings.services['core'].host}:${settings.services['core'].port}/api/teams`,
+        json: true,
+        resolveWithFullResponse: true,
+        method: 'GET',
+        headers: req.headers
+    };
+
+    rp(options)
+        .then(response => {
+            const teams = response.body.output;
+            const allowed = ['name', '_id'];
+            const output = _.map(teams, _.partialRight(_.pick, allowed));
+
+            res.json({ response: sysCodes.RESOURCE.LOADED, output });
+        })
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };

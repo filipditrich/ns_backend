@@ -9,12 +9,8 @@ const serviceSchema = mongoose.Schema({
     host: { type: String, unique: true, required: true },
     port: { type: Number, unique: true, required: true },
     environment: { type: String, enum: enumHelper.toArray(sysEnums.SYSTEM.ENVIRONMENT), default: sysEnums.SYSTEM.ENVIRONMENT.development.key },
-    db: {
-        url: { type: String, default: 'mongodb://localhost:27017' },
-        name: { type: String, unique: true, required: true }
-    },
-    isOnline: { type: Boolean, default: true },
-    registeredRoutes: []
+    secret: { type: String, required: true },
+    upTime: { type: Number, default: 0 }
 
 }, { timestamps: true });
 

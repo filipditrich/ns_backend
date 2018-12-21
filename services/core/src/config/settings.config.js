@@ -14,11 +14,11 @@ module.exports = {
         name: process.env.MONGO_ID || 'NSCore'
     },
 
-    services: {
-        operator: {
-            host: process.env.NSOP_URL || 'localhost',
-            port: process.env.NSOP_PORT || 4000
-        }
+    services: {},
+    root: {
+        host: process.env.NSOP_URL || 'localhost',
+        port: process.env.NSOP_PORT || 4000,
+        servicesUrl: 'api/sys/services'
     }
 
 };

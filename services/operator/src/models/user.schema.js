@@ -34,13 +34,8 @@ const userSchema = mongoose.Schema({
         type: [{ type: String, enum: enumHelper.toArray(sysEnums.AUTH.ROLES) }],
         default: sysEnums.AUTH.ROLES.player.key
     },
-    team: {
-        type: mongoose.Schema.ObjectId, required: codes.TEAM.REQUIRED
-    },
-    number: {
-        type: Number,
-        unique: codes.NUMBER.DUPLICATE
-    }
+    team: { type: mongoose.Schema.ObjectId, required: codes.TEAM.REQUIRED },
+    number: { type: Number, required: codes.NUMBER.REQUIRED }
 }, { timestamps: true });
 
 /**

@@ -15,6 +15,9 @@ module.exports = [
     new Route('REG_REQ_GET', 'GET', '/auth/registration-request/:hash', {}, AuthCtrl.preFinishRegistration),
     new Route('EXIST_CHECK', 'POST', '/auth/check/:type', {}, AuthCtrl.existCheck),
 
+    /** **/
+    new Route('GET_REG_TEAMS', 'GET', '/auth/teams', {}, AuthCtrl.getRegTeams),
+
     /** Credential Routes **/
     new Route('PWD_RES', 'POST', '/auth/credentials/password-reset/:hash', {}, CredCtrl.resetPassword),
     new Route('PWD_FGT', 'POST', '/auth/credentials/forgotten-password', {}, CredCtrl.requestPasswordReset),

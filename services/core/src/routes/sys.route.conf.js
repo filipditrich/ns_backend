@@ -9,6 +9,7 @@ const adminAndMods = [ sysEnums.AUTH.ROLES.admin.key, sysEnums.AUTH.ROLES.super.
 module.exports = [
 
     new Route('UP_CHECK', 'GET', '/sys/up-check', {}, SysCtrl.upCheck),
+    new Route('ROOT_UPD', 'POST', '/sys/root-upd', {}, SysCtrl.rootUpdate),
     new Route('ROUTES', 'GET', '/sys/export/routes', { secret: true }, SysCtrl.exportRoutes),
     new Route('CODES', 'GET', '/sys/export/codes', { secret: true }, SysCtrl.exportCodes)
 

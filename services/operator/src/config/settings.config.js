@@ -16,11 +16,6 @@ module.exports = {
 
     consumers: [ '6e6f7274-6865-726e-7374-6172732e637a' ],
 
-    services: {
-        core: {
-            host: process.env.NSC_URL || 'localhost',
-            port: process.env.NSC_PORT || 4001
-        }
-    }
+    services: {},
 
 };

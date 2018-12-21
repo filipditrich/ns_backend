@@ -55,10 +55,16 @@ require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings
         console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
     });
 
+    /** Generate Operator Secret **/
+    serviceSettings['secret'] = require('northernstars-shared').baseGenerator.generateRandom();
+
     /** API Consumers **/
     app.use((req, res, next) => {
         require('northernstars-shared').strategiesCtrl.apiConsumers(req, res, next, serviceSettings.environment);
     });
+
+    /** Loads and tests Services from DB **/
+    require('./src/controllers/system.controller').loadServices();
 
     /** Expose API **/
     app.use('/api/', require('./src')(app));
@@ -70,7 +76,7 @@ require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings
     app.use(BaseCtrl.handleError);
 
     /** Service Availability Checker **/
-    setInterval(() => { require('./src/controllers/system.controller').serviceChecker() }, 1800000);
+    setInterval(() => { require('./src/controllers/system.controller').serviceChecker() }, 180000);
 
 })
 .catch(error => {

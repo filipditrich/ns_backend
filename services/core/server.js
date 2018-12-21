@@ -42,10 +42,21 @@ MongooseHelper.connect(mongoose, serviceSettings)
         console.log(`✅ ${serviceSettings.name} Server Listening on port ${app.get('port')} in ${app.get('env')} mode.`);
     });
 
+    /** Generate Service Secret **/
+    serviceSettings['secret'] = require('northernstars-shared').baseGenerator.generateRandom();
+
     /** Service Configuration **/
     BaseCtrl.updateService(serviceSettings).then(response => {
         if (response.response.success) {
-            console.log('✅ Service configuration updated successfully.' );
+            console.log('✅ Service configuration updated successfully.');
+
+            // save the ROOT config
+            serviceSettings.root = {
+                host: response.output.host,
+                port: response.output.port,
+                secret: response.output.secret,
+                environment: response.output.environment
+            };
 
             /** Micro Service Communication **/
             app.use(StrategiesCtrl.microserviceCommunication);

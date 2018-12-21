@@ -240,8 +240,9 @@ exports.update = (req, res, next) => {
                                 // options
                                 delete req.headers['content-type'];
                                 delete req.headers['content-length'];
+                                req.headers['x-bypass'] = service.root.secret;
                                 const options = {
-                                    uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                                    uri: `http://${service.root.host}:${service.root.port}/api/users?show-all=true`,
                                     json: true,
                                     resolveWithFullResponse: true,
                                     method: 'GET',
@@ -558,8 +559,9 @@ function formatMatches(req, matches, matchResQuery = {}) {
                 // options
                 delete req.headers['content-type'];
                 delete req.headers['content-length'];
+                req.headers['x-bypass'] = service.root.secret;
                 const options = {
-                    uri: `http://${service.services.operator.host}:${service.services.operator.port}/api/users?show-all=true`,
+                    uri: `http://${service.root.host}:${service.root.port}/api/users?show-all=true`,
                     json: true,
                     resolveWithFullResponse: true,
                     method: 'GET',

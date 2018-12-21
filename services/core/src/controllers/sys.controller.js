@@ -1,5 +1,6 @@
 const sysCodes = require('northernstars-shared').sysCodes;
 const codes = require('../assets/codes.asset');
+const settings = require('../config/settings.config');
 const _ = require('lodash');
 
 /**
@@ -33,7 +34,22 @@ exports.exportRoutes = (req, res, next) => {
  * @param next
  */
 exports.upCheck = (req, res, next) => {
-
     res.json({ response: sysCodes.REQUEST.PROCESSED, output: { runtime: process.uptime() }});
+};
 
+/**
+ * @description Updates the root service configuration
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.rootUpdate = (req, res, next) => {
+    const root = req.body['root'];
+    settings.root = {
+        host: root.host,
+        port: root.port,
+        secret: root.secret,
+        environment: root.environment,
+    };
+    res.json({ response: sysCodes.REQUEST.PROCESSED });
 };

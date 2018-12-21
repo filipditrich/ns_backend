@@ -23,6 +23,12 @@ module.exports = {
         INVALID: codeGenerator.invalid('jersey_number'),
         NOT_FOUND: codeGenerator.notFound('jersey_number'),
         NULL_FOUND: codeGenerator.multipleNotFound('jersey_number'),
+        IN_USE: {
+            name: 'NUMBER_IN_USE',
+            message: 'This number is already in use.',
+            status: 422,
+            success: false
+        },
     },
 
     NAME: {

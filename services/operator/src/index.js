@@ -7,6 +7,7 @@ const _ = require('lodash');
  * @description Import Routes
  */
 genericRouteHelper.importRoutes(_.clone(require('./routes/index.route.conf'), true));
+genericRouteHelper.importSettings(_.clone(require('./config/settings.config'), true));
 
 /**
  * @description Main Router Entry

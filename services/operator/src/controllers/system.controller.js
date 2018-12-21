@@ -1,18 +1,25 @@
+const request = require('request-promise');
+const rp = require('request-promise');
 const codes = require('../assets/codes.asset');
-const sysCodes = require('northernstars-shared').sysCodes;
-const errorHelper = require('northernstars-shared').errorHelper;
-const _ = require('lodash');
 const Service = require('../models/service.schema');
 const serviceSettings = require('../config/settings.config');
 const User = require('../models/user.schema');
+const settings = require('../config/settings.config');
+const sysCodes = require('northernstars-shared').sysCodes;
+const errorHelper = require('northernstars-shared').errorHelper;
 const serverConf = require('northernstars-shared').serverConfig;
 const mailHelper = require('northernstars-shared').mailHelper;
-const request = require('request-promise');
+const _ = require('lodash');
 
+/**
+ * @description Exports Service Codes
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportCodes = (req, res, next) => {
 
     let output = {};
-
     Service.find({}).exec()
         .then(services => {
             let promises = [];
@@ -53,6 +60,12 @@ exports.exportCodes = (req, res, next) => {
 
 };
 
+/**
+ * @description Exports Service Routes
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportRoutes = (req, res, next) => {
 
     let output = {},
@@ -98,79 +111,198 @@ exports.exportRoutes = (req, res, next) => {
 
 };
 
+/**
+ * @description Updates/Adds Service into the settings
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.updateServices = (req, res, next) => {
 
     const serviceConfig = req.body['service'];
-
     Service.findOne({ id: serviceConfig.id }).exec()
         .then(service => {
-            return service ? service.remove() : Promise.resolve();
+            if (!service) {
+                exports.addService(serviceConfig.id, serviceConfig)
+                    .then(() => {
+                        settings.services[serviceConfig.id] = {
+                            name: serviceConfig.name,
+                            host: serviceConfig.host,
+                            port: serviceConfig.port,
+                            secret: serviceConfig.secret,
+                            environment: serviceConfig.environment
+                        };
+                        res.json({ response: sysCodes.REQUEST.PROCESSED, output: settings });
+                        exports.serviceChecker();
+                    })
+                    .catch(error => next(errorHelper.prepareError(error)));
+            } else {
+                exports.updateService(serviceConfig.id, serviceConfig)
+                    .then(() => {
+                        settings.services[serviceConfig.id] = {
+                            name: serviceConfig.name,
+                            host: serviceConfig.host,
+                            port: serviceConfig.port,
+                            secret: serviceConfig.secret,
+                            environment: serviceConfig.environment
+                        };
+                        res.json({ response: sysCodes.REQUEST.PROCESSED, output: settings });
+                        exports.serviceChecker();
+                    })
+                    .catch(error => next(errorHelper.prepareError(error)));
+            }
         })
-        .then(() => {
-            const svc = new Service(serviceConfig);
-            svc.save().then(saved => {
-
-                exports.serviceChecker();
-
-                res.json({
-                    response: sysCodes.REQUEST.PROCESSED,
-                    output: saved
-                });
-
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
-
+        .catch(error => next(errorHelper.prepareError(error)));
 };
 
-exports.serviceChecker = () => {
-    const Service = require('../models/service.schema');
-    const request = require('request-promise');
-
+/**
+ * @description Loads saved services
+ */
+exports.loadServices = () => {
     Service.find({}).exec()
         .then(services => {
-            if (services.length !== 0) {
-                console.log(`\n\n------------ SERVICE CHECK STARTED ------------\n`);
-                const promises = [];
-                services.forEach(service => {
-                    promises.push(request.get({
-                        uri: `http://${service.host}:${service.port}/api/sys/up-check`,
+            const promises = [];
+            services.forEach(service => {
+                settings.services[service.id] = {
+                    name: service.name,
+                    host: service.host,
+                    port: service.port,
+                    secret: service.secret,
+                    environment: service.environment
+                };
+
+                const updReq = new Promise((resolve, reject) => {
+                    rp.post({
+                        uri: `http://${service.host}:${service.port}/api/sys/root-upd`,
                         headers: {
                             'Content-Type': 'application/json',
-                            'Application-ID': `${serverConf[service.environment].consumers[0]}`,
+                            'Application-ID': serverConf[service.environment].consumers[0],
+                            'X-Bypass': service.secret,
                             'X-Secret': `${serverConf[service.environment].secret.secret}x${serverConf[service.environment].secret.index}`,
                             'X-Microservice-Communication-Secret': serverConf[service.environment].secret.microSvcCommunication
                         },
+                        body: { root: settings },
                         json: true
-                    }).then(response => {
-                        const runtime = (new Date(response.output['runtime'] * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0];
-                        console.log(`✅ ${service.name} is up and running for ${runtime}`);
-                    }).catch(error => {
-                        if (error.message && error.message.search(new RegExp('ECONNREFUSED', 'i')) >= 0) {
-                            console.log(`❌ ${service.name} is unreachable. Removing from the list`);
-                        } else {
-                            console.log(`❌ Error in communication with ${service.name}: `, error.message, 'Service is now removed from this list');
-                        }
-                        service.remove();
-                    }));
+                    }).then(response => { resolve(response); }).catch(error => { reject(error); });
                 });
+                promises.push(updReq);
+            });
 
-                Promise.all(promises).then(() => {
-                    if (services.length !== 0) {
-                        console.log(`\n------------ SERVICE CHECK ENDED ------------\n\n`);
-                    }
+            Promise.all(promises).then(() => {
+                exports.serviceChecker(true);
+            }).catch(error => {
+                console.log(`❌ Error updating on or more services`, error.message);
+            });
+        });
+};
+
+
+/**
+ * @description Removes a Service
+ * @param id
+ * @return {Promise<T | Array<number>>}
+ */
+exports.removeService = (id) => {
+    return Service.findOne({ id }).exec()
+        .then(service => {
+            return service ? service.remove() :
+                Promise.reject(sysCodes.UNEXPECTED);
+        }).catch(error => Promise.reject(error));
+};
+
+/**
+ * @description Updates a Service
+ * @param id
+ * @param update
+ * @return {Promise<T | Array<number>>}
+ */
+exports.updateService = (id, update) => {
+    return new Promise((resolve, reject) => {
+       Service.findOne({ id }).exec()
+           .then(service => {
+               if (service) {
+                   service.update(update).then(() => {
+                       resolve();
+                   }).catch(error => {
+                       reject(error);
+                   });
+               } else {
+                   console.log(id);
+               }
+           })
+           .catch(error => { reject(error) });
+    });
+};
+
+/**
+ * @description Adds/Updates a Service
+ * @param id
+ * @param input
+ * @return {Promise<T | Array<number>>}
+ */
+exports.addService = (id, input) => {
+    return Service.findOne({ id }).exec()
+        .then(service => {
+            return service ? exports.updateService(id, input)
+                : new Service(input).save();
+        }).catch(error => Promise.reject(error));
+};
+
+/**
+ * @description Checks the connectivity between Operator and Services
+ */
+exports.serviceChecker = (loaded = false) => {
+    const services = Object.keys(settings.services);
+    const promises = [];
+
+    if (services.length) {
+        console.log(loaded ? '\n CONNECTED SERVICES: \n' : '\n\n------------ SERVICE CHECK STARTED ------------\n');
+        services.forEach(service => {
+            const svc = settings.services[service];
+            const svcCheck = new Promise((resolve, reject) => {
+                rp({
+                    uri: `http://${svc.host}:${svc.port}/api/sys/up-check`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Application-ID': serverConf[svc.environment].consumers[0],
+                        'X-Bypass': svc.secret,
+                        'X-Secret': `${serverConf[svc.environment].secret.secret}x${serverConf[svc.environment].secret.index}`,
+                        'X-Microservice-Communication-Secret': serverConf[svc.environment].secret.microSvcCommunication
+                    },
+                    json: true
+                }).then(response => {
+                    exports.updateService(service, { upTime: response.output['runtime'] }).then(() => {
+                        const runtime = require('moment').utc(response.output['runtime'] * 1000).format("HH:mm:ss");
+                        console.log(loaded ?
+                            `▪️ ${settings.services[service].name} (${runtime})` :
+                            `✅ ${settings.services[service].name} is up and running for ${runtime}`);
+                        resolve();
+                    }).catch(error => {
+                        reject(error);
+                    });
                 }).catch(error => {
-                    console.log("An error occurred while checking for services: ", error);
+                    if (error.message && error.message.search(new RegExp('ECONNREFUSED', 'i')) >= 0) {
+                        console.log(`❌ ${svc.name} is unreachable. Removing from the list`);
+                    } else {
+                        console.log(`❌ Error in communication with ${svc.name}: `, error.message, 'Service is now removed from this list');
+                    }
+                    exports.removeService(service).then(() => {
+                        delete settings.services[svc];
+                    }).catch(error => {
+                        reject(error);
+                    });
                 });
-            }
-        })
-        .catch(error => {
+            });
+            promises.push(svcCheck);
+        });
+
+        Promise.all(promises).then(() => {
+            console.log(loaded ? '\n' : `\n------------ SERVICE CHECK ENDED ------------\n\n`);
+        }).catch(error => {
             console.log("An error occurred while checking for services: ", error);
-        })
+        });
+    }
+
 };
 
 /**
@@ -232,10 +364,22 @@ exports.reminders = (req, res, next) => {
         });
 };
 
+/**
+ * @description Exports TranslateList (Frontend)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportTranslateList = (req, res, next) => {
     res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/translate-list.asset') });
 };
 
+/**
+ * @description Exports Application Info (Frontend+Backend)
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.exportAppInfo = (req, res, next) => {
     res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/app-info.asset') });
 };
