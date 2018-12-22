@@ -1067,6 +1067,10 @@ module.exports = {
         cs: "Kvůli bezpečnosti povolujeme pouze malé alpfanumerické znaky",
         en: "For security reasons we only allow lowercase alphanumerics"
     },
+    USERNAME_UNMATCH: {
+        cs: "Uživatelské jméno může obsahovat pouze nediakritické znaky a čísla",
+        en: "Username may only contain non-diacritic symbols and numbers"
+    },
     USERNAME_INVALID: {
         cs: "Uživatelské jméno není validní",
         en: "Username is not valid"
