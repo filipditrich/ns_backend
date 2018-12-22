@@ -45,11 +45,8 @@ exports.upCheck = (req, res, next) => {
  */
 exports.rootUpdate = (req, res, next) => {
     const root = req.body['root'];
-    settings.root = {
-        // host: root.host,
-        port: root.port,
-        secret: root.secret,
-        environment: root.environment,
-    };
+    settings.root['port'] = root.output.port;
+    settings.root['secret'] = root.output.secret;
+    settings.root['environment'] = root.output.environment;
     res.json({ response: sysCodes.REQUEST.PROCESSED });
 };

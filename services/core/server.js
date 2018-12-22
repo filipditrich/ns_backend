@@ -51,12 +51,9 @@ MongooseHelper.connect(mongoose, serviceSettings)
             console.log('✅ Service configuration updated successfully.');
 
             // save the ROOT config
-            serviceSettings.root = {
-                // host: response.output.host,
-                port: response.output.port,
-                secret: response.output.secret,
-                environment: response.output.environment
-            };
+            serviceSettings.root['port'] = response.output.port;
+            serviceSettings.root['secret'] = response.output.secret;
+            serviceSettings.root['environment'] = response.output.environment;
 
             /** Micro Service Communication **/
             app.use(StrategiesCtrl.microserviceCommunication);
