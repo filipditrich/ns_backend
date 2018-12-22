@@ -52,7 +52,7 @@ MongooseHelper.connect(mongoose, serviceSettings)
 
             // save the ROOT config
             serviceSettings.root = {
-                host: response.output.host,
+                // host: response.output.host,
                 port: response.output.port,
                 secret: response.output.secret,
                 environment: response.output.environment
