@@ -9,6 +9,7 @@ const sysCodes = require('northernstars-shared').sysCodes;
 const errorHelper = require('northernstars-shared').errorHelper;
 const serverConf = require('northernstars-shared').serverConfig;
 const mailHelper = require('northernstars-shared').mailHelper;
+const moment = require('moment');
 const _ = require('lodash');
 
 /**
@@ -315,43 +316,69 @@ exports.serviceChecker = (loaded = false) => {
 exports.reminders = (req, res, next) => {
     const input = req.body['input'];
     let mailList = input['mailList'];
-    if (!mailList) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    const matchInfo = input['matchInfo'];
+    if (!mailList || !matchInfo) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
 
     User.find({}).exec()
         .then(users => {
+            users = users.filter(u => u.username !== 'deletedUser');
             if (users.length === 0) return next(errorHelper.prepareError(codes.USER.NULL_FOUND)); // shouldn't happen
             const mailing = users.filter(user => mailList.indexOf(user._id.toString()) >= 0); // upcoming reminder
             const reminder = users.filter(user => mailList.indexOf(user._id.toString()) < 0); // enroll reminder
+            const mailReminders = [], mailMailing = [];
             const promises = [];
             const sent = {
                 upcoming: mailing,
                 reminder: reminder,
                 upcomingSent: [],
                 reminderSent: [],
+                upcomingUnsent: [],
+                reminderUnsent: [],
                 usersTotal: users.length,
             };
+            // prepare mails for the mailing
             mailing.forEach(recipient => {
-                promises.push(
-                    mailHelper.mail('forgotten-username', {
-                        email: recipient.email,
-                        name: recipient.name,
-                        username: recipient.username,
-                        subject: 'TODO: Template --- You should enroll'
-                    }).then(() => sent.upcomingSent.push(recipient.email))
-                        .catch(error => next(errorHelper.prepareError(error)))
-                );
+                mailMailing.push({
+                    email: recipient.email,
+                    name: recipient.name,
+                    matchTitle: matchInfo.title,
+                    date: moment(matchInfo.date).locale('cs').format('dddd, MMMM D'),
+                    time: moment(matchInfo.date).locale('cs').format('k:mm:ss'),
+                    subject: 'Nejste zapsáni na nadcházející zápas',
+                });
             });
+            // send mailing mails
+            if (mailMailing.length) {
+                promises.push(new Promise((resolve, reject) => {
+                    mailHelper.mail('upcoming-match', mailMailing).then(output => {
+                        sent.upcomingSent = output['sent'];
+                        sent.upcomingUnsent = output['unsent'];
+                        resolve(output);
+                    }).catch(error => { reject(error); })
+                }));
+            }
+            // prepare mails for the reminders
             reminder.forEach(recipient => {
-                promises.push(
-                    mailHelper.mail('forgotten-username', {
-                        email: recipient.email,
-                        name: recipient.name,
-                        username: recipient.username,
-                        subject: 'TODO: Template --- You have an upcoming match'
-                    }).then(() => sent.reminderSent.push(recipient.email))
-                        .catch(error => next(errorHelper.prepareError(error)))
-                );
+                mailReminders.push({
+                    email: recipient.email,
+                    name: recipient.name,
+                    matchTitle: matchInfo.title,
+                    date: moment(matchInfo.date).locale('cs').format('dddd, MMMM D'),
+                    time: moment(matchInfo.date).locale('cs').format('k:mm:ss'),
+                    subject: 'Připomínka: máte nadcházející zápas',
+                });
             });
+            // send reminder mails
+            if (mailReminders.length) {
+                promises.push(new Promise((resolve, reject) => {
+                    mailHelper.mail('upcoming-match-enrolled', mailReminders).then(output => {
+                        sent.reminderSent = output['sent'];
+                        sent.reminderUnsent = output['sent'];
+                        resolve();
+                    }).catch(error => { reject(error); })
+                }));
+            }
+            // now pray for successful output
             Promise.all(promises).then(() => {
                 res.json({ response: sysCodes.REQUEST.VALID, output: { sent } });
             })

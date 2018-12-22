@@ -19,7 +19,7 @@ MongooseHelper.connect(mongoose, serviceSettings)
 .then(() => {
 
     /** Body Parser **/
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
 
     /** Logger **/
@@ -83,23 +83,26 @@ MongooseHelper.connect(mongoose, serviceSettings)
      * @description interval for Match Reminder
      */
     setInterval(() => {
-        console.log(`\n------------ REMINDER STARTED ------------\n`);
         const Match = require('./src/models/match.model');
         const moment = require('moment');
         const rp = require('request-promise');
+        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(2, 'hours').format('Do MMM, hh:mm:ss')}`);
 
         Match.find({}).exec()
             .then(matches => {
                 if (matches.length > 0) {
                     matches.forEach(match => {
-                        if (!match.hasBeenReminded && moment(new Date()).isSame(match.reminderDate, 'day')) {
+                        if (!match.hasBeenReminded
+                            && (moment(new Date()).isSame(match.reminderDate, 'day')
+                                || (moment(new Date()).isBefore(match.date) && moment(new Date()).isAfter(match.reminderDate)))) {
+
                             match.hasBeenReminded = true;
                             const userArr = match.enrollment.players.map(x => x.player);
                             rp({
                                 method: 'POST',
                                 uri: `http://localhost:4000/api/sys/reminders`,
                                 body: {
-                                    input: {mailList: userArr}
+                                    input: {mailList: userArr, matchInfo: match}
                                 },
                                 headers: {
                                     'X-Secret': conf[serviceSettings.environment].secret.secret,
@@ -109,19 +112,17 @@ MongooseHelper.connect(mongoose, serviceSettings)
                             }).then(res => {
                                 match.save().then(() => {
                                     const sent = res.output.sent;
-                                    console.log(`UPCOMING REMINDER: Sent ${sent.upcomingSent.length}/${sent.upcoming.length} emails.`);
-                                    console.log(`MATCH REMINDER: Sent ${sent.reminderSent.length}/${sent.reminder.length} emails.`);
-                                    console.log(`SENT: ${sent.reminderSent.length + sent.upcomingSent.length} emails out of ${sent.usersTotal} total users.`);
-                                    console.log(`\n------------ REMINDER ENDED ------------\n`);
+                                    console.log(`\n[REMINDER]› START - ${match.title}`);
+                                    console.log(`› UPCOMING REMINDER: Sent ${sent.upcomingSent.length}/${sent.upcoming.length} emails.`);
+                                    console.log(`› MATCH REMINDER: Sent ${sent.reminderSent.length}/${sent.reminder.length} emails.`);
+                                    console.log(`› SENT: ${sent.reminderSent.length + sent.upcomingSent.length} emails out of ${sent.usersTotal} total users.`);
+                                    console.log(`\n[REMINDER]› END - ${match.title}`);
                                 }).catch(error => {
                                     console.log(error);
                                 });
                             }).catch(error => {
                                 console.log(error);
                             });
-                        } else {
-                            console.log('~~nothing to remind~~');
-                            console.log(`\n------------ REMINDER ENDED ------------\n`);
                         }
                     });
                 }
@@ -129,7 +130,6 @@ MongooseHelper.connect(mongoose, serviceSettings)
             console.log(error)
         });
     }, 2 * 60 * 60 * 1000); // every 2 hours
-    // }, 10000);
 
 })
 .catch(error => {

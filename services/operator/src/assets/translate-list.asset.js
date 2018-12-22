@@ -463,6 +463,14 @@ module.exports = {
         cs: "Odhlásit se",
         en: "Log out"
     },
+    LOGGED_OUT_TITLE: {
+        cs: "Uživatel odhlášen",
+        en: "User logged out",
+    },
+    LOGGED_OUT_MSG: {
+        cs: "Byli jste úspěšně odhlášeni.",
+        en: "You have been successfully logged out."
+    },
     LOOSE: {
         cs: "Prohra",
         en: "Loose"
@@ -872,8 +880,8 @@ module.exports = {
         en: "Servers unreachable"
     },
     SET_DEFAULT: {
-        cs: 0,
-        en: 0
+        cs: "Nastavit výchozí",
+        en: "Set default",
     },
     SHOW_ACCEPTED: {
         cs: "Zobrazit přijaté",
@@ -896,20 +904,20 @@ module.exports = {
         en: "Sign in"
     },
     SIGN_IN_MSG: {
-        cs: "Vítejte! Přihlašte se pomocí vašeho přihlašovacího jména nebo emailu",
-        en: "Hello! Sign in with your username or email"
+        cs: "Vítejte! Přihlašte se pomocí vašeho přihlašovacího jména",
+        en: "Hello! Sign in with your username"
     },
     SKIPPING: {
         cs: "Nejde",
         en: "Skipping"
     },
     SORT_ERR_MSG: {
-        cs: 0,
+        cs: "Nastala neočekávaná chyba při aktualizaci pořadí sloupců",
         en: "An unexpected error occurred while updating sorting preferences"
     },
     SORT_ERR_TITLE: {
-        cs: 0,
-        en: 0
+        cs: "Chyba pořadí",
+        en: "Sort error",
     },
     STATUS: {
         cs: "Status",
@@ -1016,12 +1024,12 @@ module.exports = {
         en: "Unauthorized"
     },
     UNCHECK_ALL_FILTERS_MSG: {
-        cs: 0,
+        cs: "Odškrtli jste veškeré filtry, tudíž nebude co zobrazit. Opravdu si přejete pokračovat?",
         en: "You've unchecked all filters, therefore there will be no columns to show. Do you really wish to proceed?"
     },
     UNCHECK_ALL_FILTERS_TITLE: {
-        cs: 0,
-        en: 0
+        cs: "Všechny filtry odškrtnuty",
+        en: "All filter unchecked",
     },
     UNKNOWN_ERROR: {
         cs: "Neznámá chyba",
