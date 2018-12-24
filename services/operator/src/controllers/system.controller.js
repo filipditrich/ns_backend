@@ -273,7 +273,7 @@ exports.serviceChecker = (loaded = false) => {
                     json: true
                 }).then(response => {
                     exports.updateService(service, { upTime: response.output['runtime'] }).then(() => {
-                        const runtime = require('moment').utc(response.output['runtime'] * 1000).format("HH:mm:ss");
+                        const runtime = require('moment')(new Date()).subtract(response.output['runtime'], 'seconds').toNow(true);
                         console.log(loaded ?
                             `▪️ ${settings.services[service].name} (${runtime})` :
                             `✅ ${settings.services[service].name} is up and running for ${runtime}`);
