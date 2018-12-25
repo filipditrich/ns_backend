@@ -655,6 +655,10 @@ module.exports = {
         cs: "Hesla se neshodují",
         en: "Passwords do not match"
     },
+    PASSWORD_HINT: {
+        cs: "Heslo musí obsahovat alespoň jedno velké písmeno a jedno číslo",
+        en: "Password must contain at least one uppercase symbol and a digit",
+    },
     PASSWORD_INVALID: {
         cs: "Heslo není validní",
         en: "Password is not valid"
