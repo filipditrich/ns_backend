@@ -49,7 +49,7 @@ exports.requestPasswordReset = (req, res, next) => {
                             name: user.name,
                             username: user.username,
                             hash: saved.resetHash,
-                            subject: 'Password reset requested!'
+                            subject: 'Zapomenuté heslo?'
                         }).then(() => {
                             res.json({ response: codes.RESET.SUCCESS });
                         }).catch(error => next(errorHelper.prepareError(error)));
@@ -145,7 +145,7 @@ exports.forgotUsername = (req, res, next) => {
                 email: user.email,
                 name: user.name,
                 username: user.username,
-                subject: 'Did you forgot your username?'
+                subject: 'Zapomněli jste své uživatelské jméno?'
             }).then(() => {
                 res.json({ response: sysCodes.MAILING.SENT });
             }).catch(error => next(errorHelper.prepareError(error)));

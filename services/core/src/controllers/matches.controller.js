@@ -264,7 +264,7 @@ exports.update = (req, res, next) => {
                                             name: user.name,
                                             updatedBy: req.user.username,
                                             updatedByName: req.user.name,
-                                            subject: 'Match Update',
+                                            subject: 'Zápas aktualizován',
                                         });
                                     });
 

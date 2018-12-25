@@ -146,7 +146,7 @@ exports.requestRegistration = (req, res, next) => {
                         mailHelper.mail('registration-requested', {
                             email: saved.email,
                             name: saved.name,
-                            subject: 'Registration Request Processed!'
+                            subject: 'Registrační žádost vytvořena!'
                         }).then(() => {
                             res.json({
                                 response: codes.REGISTRATION.REQUEST.SUCCESS,
@@ -318,7 +318,7 @@ exports.finishRegistration = (req, res, next) => {
                                 email: saved.email,
                                 name: saved.name,
                                 username: saved.username,
-                                subject: 'Registration Successful!'
+                                subject: 'Vítejte v týmu!'
                             }).then(() => {
                                 res.json({
                                     response: codes.REGISTRATION.SUCCESS,

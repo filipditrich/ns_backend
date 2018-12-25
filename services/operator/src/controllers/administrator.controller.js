@@ -62,7 +62,7 @@ exports.sendInvites = (req, res, next) => {
                                         newRequest.save().then(saved => {
                                             mailHelper.mail('registration-invitation', {
                                                 email: saved.email,
-                                                subject: 'NS Team App Invitation!',
+                                                subject: `Pozvánka k ${require('../assets/app-info.asset').appName} aplikaci`,
                                                 hash: saved.registration.registrationHash,
                                                 invitedBy: req.user.name,
                                                 invitedByUsername: req.user.username
@@ -139,7 +139,7 @@ exports.requestApproval = (req, res, next, outside = false) =>{
                         name: request.name,
                         email: request.email,
                         hash: request.registration.registrationHash,
-                        subject: input.state ? 'Registration Request Approved!' : 'Registration Request Rejected!'
+                        subject: input.state ? 'Registrační žádost přijata!' : 'Registrační žádost odmítnuta!'
                     }).then(() => {
                         res.json({
                             response: sysCodes.REQUEST.VALID,
