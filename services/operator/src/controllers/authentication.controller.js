@@ -1,21 +1,20 @@
+const rp = require('request-promise');
 const _ = require('lodash');
-const codes = require('../assets/codes.asset');
-const sysCodes = require('northernstars-shared').sysCodes;
-const jwt = require('jsonwebtoken');
-const settings = require('../config/settings.config');
-const serverConfig = require('northernstars-shared').serverConfig;
 const passport = require('passport');
-const RegistrationRequest = require('../models/registration-request.schema');
-const PwdResetRequest = require('../models/pwd-reset-request.schema');
+const jwt = require('jsonwebtoken');
+const codes = require('../assets/codes.asset');
+const settings = require('../config/settings.config');
 const User = require('../models/user.schema');
+const PwdResetRequest = require('../models/pwd-reset-request.schema');
+const RegistrationRequest = require('../models/registration-request.schema');
+const serverConfig = require('northernstars-shared').serverConfig;
+const sysCodes = require('northernstars-shared').sysCodes;
 const codeHelper = require('northernstars-shared').codeHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
 const schemaFields = require('northernstars-shared').schemaFields;
-const userHelper = require('northernstars-shared').userHelper;
-const Joi = require('joi');
-const rp = require('request-promise');
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 
 /**
@@ -61,9 +60,7 @@ exports.login = (req, res, next) => {
             user: userInfo,
             token: generateToken(userInfo)
         });
-    }).catch(error => {
-        return next(errorHelper.prepareError(error));
-    });
+    }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -75,7 +72,6 @@ exports.login = (req, res, next) => {
  */
 exports.requireLogin = (req, res, next) => {
     return new Promise((resolve, reject) => {
-
         return passport.authenticate('login', {
             session: false,
             badRequestMessage: codes.LOGIN.INCOMPLETE_REQUEST.name
@@ -88,7 +84,6 @@ exports.requireLogin = (req, res, next) => {
             req.user = user;
             resolve(user);
         })(req, res, next);
-
     });
 };
 
@@ -105,10 +100,7 @@ exports.preFinishRegistration = (req, res, next) => {
             if (!request.approval.approved) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
             if (request.registration.userRegistered) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
             res.json({ response: sysCodes.REQUEST.VALID, output: request });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -119,36 +111,29 @@ exports.preFinishRegistration = (req, res, next) => {
  * @returns {*}
  */
 exports.requestRegistration = (req, res, next) => {
-
     let input = req.body['input'];
     if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+
+    // validation
+    const validators = [
+        { field: 'name', rules: { required: true } },
+        { field: 'email', rules: { required: true, email: true } },
+    ];
+    const validation = iV.validate(input, validators);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
+
     let email = input.email;
     let name = input.name;
 
-    const schema = Joi.object().keys({
-        email: Joi.string().email().required(),
-        name: Joi.string().required()
-    });
-
-    // validate body
-    if (Joi.validate(input, schema).error)
-        return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(input, schema).error)));
-
     RegistrationRequest.findOne({ email: email }).exec()
         .then(alreadyRequested => {
-
             if (alreadyRequested) return next(errorHelper.prepareError(codes.EMAIL.ALREADY_REQUESTED));
 
             User.findOne({ email: email }).exec()
                 .then(alreadyRegistered => {
-
                     if (alreadyRegistered) return next(errorHelper.prepareError(codes.EMAIL.IN_USE));
 
-                    let request = new RegistrationRequest({
-                        email: email,
-                        name: name
-                    });
-
+                    let request = new RegistrationRequest({ email, name });
                     request.save((error, saved) => {
                         if (error) {
                             if (!error.errors) return next(errorHelper.prepareError(error));
@@ -169,20 +154,10 @@ exports.requestRegistration = (req, res, next) => {
                                     email: saved.email
                                 }
                             });
-                        }).catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        });
-
+                        }).catch(error => next(errorHelper.prepareError(error)));
                     });
-
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+                }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -226,14 +201,8 @@ exports.getRegistrationRequest = (req, res, next) => {
                     });
 
                     res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                })
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+                }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -243,7 +212,6 @@ exports.getRegistrationRequest = (req, res, next) => {
  * @param next
  * @returns {*}
  */
-
 exports.existCheck = (req, res, next) => {
     const type = req.params['type'];
     const input = req.body['input'];
@@ -256,9 +224,7 @@ exports.existCheck = (req, res, next) => {
                     if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
                     res.json({ response: sysCodes.REQUEST.VALID })
                 })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                .catch(error => next(errorHelper.prepareError(error)));
             break;
         }
         case 'password-reset': {
@@ -267,9 +233,7 @@ exports.existCheck = (req, res, next) => {
                     if (!request) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
                     res.json({ response: sysCodes.REQUEST.VALID })
                 })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                .catch(error => next(errorHelper.prepareError(error)));
             break;
         }
         default: {
@@ -279,108 +243,41 @@ exports.existCheck = (req, res, next) => {
 };
 
 /**
- * @description: Registers a new user after his registration request approval
+ * @description Finishes the registration process (registers the user)
  * @param req
  * @param res
  * @param next
- * @returns {*}
+ * @return {*}
  */
-// exports.finishRegistration = (req, res, next) => {
-//
-//     let hash = req.params['hash'];
-//
-//     let username = req.body.username;
-//     let password = req.body.password;
-//     let name = req.body.name;
-//     let email = req.body.email;
-//     // TODO - more credentials
-//     const schema = Joi.object().keys({
-//         username: Joi.string().required(),
-//         password: Joi.string().regex(schemaFields.PASSWORD.REG_EXP).required(),
-//         name: Joi.string(),
-//         email: Joi.string()
-//     });
-//
-//     // validate body
-//     // if (Joi.validate(req.body, schema).error)
-//         // return next(errorHelper.prepareError(errorHelper.validationError(Joi.validate(req.body, schema).error)));
-//
-//     RegistrationRequest.findOne({ 'registration.registrationHash': hash }).exec()
-//         .then(request => {
-//
-//             if (!request) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.NON_EXISTENCE));
-//             if (!request.approval.approved) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.NOT_APPROVED));
-//             if (request.registration.userRegistered) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.USER_REGISTERED));
-//
-//             User.findOne({ username: username }).exec()
-//                 .then(userWithUsername => {
-//                     if (userWithUsername) return next(errorHelper.prepareError(codes.USERNAME.IN_USE));
-//
-//                     let newUser = new User({
-//                         username: username,
-//                         password: password,
-//                         name: request._doc.name,
-//                         email: request._doc.email,
-//                     });
-//
-//                     newUser.save((error, saved) => {
-//                         if (error) {
-//                             if (!error.errors) return next(errorHelper.prepareError(error));
-//                             let stack = {};
-//                             _.forEach(error.errors, (value, key) => { stack[key] = value.message });
-//
-//                             return next(errorHelper.prepareError(codeHelper.generateValidationError(stack)));
-//                         }
-//
-//                         request.registration.userRegistered = true;
-//                         request.save(err => {
-//                             if (err) return next(errorHelper.prepareError(err));
-//
-//                             mailHelper.mail('registration-finished', {
-//                                 email: saved.email,
-//                                 name: saved.name,
-//                                 username: saved.username,
-//                                 subject: 'Registration Successful!'
-//                             }).then(() => {
-//                                 res.json({
-//                                     response: codes.REGISTRATION.SUCCESS,
-//                                     user: setUserInfo(saved)
-//                                 });
-//                             }).catch(error => {
-//                                 return next(errorHelper.prepareError(error));
-//                             });
-//
-//                         });
-//
-//                     });
-//
-//                 }).catch(error => {
-//                 return next(errorHelper.prepareError(error));
-//             })
-//
-//         })
-//         .catch(error => {
-//             return next(errorHelper.prepareError(error))
-//         });
-//
-// };
 exports.finishRegistration = (req, res, next) => {
 
     let hash = req.params['hash'];
     let input = req.body['input'];
     if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
 
+    // validation
+    const validators = [
+        { field: 'username', rules: { required: true } },
+        { field: 'password', rules: { required: true,
+                minLength: schemaFields.PASSWORD.MIN_LENGTH,
+                maxLength: schemaFields.PASSWORD.MAX_LENGTH
+            }
+        },
+        { field: 'number', rules: { required: true,
+                min: schemaFields.NUMBER.MIN,
+                max: schemaFields.NUMBER.MAX
+            }
+        },
+        { field: 'team', rules: { required: true, objectId: true } },
+    ];
+    const validation = iV.validate(input, validators);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
+
     let username = input.username;
     let password = input.password;
     let number = input.number;
-    let email = input.name.email;
     let team = input.team;
     let name = input.name;
-    // let email = input.email;
-    // TODO - more credentials
-
-    if (!username) return next(errorHelper.prepareError(codes.USERNAME.MISSING));
-    if (!password) return next(errorHelper.prepareError(codes.PASSWORD.MISSING));
 
     RegistrationRequest.findOne({ 'registration.registrationHash': hash }).exec()
         .then(request => {
@@ -395,14 +292,12 @@ exports.finishRegistration = (req, res, next) => {
                     if (usernameDup.length) return next(errorHelper.prepareError(codes.USERNAME.IN_USE));
 
                     // TODO: check for Team validity
+                    // rp({})
 
                     let newUser = new User({
-                        username: username,
-                        password: password,
+                        username, password, number, team,
                         name: request.name || name,
-                        number: number,
                         email: request.email,
-                        team: team
                     });
 
                     newUser.save((error, saved) => {
@@ -431,32 +326,25 @@ exports.finishRegistration = (req, res, next) => {
                                         user: exports.setUserInfo(saved)
                                     }
                                 });
-                            }).catch(error => {
-                                return next(errorHelper.prepareError(error));
-                            });
-
+                            }).catch(error => next(errorHelper.prepareError(error)));
                         });
-
                     });
-
-                }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            })
-
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error))
-        });
+                }).catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };
 
+/**
+ * @description Verifies the request header token
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.tokenCheck = (req, res, next) => {
 
     StrategyCtrl.verifyToken(req, res, next).then(() => {
-
         res.json({ response: sysCodes.AUTH.TOKEN.VALID });
-
-    }).catch(error => { return next(errorHelper.prepareError(error)) });
+    }).catch(error => next(errorHelper.prepareError(error)));
 
 };
 

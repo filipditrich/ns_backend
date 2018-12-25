@@ -23,6 +23,18 @@ module.exports = {
         INVALID: codeGenerator.invalid('jersey_number'),
         NOT_FOUND: codeGenerator.notFound('jersey_number'),
         NULL_FOUND: codeGenerator.multipleNotFound('jersey_number'),
+        MIN: {
+            name: 'JERSEY_NUMBER_MIN',
+            message: `Minimal accepted value for Jersey Number is ${schemaFields.NUMBER.MIN}`,
+            status: 422,
+            success: false
+        },
+        MAX: {
+            name: 'JERSEY_NUMBER_MAX',
+            message: `Maximum accepted value for Jersey Number is ${schemaFields.NUMBER.MAX}`,
+            status: 422,
+            success: false
+        },
         IN_USE: {
             name: 'NUMBER_IN_USE',
             message: 'This number is already in use.',
@@ -42,6 +54,7 @@ module.exports = {
 
     USERNAME: {
         DUPLICATE: codeGenerator.duplicate('username'),
+        UNIQUE: codeGenerator.unique('username'),
         REQUIRED: codeGenerator.required('username'),
         MISSING: codeGenerator.missing('username'),
         INVALID: codeGenerator.invalid('username'),
@@ -94,19 +107,9 @@ module.exports = {
         INVALID: codeGenerator.invalid('password'),
         NOT_FOUND: codeGenerator.notFound('password'),
         NULL_FOUND: codeGenerator.multipleNotFound('password'),
+        MIN_LENGTH: codeGenerator.minLength('password', schemaFields.PASSWORD.MIN_LENGTH),
+        MAX_LENGTH: codeGenerator.maxLength('password', schemaFields.PASSWORD.MAX_LENGTH),
 
-        MIN_LENGTH: {
-            name: 'PASSWORD_TOO_SHORT',
-            message: `Password must be at least ${schemaFields.PASSWORD.MIN_LENGTH} characters long.`,
-            status: 422,
-            success: false
-        },
-        MAX_LENGTH: {
-            name: 'PASSWORD_TOO_LONG',
-            message: `Password length exceeded. Password can be only ${schemaFields.PASSWORD.MAX_LENGTH} characters long.`,
-            status: 422,
-            success: false
-        },
         WEAK: {
             name: 'PASSWORD_TOO_WEAK',
             message: 'This password is too weak. Password must contain one digit, one lowercase and one uppercase character.',

@@ -1,9 +1,8 @@
+const request = require('request-promise');
+const Service = require('../models/service.schema');
+const sysCodes = require('northernstars-shared').sysCodes;
 const serverConf = require('northernstars-shared').serverConfig;
 const errorHelper = require('northernstars-shared').errorHelper;
-const sysCodes = require('northernstars-shared').sysCodes;
-const Service = require('../models/service.schema');
-const request = require('request-promise');
-const _ = require('lodash');
 
 /**
  * @description Handles all API Gateway Requests
@@ -44,9 +43,6 @@ exports.gatewayHandler = (req, res, next) => {
                 return next(err);
             });
 
-        })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        }).catch(error => next(errorHelper.prepareError(error)));
 
 };

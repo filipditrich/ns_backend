@@ -51,13 +51,9 @@ exports.exportCodes = (req, res, next) => {
                 output[serviceSettings.id] = codes;
                 output['shared'] = sysCodes;
                 res.json({ response: sysCodes.RESOURCE.LOADED, output });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
+            }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -102,13 +98,9 @@ exports.exportRoutes = (req, res, next) => {
             Promise.all(promises).then(() => {
                 output[serviceSettings.id] = _.map(routes, _.partialRight(_.pick, allowed));
                 res.json({ response: sysCodes.RESOURCE.LOADED, output });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
+            }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -152,8 +144,7 @@ exports.updateServices = (req, res, next) => {
                     })
                     .catch(error => next(errorHelper.prepareError(error)));
             }
-        })
-        .catch(error => next(errorHelper.prepareError(error)));
+        }).catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**
@@ -273,10 +264,16 @@ exports.serviceChecker = (loaded = false) => {
                     json: true
                 }).then(response => {
                     exports.updateService(service, { upTime: response.output['runtime'] }).then(() => {
-                        const runtime = require('moment')(new Date()).subtract(response.output['runtime'], 'seconds').toNow(true);
+                        const outputted = response.output['runtime'];
+                        const runtime = require('moment')(new Date()).subtract(outputted, 'seconds').toNow(true);
+                        const alt = outputted >= 60 ? outputted >= 3600 ? outputted >= 86400 ?
+                            `${(outputted / 60 / 60 / 24).toFixed(2)} day(s)`
+                            : `${(outputted / 60 / 60).toFixed(2)} hour(s)`
+                            : `${(outputted / 60).toFixed(2)} minute(s)`
+                            : `${Math.round(outputted)} second(s)`;
                         console.log(loaded ?
-                            `▪️ ${settings.services[service].name} (${runtime})` :
-                            `✅ ${settings.services[service].name} is up and running for ${runtime}`);
+                            `▪️ ${settings.services[service].name} (${runtime}) [${alt}]` :
+                            `✅ ${settings.services[service].name} is up and running for ${runtime} [${alt}]`);
                         resolve();
                     }).catch(error => {
                         reject(error);

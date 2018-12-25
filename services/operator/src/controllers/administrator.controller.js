@@ -7,6 +7,7 @@ const codeHelper = require('northernstars-shared').codeHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 /**
  * @description Send invitation emails to the recipients list
@@ -113,12 +114,14 @@ exports.sendInvites = (req, res, next) => {
 exports.requestApproval = (req, res, next, outside = false) =>{
     const input = req.body['input'];
     if (!input) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
-    const id = input.id;
 
-    if (!id) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    // validation
+    const validators = [ { field: 'id', rules: { required: true } } ];
+    const validation = iV.validate(input, validators);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     if (!outside) {
-        RegistrationRequest.findOne({ _id: id }).exec()
+        RegistrationRequest.findOne({ _id: input.id }).exec()
             .then(request => {
 
                 if (!request) return next(errorHelper.prepareError(codes.REGISTRATION.REQUEST.NON_EXISTENCE));

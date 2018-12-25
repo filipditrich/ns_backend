@@ -14,14 +14,14 @@ const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: codes.USERNAME.REQUIRED.message,
-        unique: true,
+        unique: codes.USERNAME.UNIQUE.message,
     },
     password: {
         type: String,
         required: codes.PASSWORD.REQUIRED.message,
-        minLength: [schemaFields.PASSWORD.MIN_LENGTH, codes.PASSWORD.MIN_LENGTH.message],
-        maxLength: [schemaFields.PASSWORD.MAX_LENGTH, codes.PASSWORD.MAX_LENGTH.message],
-        validate: [validators.passwordStrength, codes.PASSWORD.WEAK.message]
+        minLength: [ schemaFields.PASSWORD.MIN_LENGTH, codes.PASSWORD.MIN_LENGTH.message ],
+        maxLength: [ schemaFields.PASSWORD.MAX_LENGTH, codes.PASSWORD.MAX_LENGTH.message ],
+        validate: [ validators.passwordStrength, codes.PASSWORD.WEAK.message ]
     },
     email: {
         type: String,
@@ -34,7 +34,12 @@ const userSchema = mongoose.Schema({
         default: sysEnums.AUTH.ROLES.player.key
     },
     team: { type: mongoose.Schema.ObjectId, required: codes.TEAM.REQUIRED },
-    number: { type: Number, required: codes.NUMBER.REQUIRED }
+    number: {
+        type: Number,
+        required: codes.NUMBER.REQUIRED,
+        min: [ schemaFields.NUMBER.MIN, codes.NUMBER.MIN.message ],
+        max: [ schemaFields.NUMBER.MAX, codes.NUMBER.MAX.message ]
+    }
 }, { timestamps: true });
 
 /**
