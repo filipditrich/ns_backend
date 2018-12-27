@@ -66,23 +66,34 @@ exports.ensureUnavailable = () => {
     // TODO: create CLI for this proccess
     return Jersey.findOne({ name: '(unavailable jersey)' }).exec()
         .then(jersey => {
-            if (!jersey)
-                return new Jersey({ name: '(unavailable jersey)' }).save();
+            if (!jersey) {
+                console.log("Creating default '(unavailable jersey)' jersey");
+                new Jersey({ name: '(unavailable jersey)' }).save()
+                    .then(() => MatchGroup.findOne({ name: '(unavailable group)' }).exec());
+            }
             return MatchGroup.findOne({ name: '(unavailable group)' }).exec();
         })
         .then(group => {
-            if (!group)
-                return new MatchGroup({ name: '(unavailable group)' }).save();
+            if (!group) {
+                console.log("Creating default '(unavailable group)' group");
+                new MatchGroup({ name: '(unavailable group)' }).save()
+                    .then(() => Place.findOne({ name: '(unavailable place)' }).exec());
+            }
             return Place.findOne({ name: '(unavailable place)' }).exec();
         })
         .then(place => {
-            if (!place)
-                return new Place({ name: '(unavailable place)' }).save();
+            if (!place) {
+                console.log("Creating default '(unavailable place)' place");
+                new Place({ name: '(unavailable place)' }).save()
+                    .then(() => Team.findOne({ name: '(unavailable team)' }).exec());
+            }
             return Team.findOne({ name: '(unavailable team)' }).exec();
         })
         .then(team => {
-            if (!team)
+            if (!team) {
+                console.log("Creating default '(unavailable team)' team");
                 return new Team({ name: '(unavailable team)' }).save();
+            }
             return Promise.resolve();
         })
         .catch(error => {
