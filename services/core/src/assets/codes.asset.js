@@ -10,7 +10,8 @@ module.exports = {
         MISSING: codeGenerator.missing('place'),
         REQUIRED: codeGenerator.required('place'),
         NAME: {
-            MISSING: codeGenerator.missing('place_name')
+            MISSING: codeGenerator.missing('place_name'),
+            DUPLICATE: codeGenerator.duplicate('place_name')
         },
 
         UPDATED: codeGenerator.update('place'),
@@ -25,7 +26,8 @@ module.exports = {
         MISSING: codeGenerator.missing('team'),
         REQUIRED: codeGenerator.required('team'),
         NAME: {
-            MISSING: codeGenerator.missing('team_name')
+            MISSING: codeGenerator.missing('team_name'),
+            DUPLICATE: codeGenerator.duplicate('team_name'),
         },
         JERSEY: {
             MISSING: codeGenerator.missing('team_jersey')
@@ -43,7 +45,8 @@ module.exports = {
         MISSING: codeGenerator.missing('jersey'),
         REQUIRED: codeGenerator.required('jersey'),
         NAME: {
-            MISSING: codeGenerator.missing('jersey_name')
+            MISSING: codeGenerator.missing('jersey_name'),
+            DUPLICATE: codeGenerator.duplicate('jersey_name')
         },
 
         UPDATED: codeGenerator.update('jersey'),
@@ -81,6 +84,7 @@ module.exports = {
             NAME: {
                 REQUIRED: codeGenerator.required('match_group_name'),
                 MISSING: codeGenerator.missing('match_group_name'),
+                DUPLICATE: codeGenerator.duplicate('match_group_name')
             },
 
             UPDATED: codeGenerator.update('match_group'),
@@ -100,7 +104,13 @@ module.exports = {
             },
             OPENS: {
                 MISSING: codeGenerator.missing('match_enrollment_opens'),
-                REQUIRED: codeGenerator.required('match_enrollment_opens')
+                REQUIRED: codeGenerator.required('match_enrollment_opens'),
+                CLOSED: {
+                    name: 'MATCH_ENROLLMENT_CLOSED',
+                    message: 'Match enrollment is still closed.',
+                    success: false,
+                    status: 400
+                }
             },
             PLAYERS: {
                 PLAYER: {

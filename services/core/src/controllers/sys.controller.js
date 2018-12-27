@@ -1,4 +1,6 @@
 const sysCodes = require('northernstars-shared').sysCodes;
+const conf = require('northernstars-shared').serverConfig;
+const serviceSettings = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
 const settings = require('../config/settings.config');
 const _ = require('lodash');
@@ -44,9 +46,102 @@ exports.upCheck = (req, res, next) => {
  * @param next
  */
 exports.rootUpdate = (req, res, next) => {
-    const root = req.body['root'];
-    settings.root['port'] = root.output.port;
-    settings.root['secret'] = root.output.secret;
-    settings.root['environment'] = root.output.environment;
+    const _root = req.body['root'];
+    settings.root['port'] = _root.port;
+    settings.root['secret'] = _root.secret;
+    settings.root['environment'] = _root.environment;
     res.json({ response: sysCodes.REQUEST.PROCESSED });
+};
+
+/**
+ * @description Ensures that every required (unavailable <model>) exists
+ * @return {Promise<T>}
+ */
+exports.ensureUnavailable = () => {
+    const Jersey = require('../models/jersey.model');
+    const MatchGroup = require('../models/match-group.model');
+    const Place = require('../models/place.model');
+    const Team = require('../models/team.model');
+
+    // TODO: create CLI for this proccess
+    return Jersey.findOne({ name: '(unavailable jersey)' }).exec()
+        .then(jersey => {
+            if (!jersey)
+                return new Jersey({ name: '(unavailable jersey)' }).save();
+            return MatchGroup.findOne({ name: '(unavailable group)' }).exec();
+        })
+        .then(group => {
+            if (!group)
+                return new MatchGroup({ name: '(unavailable group)' }).save();
+            return Place.findOne({ name: '(unavailable place)' }).exec();
+        })
+        .then(place => {
+            if (!place)
+                return new Place({ name: '(unavailable place)' }).save();
+            return Team.findOne({ name: '(unavailable team)' }).exec();
+        })
+        .then(team => {
+            if (!team)
+                return new Team({ name: '(unavailable team)' }).save();
+            return Promise.resolve();
+        })
+        .catch(error => {
+            return Promise.reject(error);
+        });
+
+};
+
+/**
+ * @description Match Reminders
+ */
+exports.reminders = () => {
+    setInterval(() => {
+        const Match = require('../models/match.model');
+        const moment = require('moment');
+        const rp = require('request-promise');
+        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(2, 'hours').format('Do MMM, hh:mm:ss')}`);
+
+        Match.find({}).exec()
+            .then(matches => {
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        if (!match.hasBeenReminded
+                            && (moment(new Date()).isSame(match.reminderDate, 'day')
+                                || (moment(new Date()).isBefore(match.date) && moment(new Date()).isAfter(match.reminderDate)))) {
+
+                            match.hasBeenReminded = true;
+                            const userArr = match.enrollment.players.map(x => x.player);
+                            rp({
+                                method: 'POST',
+                                uri: `http://localhost:4000/api/sys/reminders`,
+                                body: {
+                                    input: {mailList: userArr, matchInfo: match}
+                                },
+                                headers: {
+                                    'X-Secret': conf[serviceSettings.environment].secret.secret,
+                                    'Application-ID': conf[serviceSettings.environment].consumers[0]
+                                },
+                                json: true,
+                            }).then(res => {
+                                match.save().then(() => {
+                                    const sent = res.output.sent;
+                                    console.log(`\n[REMINDER]› START - ${match.title}`);
+                                    console.log(`› UPCOMING REMINDER: Sent ${sent.upcomingSent.length}/${sent.upcoming.length} emails.`);
+                                    console.log(`› MATCH REMINDER: Sent ${sent.reminderSent.length}/${sent.reminder.length} emails.`);
+                                    console.log(`› SENT: ${sent.reminderSent.length + sent.upcomingSent.length} emails out of ${sent.usersTotal} total users.`);
+                                    console.log(`\n[REMINDER]› END - ${match.title}`);
+                                }).catch(error => {
+                                    console.log(error);
+                                });
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                        }
+                    });
+                }
+            }).catch(error => {
+            console.log(error)
+        });
+    }, 7200000);
+
 };

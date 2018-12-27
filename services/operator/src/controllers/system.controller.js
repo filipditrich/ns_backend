@@ -21,7 +21,7 @@ const _ = require('lodash');
 exports.exportCodes = (req, res, next) => {
 
     let output = {};
-    Service.find({}).exec()
+    return Service.find({}).exec()
         .then(services => {
             let promises = [];
 
@@ -47,10 +47,10 @@ exports.exportCodes = (req, res, next) => {
                 }));
             }
 
-            Promise.all(promises).then(() => {
+            return Promise.all(promises).then(() => {
                 output[serviceSettings.id] = codes;
                 output['shared'] = sysCodes;
-                res.json({ response: sysCodes.RESOURCE.LOADED, output });
+                return output;
             }).catch(error => next(errorHelper.prepareError(error)));
         })
         .catch(error => next(errorHelper.prepareError(error)));
@@ -69,7 +69,7 @@ exports.exportRoutes = (req, res, next) => {
         routes = require('../routes/index.route.conf'),
         allowed = ['id', 'method', 'url', 'params', 'roles'];
 
-    Service.find({}).exec()
+    return Service.find({}).exec()
         .then(services => {
             let promises = [];
 
@@ -95,9 +95,9 @@ exports.exportRoutes = (req, res, next) => {
                 }));
             }
 
-            Promise.all(promises).then(() => {
+            return Promise.all(promises).then(() => {
                 output[serviceSettings.id] = _.map(routes, _.partialRight(_.pick, allowed));
-                res.json({ response: sysCodes.RESOURCE.LOADED, output });
+                return output;
             }).catch(error => next(errorHelper.prepareError(error)));
         })
         .catch(error => next(errorHelper.prepareError(error)));
@@ -248,7 +248,7 @@ exports.serviceChecker = (loaded = false) => {
     const promises = [];
 
     if (services.length) {
-        console.log(loaded ? '\n CONNECTED SERVICES: \n' : '\n\n------------ SERVICE CHECK STARTED ------------\n');
+        console.log(loaded ? '\nCONNECTED SERVICES ------------ \n' : '\nSERVICE CHECK STARTED --------- \n');
         services.forEach(service => {
             const svc = settings.services[service];
             const svcCheck = new Promise((resolve, reject) => {
@@ -295,7 +295,7 @@ exports.serviceChecker = (loaded = false) => {
         });
 
         Promise.all(promises).then(() => {
-            console.log(loaded ? '\n' : `\n------------ SERVICE CHECK ENDED ------------\n\n`);
+            console.log(loaded ? '\n-------------------------------' : `\n-------------------------------\n`);
         }).catch(error => {
             console.log("An error occurred while checking for services: ", error);
         });
@@ -389,21 +389,30 @@ exports.reminders = (req, res, next) => {
 };
 
 /**
- * @description Exports TranslateList (Frontend)
+ * @description Exports all frontend-needed server assets
  * @param req
  * @param res
  * @param next
  */
-exports.exportTranslateList = (req, res, next) => {
-    res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/translate-list.asset') });
-};
+exports.serverAssets = (req, res, next) => {
 
-/**
- * @description Exports Application Info (Frontend+Backend)
- * @param req
- * @param res
- * @param next
- */
-exports.exportAppInfo = (req, res, next) => {
-    res.json({ response: sysCodes.RESOURCE.LOADED, output: require('../assets/app-info.asset') });
+    let routes, codes;
+    exports.exportRoutes(req, res, next)
+        .then(expRoutes => {
+            routes = expRoutes;
+            return exports.exportCodes(req, res, next);
+        })
+        .then(expCodes => {
+            codes = expCodes;
+            res.json({
+                response: sysCodes.RESOURCE.LOADED,
+                output: {
+                    routes, codes,
+                    translateList: require('../assets/translate-list.asset'),
+                    sysInfo: require('../assets/app-info.asset'),
+                }
+            });
+        })
+        .catch(error => next(errorHelper.prepareError(error)));
+
 };

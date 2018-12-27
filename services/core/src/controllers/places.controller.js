@@ -1,3 +1,4 @@
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Place = require('../models/place.model');
@@ -14,25 +15,23 @@ const rp = require('request-promise');
  */
 exports.create = (req, res, next) => {
 
-  const input = req.body['input'];
+    const input = req.body['input'];
+    if (!input) return next(errorHelper.prepareError(codes.PLACE.MISSING));
 
-  if (!input) return next(errorHelper.prepareError(codes.PLACE.MISSING));
-  if (!input.name) return next(errorHelper.prepareError(codes.PLACE.NAME.MISSING));
+    // validation
+    const validation = iV.validate(input, [{ field: 'name', rules: { required: true } }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
-  Place.findOne({ name: input.name }).exec()
-      .then(place => {
-        if (place) return next(errorHelper.prepareError(codes.PLACE.DUPLICATE));
-        const newPlace = new Place({ name: input.name, createdBy: req.user._id, updatedBy: req.user._id });
+    Place.findOne({ name: input.name }).exec()
+        .then(place => {
+            if (place) return next(errorHelper.prepareError(codes.PLACE.NAME.DUPLICATE));
+            const newPlace = new Place({ name: input.name, createdBy: req.user._id, updatedBy: req.user._id });
 
-        newPlace.save().then(() => {
-          res.json({ response: codes.PLACE.CREATED });
-        }).catch(error => {
-          return next(errorHelper.prepareError(error));
-        });
-      })
-      .catch(error => {
-        return next(errorHelper.prepareError(error));
-      });
+            newPlace.save().then(() => {
+                res.json({ response: codes.PLACE.CREATED });
+            }).catch(error => next(errorHelper.prepareError(error)));
+        })
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -93,14 +92,10 @@ exports.get = (req, res, next) => {
 
               res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
 
-          }).catch(error => {
-              return next(errorHelper.prepareError(error));
-          });
+          }).catch(error => next(errorHelper.prepareError(error)));
 
       })
-      .catch(error => {
-        return next(errorHelper.prepareError(error));
-      });
+      .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -113,32 +108,28 @@ exports.get = (req, res, next) => {
  */
 exports.update = (req, res, next) => {
 
-  const id = req.params['id'];
-  const update = req.body['input'];
+    const id = req.params['id'];
+    const update = req.body['input'];
+    if (!update) return next(errorHelper.prepareError(codes.PLACE.MISSING));
 
-  if (!update) return next(errorHelper.prepareError(codes.PLACE.MISSING));
-  if (!update.name) return next(errorHelper.prepareError(codes.PLACE.NAME.MISSING));
+    // validation
+    const validation = iV.validate(update, [{ field: 'name', rules: {} }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
-  Place.findOne({ _id: id }).exec()
-      .then(place => {
-          if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
+    Place.findOne({ _id: id }).exec()
+        .then(place => {
+            if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
 
-          Place.findOne({ name: update.name, _id: { $ne: place._id } }).exec()
-              .then(duplicate => {
-                  if (duplicate) return next(errorHelper.prepareError(codes.PLACE.DUPLICATE));
+            Place.findOne({ name: update.name, _id: { $ne: place._id } }).exec()
+                .then(duplicate => {
+                    if (duplicate) return next(errorHelper.prepareError(codes.PLACE.NAME.DUPLICATE));
 
-                  place.update(update, { runValidators: true }).then(() => {
-                      res.json({ response: codes.PLACE.UPDATED });
-                  }).catch(error => {
-                      return next(errorHelper.prepareError(error));
-                  });
-              }).catch(error => {
-                  return next(errorHelper.prepareError(error));
-              });
+                        place.update(update, { runValidators: true }).then(() => {
+                        res.json({ response: codes.PLACE.UPDATED });
+                    }).catch(error => next(errorHelper.prepareError(error)));
+              }).catch(error => next(errorHelper.prepareError(error)));
       })
-      .catch(error => {
-        return next(errorHelper.prepareError(error));
-      });
+      .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -187,26 +178,15 @@ exports.delete = (req, res, next) => {
                           });
 
                         })
-                        .catch(error => {
-                          return next(errorHelper.prepareError(error));
-                        });
+                        .catch(error => next(errorHelper.prepareError(error)));
 
                     Promise.all(promises).then(() => {
                         place.remove().then(() => {
                             res.json({ response: codes.PLACE.DELETED });
-                        }).catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        });
-                    }).catch(error => {
-                        return next(errorHelper.prepareError(error));
-                    });
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                        }).catch(error => next(errorHelper.prepareError(error)));
+                    }).catch(error => next(errorHelper.prepareError(error)));
+                }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };

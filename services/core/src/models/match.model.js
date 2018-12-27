@@ -40,7 +40,9 @@ const matchSchema = mongoose.Schema({
  * @description Sets default values
  */
 matchSchema.pre('save', function(next) {
-    this.enrollment.enrollmentCloses = this.get('date');
+    if (!this.enrollment.enrollmentCloses) {
+        this.enrollment.enrollmentCloses = this.get('date');
+    }
     this.reminderDate = moment(this.get('date')).subtract(2, 'days');
     next();
 });

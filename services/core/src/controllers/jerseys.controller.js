@@ -1,3 +1,4 @@
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const Jersey = require('../models/jersey.model');
@@ -15,26 +16,24 @@ const rp = require('request-promise');
 exports.create = (req, res, next) => {
 
     const input = req.body['input'];
-
     if (!input) return next(errorHelper.prepareError(codes.JERSEY.MISSING));
-    if (!input.name) return next(errorHelper.prepareError(codes.JERSEY.NAME.MISSING));
+
+    // validation
+    const validation = iV.validate(input, [{ field: 'name', rules: { required: true } }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     Jersey.findOne({ name: input.name }).exec()
         .then(foundJersey => {
 
-            if (foundJersey) return next(errorHelper.prepareError(codes.JERSEY.DUPLICATE));
+            if (foundJersey) return next(errorHelper.prepareError(codes.JERSEY.NAME.DUPLICATE));
             input['createdBy'] = req.user._id;
             input['updatedBy'] = req.user._id;
             const newJersey = new Jersey(input);
             newJersey.save().then(saved => {
                 res.json({ response: codes.JERSEY.CREATED });
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
+            }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -95,14 +94,10 @@ exports.get = (req, res, next) => {
 
                 res.json({ response: sysCodes.RESOURCE.LOADED, output: fin });
 
-            }).catch(error => {
-                return next(errorHelper.prepareError(error));
-            });
+            }).catch(error => next(errorHelper.prepareError(error)));
 
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -117,9 +112,11 @@ exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
-
     if (!update) return next(errorHelper.prepareError(codes.JERSEY.MISSING));
-    if (!update.name) return next(errorHelper.prepareError(codes.JERSEY.NAME.MISSING));
+
+    // validation
+    const validation = iV.validate(update, [{ field: 'name', rules: {} }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     Jersey.findOne({ _id: id }).exec()
         .then(jersey => {
@@ -127,21 +124,14 @@ exports.update = (req, res, next) => {
 
             Jersey.findOne({ name: update.name, _id: { $ne: jersey._id } }).exec()
                 .then(duplicate => {
-                    if (duplicate) return next(errorHelper.prepareError(codes.JERSEY.DUPLICATE));
+                    if (duplicate) return next(errorHelper.prepareError(codes.JERSEY.NAME.DUPLICATE));
 
                     jersey.update(update, { runValidators: true }).then(() => {
                         res.json({ response: codes.JERSEY.UPDATED });
-                    }).catch(error => {
-                        return next(errorHelper.prepareError(error));
-                    });
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                    }).catch(error => next(errorHelper.prepareError(error)));
+                }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -191,23 +181,11 @@ exports.delete = (req, res, next) => {
                             Promise.all(promises).then(() => {
                                 jersey.remove().then(() => {
                                     res.json({ response: codes.JERSEY.DELETED });
-                                }).catch(error => {
-                                    return next(errorHelper.prepareError(error));
-                                });
-                            }).catch(error => {
-                                return next(errorHelper.prepareError(error));
-                            });
-                        })
-                        .catch(error => {
-                            return next(errorHelper.prepareError(error));
-                        })
-                })
-                .catch(error => {
-                    return next(errorHelper.prepareError(error));
-                });
+                                }).catch(error => next(errorHelper.prepareError(error)));
+                            }).catch(error => next(errorHelper.prepareError(error)));
+                        }).catch(error => next(errorHelper.prepareError(error)))
+                }).catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };

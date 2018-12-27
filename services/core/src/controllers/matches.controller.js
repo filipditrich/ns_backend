@@ -36,6 +36,8 @@ exports.create = (req, res, next) => {
         { field: 'date', rules: { required: true, date: true } },
         { field: 'group', rules: { required: true, objectId: true } },
         { field: 'enrollment.maxCapacity', rules: { required: true, number: true, min: 1 } },
+        { field: 'enrollment.enrollmentOpens', rules: { date: true } },
+        { field: 'enrollment.enrollmentCloses', rules: { date: true } }
     ];
     const validation = iV.validate(input, validators);
     if (!validation.success) return next(errorHelper.prepareError(validation));
@@ -329,8 +331,8 @@ exports.matchParticipation = (req, res, next) => {
     Match.findOne({ _id: input.id }).exec()
         .then(match => {
             if (!match) return next(errorHelper.prepareError(codes.MATCH.NOT_FOUND));
-            if (moment(match.enrollment.enrollmentCloses).isBefore(new Date()))
-                return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.CLOSED));
+            if (moment(match.enrollment.enrollmentOpens).isAfter(new Date()))
+                return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.OPENS.CLOSED));
             if (input.enrollment.status === enums.MATCH.ENROLL_STATUS.going.key
                 && match.enrollment.players.filter(player => player.status === enums.MATCH.ENROLL_STATUS.going.key).length >= match.enrollment.maxCapacity) {
                 return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.MAX_CAP.EXCEEDED));
@@ -344,6 +346,10 @@ exports.matchParticipation = (req, res, next) => {
 
             let update;
             if (isUpdating) {
+                if (moment(match.enrollment.enrollmentCloses).isBefore(new Date())
+                    && duplicate.status !== enums.MATCH.ENROLL_STATUS.going.key)
+                    return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.CLOSED));
+
                 duplicate.status = input.enrollment.status;
                 duplicate.enrolledOn = new Date();
                 const playerIndex = matchPlayers.findIndex(obj => obj.player.toString() === duplicate.player.toString());
@@ -351,6 +357,9 @@ exports.matchParticipation = (req, res, next) => {
 
                 update = { "enrollment.players": matchPlayers };
             } else {
+                if (moment(match.enrollment.enrollmentCloses).isBefore(new Date()))
+                    return next(errorHelper.prepareError(codes.MATCH.ENROLLMENT.CLOSES.CLOSED));
+
                 update = { $push: { "enrollment.players": input.enrollment } };
             }
 
@@ -397,12 +406,16 @@ exports.cancelMatch = (req, res, next) => {
  * @param next
  * @return {*}
  */
-// TODO - delete 'draft' situation :--) fuckheads...
+// TODO: delete 'draft' situation :--) fuckheads...
+// maybe actually leave it there, who the fuck knows when they'll
+// change their minds again
 exports.writeResults = (req, res, next) => {
     const input = req.body['input'];
+    const updateId = req.params['id'];
     const resEnums = enums.MATCH.RESULT;
 
     // input validation
+    // TODO: use iV class
     if (!input) return next(errorHelper.prepareError(codes.RESULTS.PLAYERS.MISSING));
     if (!input.match) return next(errorHelper.prepareError(codes.RESULTS.MATCH.MISSING));
     if (!input.match.match(objectIdRegExp)) return next(errorHelper.prepareError(sysCodes.REQUEST.INPUT.OBJECT_ID_ERR));
@@ -446,6 +459,13 @@ exports.writeResults = (req, res, next) => {
                                     return next(errorHelper.prepareError(error));
                                 });
                             } else {
+                                // if updating result
+                                if (!!updateId) {
+                                    // remove updating player's existing result from the process
+                                    result.players.splice(result.players
+                                        .findIndex(x => x._id.toString() === updateId), 1);
+                                }
+
                                 const winRes = result.players.filter(x => x.status === resEnums.win.key);
                                 const looseRes = result.players.filter(x => x.status === resEnums.loose.key);
                                 const draftRes = result.players.filter(x => x.status === resEnums.draft.key);

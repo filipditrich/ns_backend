@@ -211,6 +211,10 @@ module.exports = {
         cs: "Kapacity je požadována",
         en: "Capacity is required"
     },
+    ENROLL_STATUS_CHANGE_IRR_MSG: {
+        cs: "Zápis pro tento zápas je již uzamčen. Změněním vašeho statusu na 'Nejde' již nebudete mít možnost se zapsat zpět!",
+        en: "The enrollment for this match is already locked, so after un-enrolling yourself you will not be able to enroll back!"
+    },
     ENROLLED_MSG: {
         cs: "Byli jste úspěšně zapsáni se statusem \"[enrollmentStatus]\"",
         en: "You have been successfully enrolled with a status of \"[enrollmentStatus]\""
@@ -222,6 +226,14 @@ module.exports = {
     ENROLLED_TITLE: {
         cs: "Zapsáno!",
         en: "Enrolled!"
+    },
+    ENROLLMENT_LOCKED: {
+        cs: "Zápis je uzamčen",
+        en: "Enrollment is locked"
+    },
+    ENROLLMENT_FULL: {
+        cs: "Zápis je plný",
+        en: "Enrollment is full",
     },
     EOPEN: {
         cs: "Zápis otevřen",
@@ -527,6 +539,10 @@ module.exports = {
         cs: "Kolize data-času zápasu",
         en: "Match date-time collision"
     },
+    MATCH_IN_PAST: {
+        cs: "Zápas již proběhl",
+        en: "Match already played"
+    },
     MATCH_MANAGER: {
         cs: "Správce zápasů",
         en: "Match manager"
@@ -551,13 +567,21 @@ module.exports = {
         cs: "Výsledky",
         en: "Match results"
     },
+    MATCH_RESULT_WRITTEN: {
+        cs: "Výsledek zapsán",
+        en: "Result written"
+    },
     MATCH_TITLE: {
-        cs: "Název dresu",
+        cs: "Název zápasu",
         en: "Match title"
     },
     MATCH_TITLE_REQUIRED: {
-        cs: "Název dresu je povinný",
+        cs: "Název zápasu je povinný",
         en: "Jersey name is required"
+    },
+    MATCH_TITLE_NOT_STRING: {
+        cs: "Název zápasu nemůže číselný zápis",
+        en: "Match title cannot be a number"
     },
     MATCH_UPDATED_MSG: {
         cs: "Zápas byl úspěšně aktualizován",
@@ -656,8 +680,8 @@ module.exports = {
         en: "Passwords do not match"
     },
     PASSWORD_HINT: {
-        cs: "Heslo musí obsahovat alespoň jedno velké písmeno a jedno číslo",
-        en: "Password must contain at least one uppercase symbol and a digit",
+        cs: "Heslo musí být minimálně 4 znaky dlouhé a musí obsahovat alespoň jedno velké písmeno a jedno číslo",
+        en: "Password must be at least 4 characters long and must contain at least one uppercase symbol and a digit",
     },
     PASSWORD_INVALID: {
         cs: "Heslo není validní",
@@ -807,9 +831,17 @@ module.exports = {
         cs: "Žádosti o registraci",
         en: "Registration requests"
     },
+    REG_REQ_APPROVED: {
+        cs: "Registrační žádost potvrzena",
+        en: "Registration request approved"
+    },
     REG_REQ_MSG: {
         cs: "Jste členem Northern Stars? Zažádejte si zde o registraci pro pokračování.",
         en: "Are you a part of Northern Stars? Request a new registration here to continue."
+    },
+    REG_REQ_REGISTERED: {
+        cs: "Uživatel zaregistrován",
+        en: "User registered"
     },
     REG_REQ_SENT_MSG: {
         cs: "Vaše žádost o registraci byla úspěšně odeslána. Na uvedený email Vám byly zaslány další instrukce.",
@@ -1035,6 +1067,10 @@ module.exports = {
         cs: "Všechny filtry odškrtnuty",
         en: "All filter unchecked",
     },
+    UNDERSTAND: {
+        cs: "Rozumím",
+        en: "I understand",
+    },
     UNKNOWN_ERROR: {
         cs: "Neznámá chyba",
         en: "Unknown error"
@@ -1121,7 +1157,11 @@ module.exports = {
     },
     WRITE_RESULTS_FOR: {
         cs: "Zapsat výsledky pro",
-        en: "Writen results for"
+        en: "Write results for"
+    },
+    WRITE: {
+        cs: "Zapsat",
+        en: "Write"
     },
     WRITTEN: {
         cs: "Sepsáno",

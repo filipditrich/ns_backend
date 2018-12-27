@@ -4,6 +4,7 @@ const rp = require('request-promise');
 const service = require('../config/settings.config');
 const MatchGroup = require('../models/match-group.model');
 const codes = require('../assets/codes.asset');
+const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 /**
  * @description Creates a Match Group
@@ -15,14 +16,16 @@ const codes = require('../assets/codes.asset');
 exports.create = (req, res, next) => {
 
     const input = req.body['input'];
-
     if (!input) return next(errorHelper.prepareError(codes.MATCH.GROUP.MISSING));
-    if (!input.name) return next(errorHelper.prepareError(codes.MATCH.GROUP.NAME.MISSING));
+
+    // validation
+    const validation = iV.validate(input, [{ field: 'name', rules: { required: true } }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     MatchGroup.findOne({ name: input.name }).exec()
         .then(foundGroup => {
 
-            if (foundGroup) return next(errorHelper.prepareError(codes.MATCH.GROUP.DUPLICATE));
+            if (foundGroup) return next(errorHelper.prepareError(codes.MATCH.GROUP.NAME.DUPLICATE));
             input['createdBy'] = req.user._id;
             input['updatedBy'] = req.user._id;
             const newMatchGroup = new MatchGroup(input);
@@ -82,11 +85,8 @@ exports.getByName = (req, res, next) => {
             formatGroups(req, group).then(formatted => {
                 res.json({ response: sysCodes.RESOURCE.LOADED, output: formatted[0] });
             }).catch(error => next(errorHelper.prepareError(error)));
-
         })
-        .catch(error => {
-            return next(errorHelper.prepareError(error));
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 
 };
 
@@ -101,9 +101,11 @@ exports.update = (req, res, next) => {
 
     const id = req.params['id'];
     const update = req.body['input'];
-
     if (!update) return next(errorHelper.prepareError(codes.MATCH.GROUP.MISSING));
-    if (!update.name) return next(errorHelper.prepareError(codes.MATCH.GROUP.NAME.MISSING));
+
+    // validation
+    const validation = iV.validate(update, [{ field: 'name', rules: {} }]);
+    if (!validation.success) return next(errorHelper.prepareError(validation));
 
     MatchGroup.findOne({ _id: id }).exec()
         .then(group => {
@@ -111,15 +113,13 @@ exports.update = (req, res, next) => {
 
             MatchGroup.findOne({ name: update.name, _id: { $ne: group._id } }).exec()
                 .then(duplicate => {
-                    if (duplicate) return next(errorHelper.prepareError(codes.MATCH.GROUP.DUPLICATE));
+                    if (duplicate) return next(errorHelper.prepareError(codes.MATCH.GROUP.NAME.DUPLICATE));
 
                     group.update(update, { runValidators: true })
                         .then(() => {
                             res.json({ response: codes.MATCH.GROUP.UPDATED });
-                        })
-                        .catch(error => next(errorHelper.prepareError(error)));
-                })
-                .catch(error => next(errorHelper.prepareError(error)));
+                        }).catch(error => next(errorHelper.prepareError(error)));
+                }).catch(error => next(errorHelper.prepareError(error)));
         })
         .catch(error => next(errorHelper.prepareError(error)));
 
@@ -175,8 +175,7 @@ exports.delete = (req, res, next) => {
                                     })
                                     .catch(error => next(errorHelper.prepareError(error)));
                             }).catch(error => next(errorHelper.prepareError(error)));
-                        })
-                        .catch(error => next(errorHelper.prepareError(error)))
+                        }).catch(error => next(errorHelper.prepareError(error)))
                 })
                 .catch(error => next(errorHelper.prepareError(error)));
         })

@@ -18,7 +18,7 @@ module.exports = [
 
     /** Additional Routes **/
     new Route('MATCH_ENROLLMENT', 'POST', '/matches/enrollment', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.matchParticipation),
-    new Route('WRITE_MATCH_RESULTS', 'POST', '/matches/write-results', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.writeResults),
+    new Route('WRITE_MATCH_RESULTS', 'POST', '/matches/write-results/:id([a-fA-F0-9]{24})?', { roles: sysEnums.AUTH.ROLES.anyone.key }, MatchesCtrl.writeResults),
     new Route('CANCEL_MATCH', 'PUT', '/matches/cancel/:id([a-fA-F0-9]{24})', { roles: adminAndMods }, MatchesCtrl.cancelMatch)
 
 ];
