@@ -36,7 +36,6 @@ const userSchema = mongoose.Schema({
     team: { type: mongoose.Schema.ObjectId, required: codes.TEAM.REQUIRED },
     number: {
         type: Number,
-        required: codes.NUMBER.REQUIRED,
         min: [ schemaFields.NUMBER.MIN, codes.NUMBER.MIN.message ],
         max: [ schemaFields.NUMBER.MAX, codes.NUMBER.MAX.message ]
     }

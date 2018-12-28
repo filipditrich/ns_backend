@@ -416,3 +416,33 @@ exports.serverAssets = (req, res, next) => {
         .catch(error => next(errorHelper.prepareError(error)));
 
 };
+
+/**
+ * @description Ensures that 'deletedUser' exists
+ * @return {Promise<T>}
+ */
+exports.ensureUnavailable = () => {
+    const User = require('../models/user.schema');
+    const sysEnums = require('northernstars-shared').sysEnums;
+
+    return User.findOne({ username: 'deletedUser' }).exec()
+        .then(user => {
+            if (!user) {
+                console.log("Creating default 'deletedUser' user");
+                return new User({
+                    username: 'deletedUser',
+                    name: 'Deleted User',
+                    password: 'deletedUser123',
+                    email: 'spam@northernstars.cz',
+                    roles: sysEnums.AUTH.ROLES.deleted.key,
+                    team: 'aaa123aaa123aaa123aaa123',
+                    number: 998
+                }).save();
+            }
+            return Promise.resolve();
+        })
+        .catch(error => {
+             return Promise.reject(error);
+        });
+
+};
