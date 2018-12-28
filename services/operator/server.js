@@ -16,6 +16,7 @@ app.set('HOST_URL', serviceSettings.host);
 /** MongoDB connection **/
 require('northernstars-shared').mongooseHelper.connect(mongoose, serviceSettings)
     .then(() => {
+        // TODO: ensure deleted
         /** Body Parser **/
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.json());
