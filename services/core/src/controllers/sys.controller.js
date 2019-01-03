@@ -153,6 +153,6 @@ exports.reminders = () => {
             }).catch(error => {
             console.log(error)
         });
-    }, 15000);
+    }, 7200000);
 
 };
