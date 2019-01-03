@@ -24,7 +24,7 @@
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
     "mongoose": "*",
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.1",
     "nodemailer": "^4.6.7",
     "northernstars-shared": "git+https://github.com/filipditrich/northernstars-shared.git",
     "passport": "*",

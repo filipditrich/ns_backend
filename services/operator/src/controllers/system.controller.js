@@ -312,16 +312,19 @@ exports.serviceChecker = (loaded = false) => {
  */
 exports.reminders = (req, res, next) => {
     const input = req.body['input'];
-    let mailList = input['mailList'];
     const matchInfo = input['matchInfo'];
-    if (!mailList || !matchInfo) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
+    if (!matchInfo) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID));
 
     User.find({}).exec()
         .then(users => {
             users = users.filter(u => u.username !== 'deletedUser');
+            users = users.filter(u => matchInfo.reminder.reminderTeams
+                .map(t => t.toString()).indexOf(u.team.toString()) >= 0);
             if (users.length === 0) return next(errorHelper.prepareError(codes.USER.NULL_FOUND)); // shouldn't happen
-            const mailing = users.filter(user => mailList.indexOf(user._id.toString()) >= 0); // upcoming reminder
-            const reminder = users.filter(user => mailList.indexOf(user._id.toString()) < 0); // enroll reminder
+            const reminder = users.filter(user => matchInfo.enrollment.players
+                .some(p => p.player.toString() === user._id.toString() && p.status === 'going'));
+            const mailing = users.filter(user => !matchInfo.enrollment.players
+                .some(x => x.player.toString() === user._id.toString()));
             const mailReminders = [], mailMailing = [];
             const promises = [];
             const sent = {
@@ -340,7 +343,7 @@ exports.reminders = (req, res, next) => {
                     name: recipient.name,
                     matchTitle: matchInfo.title,
                     date: moment(matchInfo.date).locale('cs').format('dddd, MMMM D'),
-                    time: moment(matchInfo.date).locale('cs').format('k:mm:ss'),
+                    time: moment(matchInfo.date).locale('cs').format('k:mm'),
                     subject: 'Nejste zapsáni na nadcházející zápas',
                 });
             });
@@ -361,7 +364,7 @@ exports.reminders = (req, res, next) => {
                     name: recipient.name,
                     matchTitle: matchInfo.title,
                     date: moment(matchInfo.date).locale('cs').format('dddd, MMMM D'),
-                    time: moment(matchInfo.date).locale('cs').format('k:mm:ss'),
+                    time: moment(matchInfo.date).locale('cs').format('k:mm'),
                     subject: 'Připomínka: máte nadcházející zápas',
                 });
             });
@@ -379,13 +382,9 @@ exports.reminders = (req, res, next) => {
             Promise.all(promises).then(() => {
                 res.json({ response: sysCodes.REQUEST.VALID, output: { sent } });
             })
-            .catch(error => {
-                errorHelper.prepareError(error);
-            });
+            .catch(error => next(errorHelper.prepareError(error)));
         })
-        .catch(error => {
-           errorHelper.prepareError(error);
-        });
+        .catch(error => next(errorHelper.prepareError(error)));
 };
 
 /**

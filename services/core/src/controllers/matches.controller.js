@@ -3,14 +3,16 @@ const userHelper = require('northernstars-shared').userHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
 const enumHelper = require('northernstars-shared').enumHelper;
 const mailHelper = require('northernstars-shared').mailHelper;
-const Match = require('../models/match.model');
-const MatchResult = require('../models/match-result.model');
+const MODEL_PATH = '../models/';
+const Match = require(MODEL_PATH + 'match.model');
+const MatchResult = require(MODEL_PATH + 'match-result.model');
+const Place = require(MODEL_PATH + 'place.model');
+const Team = require(MODEL_PATH + 'team.model');
+const Jersey = require(MODEL_PATH + 'jersey.model');
+const MatchGroup = require(MODEL_PATH + 'match-group.model');
 const service = require('../config/settings.config');
 const rp = require('request-promise');
-const Place = require('../models/place.model');
-const Jersey = require('../models/jersey.model');
 const codes = require('../assets/codes.asset');
-const MatchGroup = require('../models/match-group.model');
 const moment = require('moment');
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 const enums = require('../assets/enums.asset');
@@ -37,7 +39,8 @@ exports.create = (req, res, next) => {
         { field: 'group', rules: { required: true, objectId: true } },
         { field: 'enrollment.maxCapacity', rules: { required: true, number: true, min: 1 } },
         { field: 'enrollment.enrollmentOpens', rules: { date: true } },
-        { field: 'enrollment.enrollmentCloses', rules: { date: true } }
+        { field: 'enrollment.enrollmentCloses', rules: { date: true } },
+        { field: 'reminder.reminderDate', rules: { date: true } },
     ];
     const validation = iV.validate(input, validators);
     if (!validation.success) return next(errorHelper.prepareError(validation));
@@ -78,14 +81,34 @@ exports.create = (req, res, next) => {
                 Place.findOne({ _id: input.place }).exec()
                     .then(place => {
                         if (!place) return next(errorHelper.prepareError(codes.PLACE.NOT_FOUND));
-                        input['createdBy'] = req.user._id;
-                        input['updatedBy'] = req.user._id;
-
-                        const newMatch = new Match(input);
-                        newMatch.save().then(() => {
-                            res.json({ response: codes.MATCH.CREATED });
-                        }).catch(error => next(errorHelper.prepareError(error)));
-                    }).catch(error => next(errorHelper.prepareError(error)));
+                        MatchGroup.findOne({ _id: input.group }).exec()
+                            .then(group => {
+                                if (!group) return next(errorHelper.prepareError(codes.MATCH.GROUP.NOT_FOUND));
+                                if (!!input.reminder && !!input.reminder.reminderTeams && input.reminder.reminderTeams.length) {
+                                    Team.find({}).exec()
+                                        .then(teams => {
+                                            if (!teams.length) return next(errorHelper.prepareError(codes.TEAM.NULL_FOUND));
+                                            const invalidTeams = input.reminder.reminderTeams
+                                                .filter(x => !teams.some(y => y._id.toString() === x));
+                                            if (invalidTeams.length) return next(errorHelper.prepareError(codes.TEAM.NOT_FOUND));
+                                            input['createdBy'] = req.user._id;
+                                            input['updatedBy'] = req.user._id;
+                                            new Match(input).save().then(() => {
+                                                res.json({ response: codes.MATCH.CREATED });
+                                            }).catch(error => next(errorHelper.prepareError(error)));
+                                        })
+                                        .catch(error => next(errorHelper.prepareError(error)));
+                                } else {
+                                    input['createdBy'] = req.user._id;
+                                    input['updatedBy'] = req.user._id;
+                                    new Match(input).save().then(() => {
+                                        res.json({ response: codes.MATCH.CREATED });
+                                    }).catch(error => next(errorHelper.prepareError(error)));
+                                }
+                            })
+                            .catch(error => next(errorHelper.prepareError(error)));
+                    })
+                    .catch(error => next(errorHelper.prepareError(error)));
             }
         }).catch(error => next(errorHelper.prepareError(error)));
 

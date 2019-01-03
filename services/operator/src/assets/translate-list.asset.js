@@ -1166,5 +1166,23 @@ module.exports = {
     WRITTEN: {
         cs: "Sepsáno",
         en: "Written"
-    }
+    },
+    REALISATION_TEAM: { cs: 'Realizační tým', en: 'Realisation team' },
+    CLUB_AWARDS: { cs: 'Klubová ocenění', en: 'Club awards' },
+    GOLDEN_STICK: { cs: 'Zlatá hokejka', en: 'Golden stick' },
+    TRIPLE_CLUB: { cs: 'Triple club', en: 'Triple club' },
+    REPRESENTATION: { cs: 'Reprezentace', en: 'Representation' },
+    SETTINGS: { cs: 'Nastavení', en: 'Settings' },
+    PROFILE: { cs: 'Profil', en: 'Profile' },
+    NOT_FOUND: { cs: 'Nenalezeno', en: 'Not found' },
+    ADBLOCK_NOTICE_MSG: {
+        cs: 'Akci nelze provést s aktivním AdBlockem. Pokud jej využívate, vypnětě ho prosím a pokračujte.',
+        en: 'This action cannot be done with active AdBlock. If you are using one, please disable it for now.'
+    },
+    ADBLOCK_NOTICE_DISABLED: {
+        cs: 'AdBlock nemám aktivní',
+        en: 'I don\'t have an active AdBlock'
+    },
+    PRINT: { cs: 'Tisknout', en: 'Print' },
+    SAVE: { cs: 'Uložit', en: 'Save' },
 };

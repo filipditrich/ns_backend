@@ -1,4 +1,5 @@
 const sysCodes = require('northernstars-shared').sysCodes;
+const enums = require('../assets/enums.asset');
 const conf = require('northernstars-shared').serverConfig;
 const serviceSettings = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
@@ -110,23 +111,20 @@ exports.reminders = () => {
         const Match = require('../models/match.model');
         const moment = require('moment');
         const rp = require('request-promise');
-        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(2, 'hours').format('Do MMM, hh:mm:ss')}`);
+        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(15, 'seconds').format('Do MMM, hh:mm:ss')}`);
 
         Match.find({}).exec()
             .then(matches => {
                 if (matches.length > 0) {
                     matches.forEach(match => {
-                        if (!match.hasBeenReminded
-                            && (moment(new Date()).isSame(match.reminderDate, 'day')
-                                || (moment(new Date()).isBefore(match.date) && moment(new Date()).isAfter(match.reminderDate)))) {
+                        if (match.reminder.remind && !match.reminder.hasBeenReminded
+                        && moment(new Date()).isSameOrAfter(moment(match.reminder.reminderDate))) {
 
-                            match.hasBeenReminded = true;
-                            const userArr = match.enrollment.players.map(x => x.player);
                             rp({
                                 method: 'POST',
                                 uri: `http://localhost:4000/api/sys/reminders`,
                                 body: {
-                                    input: {mailList: userArr, matchInfo: match}
+                                    input: {matchInfo: match}
                                 },
                                 headers: {
                                     'X-Secret': conf[serviceSettings.environment].secret.secret,
@@ -134,7 +132,9 @@ exports.reminders = () => {
                                 },
                                 json: true,
                             }).then(res => {
-                                match.save().then(() => {
+                                const update = match.reminder;
+                                update['hasBeenReminded'] = true;
+                                match.update({ reminder: update }).then((s) => {
                                     const sent = res.output.sent;
                                     console.log(`\n[REMINDER]› START - ${match.title}`);
                                     console.log(`› UPCOMING REMINDER: Sent ${sent.upcomingSent.length}/${sent.upcoming.length} emails.`);
@@ -153,6 +153,6 @@ exports.reminders = () => {
             }).catch(error => {
             console.log(error)
         });
-    }, 7200000);
+    }, 15000);
 
 };

@@ -14,8 +14,6 @@ const matchEnrollmentPlayersSchema = mongoose.Schema({
 const matchSchema = mongoose.Schema({
     title: { type: String, required: codes.MATCH.TITLE.REQUIRED.message },
     date: { type: Date, required: codes.MATCH.DATE.REQUIRED.message },
-    reminderDate: { type: Date },
-    hasBeenReminded: { type: Boolean, default: false },
     place: { type: mongoose.Schema.ObjectId, ref: 'Place', required: codes.PLACE.REQUIRED.message },
     note: { type: String },
 
@@ -26,9 +24,19 @@ const matchSchema = mongoose.Schema({
         maxCapacity: { type: Number, required: codes.MATCH.ENROLLMENT.MAX_CAP.REQUIRED },
     },
 
+    reminder: {
+        reminderDate: { type: Date },
+        reminderTeams: [
+            { type: mongoose.Schema.ObjectId, ref: 'Team' }
+        ],
+        remind: { type: Boolean, default: false },
+        hasBeenReminded: { type: Boolean, default: false },
+    },
+
     group: { type: mongoose.Schema.ObjectId, ref: 'Group', required: codes.MATCH.GROUP.REQUIRED },
 
     results: { type: Object }, // unnecessary
+
     cancelled: { type: Boolean, default: false },
     cancelledBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
 
@@ -43,7 +51,15 @@ matchSchema.pre('save', function(next) {
     if (!this.enrollment.enrollmentCloses) {
         this.enrollment.enrollmentCloses = this.get('date');
     }
-    this.reminderDate = moment(this.get('date')).subtract(2, 'days');
+    // if reminderDate is not set, then do not
+    // remind anyone at all
+    if (!this.reminder.reminderDate) {
+        this.reminder.hasBeenReminded = false;
+        this.reminder.remind = false;
+    } else {
+        this.reminder.hasBeenReminded = false;
+        this.reminder.remind = true;
+    }
     next();
 });
 
