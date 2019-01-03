@@ -111,7 +111,7 @@ exports.reminders = () => {
         const Match = require('../models/match.model');
         const moment = require('moment');
         const rp = require('request-promise');
-        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(15, 'seconds').format('Do MMM, hh:mm:ss')}`);
+        console.log(`\n[REMINDER]› started: ${moment().format('Do MMM, hh:mm:ss')} | next reminder: ${moment().add(2, 'hours').format('Do MMM, hh:mm:ss')}`);
 
         Match.find({}).exec()
             .then(matches => {
