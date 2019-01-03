@@ -395,25 +395,67 @@ exports.reminders = (req, res, next) => {
  */
 exports.serverAssets = (req, res, next) => {
 
-    let routes, codes;
+    let routes, codes, sysInfo, translateList;
     exports.exportRoutes(req, res, next)
         .then(expRoutes => {
             routes = expRoutes;
+            return exports.exportAppInfo();
+        })
+        .then(expInfo => {
+            sysInfo = {};
+            expInfo.forEach(info => {
+                sysInfo[info.id] = info.value;
+            });
+            return exports.exportDictionary();
+        })
+        .then(dictionaries => {
+            translateList = {};
+            dictionaries.forEach(dict => {
+               translateList[dict.id] = {
+                   cs: dict.cs, en: dict.en
+               }
+            });
             return exports.exportCodes(req, res, next);
         })
         .then(expCodes => {
             codes = expCodes;
             res.json({
                 response: sysCodes.RESOURCE.LOADED,
-                output: {
-                    routes, codes,
-                    translateList: require('../assets/translate-list.asset'),
-                    sysInfo: require('../assets/app-info.asset'),
-                }
+                output: { routes, codes, sysInfo, translateList }
             });
         })
         .catch(error => next(errorHelper.prepareError(error)));
 
+};
+
+/**
+ * @description Exports Application Info
+ * @returns {Promise}
+ */
+exports.exportAppInfo = () => {
+    return new Promise((resolve, reject) => {
+        const AppInfo = require('../models/app-info.schema');
+        AppInfo.find({}).exec()
+            .then(appInfo => {
+                resolve(appInfo);
+            })
+            .catch(error => reject(error));
+    })
+};
+
+/**
+ * @description Exports Dictionaries
+ * @returns {Promise}
+ */
+exports.exportDictionary = () => {
+    return new Promise((resolve, reject) => {
+        const Dictionary = require('../models/dictionary.schema');
+        Dictionary.find({}).exec()
+            .then(dictionaries => {
+                resolve(dictionaries);
+            })
+            .catch(error => reject(error));
+    })
 };
 
 /**

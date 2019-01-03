@@ -587,6 +587,20 @@ function formatMatches(req, matches, matchResQuery = {}) {
                     const place = places.find(obj => obj._id.toString() === match.place.toString());
                     match.place = place || unavailablePlace;
                 });
+                return Team.find({}).exec();
+            })
+            .then(teams => {
+                // define unavailableTeam (should always be in database)
+                const unavailableTeam = teams.find(obj => obj.name === '(unavailable team)');
+                if (!unavailableTeam) console.error(`NO '(unavailable team)' team defined!`);
+
+                formatted.forEach(match => {
+                    // extend 'reminder.reminderTeam' field
+                    match.reminder.reminderTeams.forEach((t, i) => {
+                        const team = teams.find(obj => obj._id.toString() === t.toString());
+                        match.reminder.reminderTeams[i] = team || unavailableTeam;
+                    });
+                });
                 return MatchGroup.find({}).exec();
             })
             .then(groups => {
@@ -617,7 +631,7 @@ function formatMatches(req, matches, matchResQuery = {}) {
                 if (users.length === 0) fmRej(sysCodes.REQUEST.INVALID); // this shouldn't happen
 
                 // define deletedUser (should always be in database)
-                const deletedUser = users.findIndex(obj => obj.username === 'deletedUser');
+                const deletedUser = users.find(obj => obj.username === 'deletedUser');
                 if (!deletedUser) console.error(`NO '(deleted user)' user defined!`);
 
                 formatted.forEach(match => {

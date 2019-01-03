@@ -8,5 +8,6 @@ module.exports = [
     new Route('SERVICES', 'POST', '/sys/services', { secret: true }, SysCtrl.updateServices),
     // TODO: create 'serverOnly' routes
     new Route('REMINDERS', 'POST', '/sys/reminders', { }, SysCtrl.reminders),
+    new Route('O', 'POST', '/sys/dummy', { }, SysCtrl.dummyDict)
 
 ];

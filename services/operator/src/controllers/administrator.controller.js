@@ -62,7 +62,7 @@ exports.sendInvites = (req, res, next) => {
                                         newRequest.save().then(saved => {
                                             mailHelper.mail('registration-invitation', {
                                                 email: saved.email,
-                                                subject: `Pozvánka k ${require('../assets/app-info.asset').appName} aplikaci`,
+                                                subject: `Pozvánka do Northern Stars aplikace`,
                                                 hash: saved.registration.registrationHash,
                                                 invitedBy: req.user.name,
                                                 invitedByUsername: req.user.username
