@@ -57,8 +57,10 @@ exports.login = (req, res, next) => {
         let userInfo = exports.setUserInfo(user);
         res.json({
             response: codes.LOGIN.SUCCESS,
-            user: userInfo,
-            token: generateToken(userInfo)
+            output: {
+                user: userInfo,
+                token: generateToken(userInfo)
+            }
         });
     }).catch(error => next(errorHelper.prepareError(error)));
 };

@@ -3,6 +3,7 @@ const SysRoutes = require('./sys.route.conf');
 const AuthRoutes = require('./auth.route.conf');
 const UserRoutes = require('./user.route.conf');
 const AdminRoutes = require('./administrator.route.conf');
+const DictRoutes = require('./dictionary.route.conf');
 
 /** All Routes **/
 module.exports = [];
@@ -12,7 +13,8 @@ pushRoutes([
     SysRoutes,
     AuthRoutes,
     UserRoutes,
-    AdminRoutes
+    AdminRoutes,
+    DictRoutes
 ]);
 
 /**

@@ -6,6 +6,9 @@ const dictionarySchema = mongoose.Schema({
     cs: { type: String, required: true },
     en: { type: String, required: true },
 
+    createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+    updatedBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
+
 }, { timestamps: true });
 
 /**

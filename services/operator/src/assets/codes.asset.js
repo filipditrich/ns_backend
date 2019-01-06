@@ -206,6 +206,19 @@ module.exports = {
             },
             MISSING_EMAILS: codeGenerator.missing('invitation_emails')
         }
+    },
+
+    DICTIONARY: {
+        DUPLICATE: codeGenerator.duplicate('dictionary'),
+        REQUIRED: codeGenerator.required('dictionary'),
+        MISSING: codeGenerator.missing('dictionary'),
+        INVALID: codeGenerator.invalid('dictionary'),
+        NOT_FOUND: codeGenerator.notFound('dictionary'),
+        NULL_FOUND: codeGenerator.multipleNotFound('dictionary'),
+
+        DELETED: codeGenerator.delete('dictionary'),
+        UPDATED: codeGenerator.update('dictionary'),
+        CREATED: codeGenerator.create('dictionary')
     }
 
 };
