@@ -48,7 +48,7 @@ exports.create = (req, res, next) => {
  */
 exports.get = (req, res, next) => {
 
-    const id = req.params['id'].toUpperCase();
+    const id = req.params['id'] ? req.params['id'].toUpperCase() : null;
     const query = id ? { id } : {};
     let dict;
 

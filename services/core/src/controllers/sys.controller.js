@@ -122,7 +122,7 @@ exports.reminders = () => {
 
                             rp({
                                 method: 'POST',
-                                uri: `http://localhost:4000/api/sys/reminders`,
+                                uri: `http://${serviceSettings.root.host}:${serviceSettings.root.port}/api/sys/reminders`,
                                 body: {
                                     input: {matchInfo: match}
                                 },
