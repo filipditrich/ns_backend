@@ -133,7 +133,7 @@ exports.reminders = () => {
                                 json: true,
                             }).then(res => {
                                 const update = match.reminder;
-                                update['hasBeenReminded'] = true;
+                                update.reminder.hasBeenReminded = true;
                                 match.update({ reminder: update }).then((s) => {
                                     const sent = res.output.sent;
                                     console.log(`\n[REMINDER]› START - ${match.title}`);

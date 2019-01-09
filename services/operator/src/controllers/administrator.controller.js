@@ -4,6 +4,8 @@ const sysCodes = require('northernstars-shared').sysCodes;
 const RegistrationRequest = require('../models/registration-request.schema');
 const User = require('../models/user.schema');
 const codeHelper = require('northernstars-shared').codeHelper;
+const service = require('../config/settings.config');
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const userHelper = require('northernstars-shared').userHelper;
@@ -135,6 +137,11 @@ exports.requestApproval = (req, res, next, outside = false) =>{
 
                 request.save().then(() => {
 
+                    // time-zone format
+                    const output = formatDates(request.toObject(), [
+                        'requestedOn', 'approval.approvedOn'
+                    ], service.timezone);
+
                     mailHelper.mail(input.state ? 'registration-approved' : 'registration-rejected', {
                         name: request.name,
                         email: request.email,
@@ -142,8 +149,7 @@ exports.requestApproval = (req, res, next, outside = false) =>{
                         subject: input.state ? 'Registrační žádost přijata!' : 'Registrační žádost odmítnuta!'
                     }).then(() => {
                         res.json({
-                            response: sysCodes.REQUEST.VALID,
-                            output: request
+                            response: sysCodes.REQUEST.VALID, output
                         });
                     }).catch(error => {
                         return next(errorHelper.prepareError(error));

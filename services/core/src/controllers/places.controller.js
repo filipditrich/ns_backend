@@ -1,6 +1,7 @@
 const iV = require('northernstars-shared').validatorHelper.inputValidator;
 const errorHelper = require('northernstars-shared').errorHelper;
 const sysCodes = require('northernstars-shared').sysCodes;
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 const Place = require('../models/place.model');
 const service = require('../config/settings.config');
 const codes = require('../assets/codes.asset');
@@ -78,6 +79,11 @@ exports.get = (req, res, next) => {
 
               places.forEach(place => {
                   place = place.toObject();
+
+                  // time-zone format
+                  place = formatDates(place, [
+                      'createdAt', 'updatedAt'
+                  ], service.timezone);
 
                   // extend 'createdBy' field
                   const createdByIndex = users.findIndex(obj => obj._id.toString() === place.createdBy.toString());

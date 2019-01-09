@@ -4,6 +4,7 @@ const rp = require('request-promise');
 const service = require('../config/settings.config');
 const MatchGroup = require('../models/match-group.model');
 const codes = require('../assets/codes.asset');
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 /**
@@ -211,6 +212,11 @@ function formatGroups(req, groups) {
 
                 groups.forEach(group => {
                     group = group.toObject();
+
+                    // time-zone format
+                    group = formatDates(group, [
+                        'createdAt', 'updatedAt'
+                    ], service.timezone);
 
                     // extend 'createdBy' field
                     const createdByIndex = users.findIndex(obj => obj._id.toString() === group.createdBy.toString());

@@ -8,6 +8,7 @@ module.exports = {
     host: process.env.HOST_URL | 'localhost',
     port: process.env.port || 4000,
     environment: process.env.NODE_ENV || 'development',
+    timezone: process.env.TZ || 'Europe/Prague',
 
     db: {
         url: process.env.MONGO_URL || 'mongodb://localhost:27017',

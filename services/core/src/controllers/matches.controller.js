@@ -16,6 +16,7 @@ const codes = require('../assets/codes.asset');
 const moment = require('moment');
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 const enums = require('../assets/enums.asset');
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 /**
@@ -72,10 +73,12 @@ exports.create = (req, res, next) => {
                 });
                 if (same.length !== 0) return next(errorHelper.prepareError(codes.MATCH.DATE.DUPLICATE));
                 if (inRange.length !== 0) {
-                    res.json({
-                        response: codes.MATCH.DATE.DUPLICATE_ADVISABLE,
-                        output: inRange
-                    });
+                    formatMatches(req, inRange, { date: { $gte: gte, $lte: lte } }).then(formatted => {
+                        res.json({
+                            response: codes.MATCH.DATE.DUPLICATE_ADVISABLE,
+                            output: formatted
+                        });
+                    }).catch(error => next(errorHelper.prepareError(error)));
                 }
             } else {
                 Place.findOne({ _id: input.place }).exec()
@@ -557,6 +560,11 @@ function formatMatches(req, matches, matchResQuery = {}) {
                     // create 'results' field
                     const matchResults = results.filter(x => x.match.toString() === match._id.toString());
                     formattedMatch['results'] = matchResults.length ? matchResults[0] : false;
+                    formattedMatch = formatDates(formattedMatch, [
+                        'date', 'enrollment.enrollmentOpens', 'enrollment.enrollmentCloses',
+                        'reminder.reminderDate', 'createdAt', 'updatedAt',
+                        { path: 'enrollment.players', fields: [ 'enrolledOn' ] }
+                    ], service.timezone);
                     formatted.push(formattedMatch);
                 });
                 return Jersey.find({}).exec();

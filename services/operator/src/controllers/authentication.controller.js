@@ -14,6 +14,7 @@ const mailHelper = require('northernstars-shared').mailHelper;
 const errorHelper = require('northernstars-shared').errorHelper;
 const StrategyCtrl = require('northernstars-shared').strategiesCtrl;
 const schemaFields = require('northernstars-shared').schemaFields;
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 const iV = require('northernstars-shared').validatorHelper.inputValidator;
 
 
@@ -189,6 +190,13 @@ exports.getRegistrationRequest = (req, res, next) => {
 
                     registrationRequests.forEach(request => {
                         request = request.toObject();
+
+                        // time-zone format
+
+                        request = formatDates(request, [
+                            'requestedOn', 'approval.approvedOn'
+                        ], settings.timezone);
+
                         // extend 'approval.approvedBy' field
                         if (!!request.approval.approvedBy) {
                             const approvedByIndex = users.findIndex(obj => obj._id.toString() === request.approval.approvedBy.toString());

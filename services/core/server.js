@@ -24,6 +24,7 @@ MongooseHelper.connect(mongoose, serviceSettings)
         app.use(bodyParser.json());
 
         /** Logger **/
+        // TODO: Environmental variable (specified values from object in config)
         app.use(morgan('dev'));
 
         /** Server **/
@@ -77,6 +78,7 @@ MongooseHelper.connect(mongoose, serviceSettings)
     })
     .then(() => {
         /** Match Reminders **/
+        // TODO: Route to force start reminder
         SysCtrl.reminders();
     })
     .catch(error => {

@@ -2,9 +2,11 @@ const iV = require('northernstars-shared').validatorHelper.inputValidator;
 const sysCodes = require('northernstars-shared').sysCodes;
 const errorHelper = require('northernstars-shared').errorHelper;
 const codes = require('../assets/codes.asset');
+const settings = require('../config/settings.config');
 const modelBase = '../models/';
 const User = require(modelBase + 'user.schema');
 const Dictionary = require(modelBase + 'dictionary.schema');
+const formatDates = require('northernstars-shared').dateHelper.formatDates;
 
 /**
  * @description Creates a new Dictionary
@@ -70,6 +72,9 @@ exports.get = (req, res, next) => {
 
             dict.forEach(d => {
                 d = d.toObject();
+
+                // time-zone format dates
+                d = formatDates(d, ['createdAt', 'updatedAt'], settings.timezone);
 
                 // extend 'createdBy' field
                 const createdBy = users.find(obj => obj._id.toString() === d.createdBy.toString());

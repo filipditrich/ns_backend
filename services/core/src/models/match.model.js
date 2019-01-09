@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
-const msgs = require('../assets/messages.asset');
 const codes = require('../assets/codes.asset');
 const enumHelper = require('northernstars-shared').enumHelper;
 const enums = require('../assets/enums.asset');
-const moment = require('moment');
 
-const matchEnrollmentPlayersSchema = mongoose.Schema({
+/**
+ * Match Enrollment Players Schema
+ */
+const matchEnrollmentPlayersSchema = new mongoose.Schema({
     player: { type: mongoose.Schema.ObjectId, ref: 'User', required: codes.MATCH.ENROLLMENT.PLAYERS.PLAYER.REQUIRED.message },
     enrolledOn: { type: Date, default: Date.now },
     status: { type: String, enum: enumHelper.toArray(enums.MATCH.ENROLL_STATUS), required: codes.MATCH.ENROLLMENT.PLAYERS.STATUS.REQUIRED.message }
 });
 
-const matchSchema = mongoose.Schema({
+/**
+ * Match Schema
+ */
+const matchSchema = new mongoose.Schema({
     title: { type: String, required: codes.MATCH.TITLE.REQUIRED.message },
     date: { type: Date, required: codes.MATCH.DATE.REQUIRED.message },
     place: { type: mongoose.Schema.ObjectId, ref: 'Place', required: codes.PLACE.REQUIRED.message },
@@ -51,8 +55,7 @@ matchSchema.pre('save', function(next) {
     if (!this.enrollment.enrollmentCloses) {
         this.enrollment.enrollmentCloses = this.get('date');
     }
-    // if reminderDate is not set, then do not
-    // remind anyone at all
+    // if reminderDate is not set, then do not remind anyone at all
     if (!this.reminder.reminderDate) {
         this.reminder.hasBeenReminded = false;
         this.reminder.remind = false;
