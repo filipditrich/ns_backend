@@ -133,8 +133,8 @@ exports.reminders = () => {
                                 json: true,
                             }).then(res => {
                                 const update = match.reminder;
-                                update.reminder.hasBeenReminded = true;
-                                match.update({ reminder: update }).then((s) => {
+                                update.hasBeenReminded = true;
+                                match.update({ reminder: update }).then(() => {
                                     const sent = res.output.sent;
                                     console.log(`\n[REMINDER]› START - ${match.title}`);
                                     console.log(`› UPCOMING REMINDER: Sent ${sent.upcomingSent.length}/${sent.upcoming.length} emails.`);

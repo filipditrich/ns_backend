@@ -7,6 +7,7 @@ const modelBase = '../models/';
 const User = require(modelBase + 'user.schema');
 const Dictionary = require(modelBase + 'dictionary.schema');
 const formatDates = require('northernstars-shared').dateHelper.formatDates;
+const setUserInfo = require('northernstars-shared').userHelper.setUserInfo;
 
 /**
  * @description Creates a new Dictionary
@@ -64,6 +65,10 @@ exports.get = (req, res, next) => {
         })
         .then(users => {
             if (users.length === 0) return next(errorHelper.prepareError(sysCodes.REQUEST.INVALID)); // this shouldn't happen
+
+            // map users to setUserInfo fnc
+            users = users.map(u => setUserInfo(u));
+
             const fin = [];
 
             // define deletedUserIndex (should always be in database)
