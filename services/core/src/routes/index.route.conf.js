@@ -4,6 +4,7 @@ const MatchRoutes = require('./match.route.conf');
 const PlaceRoutes = require('./place.route.conf');
 const TeamRoutes = require('./team.route.conf');
 const SysRoutes = require('./sys.route.conf');
+const GSRoutes = require('./golden-stick.route.conf');
 const _ = require('lodash');
 
 /** All Routes **/
@@ -16,7 +17,8 @@ pushRoutes([
     MatchGroupRoutes,
     TeamRoutes,
     PlaceRoutes,
-    SysRoutes
+    SysRoutes,
+    GSRoutes,
 ]);
 
 /**

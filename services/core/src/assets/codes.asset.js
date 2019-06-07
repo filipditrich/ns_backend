@@ -38,6 +38,25 @@ module.exports = {
         CREATED: codeGenerator.create('team'),
     },
 
+    GOLDEN_STICK: {
+        DUPLICATE: codeGenerator.duplicate('golden_stick'),
+        NOT_FOUND: codeGenerator.notFound('golden_stick'),
+        NULL_FOUND: codeGenerator.multipleNotFound('golden_stick'),
+        MISSING: codeGenerator.missing('golden_stick'),
+        REQUIRED: codeGenerator.required('golden_stick'),
+        NAME: {
+            MISSING: codeGenerator.missing('team_name'),
+            DUPLICATE: codeGenerator.duplicate('team_name'),
+        },
+        JERSEY: {
+            MISSING: codeGenerator.missing('team_jersey')
+        },
+
+        UPDATED: codeGenerator.update('golden_stick'),
+        DELETED: codeGenerator.delete('golden_stick'),
+        CREATED: codeGenerator.create('golden_stick'),
+    },
+
     JERSEY: {
         DUPLICATE: codeGenerator.duplicate('jersey'),
         NOT_FOUND: codeGenerator.notFound('jersey'),

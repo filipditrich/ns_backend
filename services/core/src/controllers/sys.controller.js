@@ -119,7 +119,7 @@ exports.reminders = () => {
                     matches.forEach(match => {
                         if (match.reminder.remind && !match.reminder.hasBeenReminded
                         && moment(new Date()).isSameOrAfter(moment(match.reminder.reminderDate))) {
-
+                            match.date = moment(match.date).utc('+0200');
                             rp({
                                 method: 'POST',
                                 uri: `http://${serviceSettings.root.host}:${serviceSettings.root.port}/api/sys/reminders`,
